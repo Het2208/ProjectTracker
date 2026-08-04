@@ -1,65 +1,100 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from './AdminLayout';
+import axios from "axios";
+import { useEffect } from "react";
 
 const ManageRoles = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState('Add'); // 'Add' or 'Edit'
-  
-  // Blank form state
+  const [modalType, setModalType] = useState('Add'); // 'Add', 'Edit', 'Details'
+  const [selectedRole, setSelectedRole] = useState(null);
+
+  // Form state
   const [formData, setFormData] = useState({
     roleName: '',
     description: ''
   });
 
-  const roles = [
-    {
-      roleId: 1,
-      roleName: 'Admin',
-      description: 'Super administrator with full access to all system settings, user configurations, and academic reports.'
-    },
-    {
-      roleId: 2,
-      roleName: 'Faculty',
-      description: 'Academic supervisor responsible for managing projects, assigning tasks, allocating student batches, and evaluating deliverables.'
-    },
-    {
-      roleId: 3,
-      roleName: 'Student',
-      description: 'Academic user allocated to a project, responsible for completing tasks, submitting progress reports, and viewing feedback.'
-    }
-  ];
+const [roles, setRoles] = useState([]);
+
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const response = await axios.get("https://localhost:7264/api/Role");
+        if (Array.isArray(response.data)) {
+          setRoles(response.data);
+        } else {
+          console.error("Expected array from API, got:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching roles:", error);
+      }
+    };
+
+    fetchRoles();
+  }, []);
 
   const filteredRoles = roles.filter(role => 
-    role.roleName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    role.description.toLowerCase().includes(searchQuery.toLowerCase())
+    (role.roleName || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (role.description || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleOpenModal = (type) => {
+  const handleOpenModal = (type, role = null) => {
     setModalType(type);
-    // Reset/Keep form blank
-    setFormData({
-      roleName: '',
-      description: ''
-    });
+    if (role) {
+      setSelectedRole(role);
+      setFormData({
+        roleName: role.roleName,
+        description: role.description || ''
+      });
+    } else {
+      setSelectedRole(null);
+      setFormData({
+        roleName: '',
+        description: ''
+      });
+    }
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setSelectedRole(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Action just closes the modal
-    setIsModalOpen(false);
+    try {
+      if (modalType === 'Add') {
+        const response = await axios.post("https://localhost:7264/api/Role", {
+          roleName: formData.roleName,
+          description: formData.description
+        });
+        setRoles([...roles, response.data]);
+      } else if (modalType === 'Edit' && selectedRole) {
+        const response = await axios.put(`https://localhost:7264/api/Role/${selectedRole.roleId}`, {
+          roleId: selectedRole.roleId,
+          roleName: formData.roleName,
+          description: formData.description
+        });
+        setRoles(roles.map(r => r.roleId === selectedRole.roleId ? response.data : r));
+      } 
+      handleCloseModal();
+    } catch (error) {
+      console.error("Error saving role:", error);
+    }
   };
 
-  // Click on delete does nothing
-  const handleDeleteClick = (e) => {
-    e.preventDefault();
-    // Do nothing as requested
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this role?')) {
+      try {
+        await axios.delete(`https://localhost:7264/api/Role/${id}`);
+        setRoles(roles.filter(r => r.roleId !== id));
+      } catch (error) {
+        console.error("Error deleting role:", error);
+      }
+    }
   };
 
   return (
@@ -69,7 +104,7 @@ const ManageRoles = () => {
           <h1>Manage Roles</h1>
           <div className="breadcrumbs">
             <Link to="/admin/dashboard" style={{ textDecoration: 'none', color: '#64748b' }}>Home</Link> /{' '}
-            <span>Roles</span>
+            <span>System Roles Configuration</span>
           </div>
         </div>
         <button 
@@ -105,16 +140,16 @@ const ManageRoles = () => {
       {/* Data Table */}
       <div className="data-table-container">
         <div className="data-table-header">
-          <span className="table-title">System Roles Config</span>
+          <span className="table-title">System Roles Config (SPM_Role)</span>
         </div>
         <div className="table-responsive">
           <table className="dashboard-table">
             <thead>
               <tr>
-                <th style={{ width: '80px' }}>Role ID</th>
-                <th style={{ width: '180px' }}>Role Name</th>
+                <th style={{ width: '120px' }}>Role ID</th>
+                <th style={{ width: '200px' }}>Role Name</th>
                 <th>Description</th>
-                <th style={{ width: '150px', textAlign: 'center' }}>Actions</th>
+                <th style={{ width: '220px', textAlign: 'center' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -129,7 +164,29 @@ const ManageRoles = () => {
                     <td style={{ textAlign: 'center' }}>
                       <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
                         <button 
-                          onClick={() => handleOpenModal('Edit')}
+                          onClick={() => handleOpenModal('Details', role)}
+                          style={{
+                            padding: '6px 12px',
+                            backgroundColor: '#e0f2fe',
+                            color: '#0369a1',
+                            border: 'none',
+                            borderRadius: '6px',
+                            fontWeight: 600,
+                            fontSize: '0.8rem',
+                            cursor: 'pointer',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px'
+                          }}
+                        >
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                          View
+                        </button>
+                        <button 
+                          onClick={() => handleOpenModal('Edit', role)}
                           style={{
                             padding: '6px 12px',
                             backgroundColor: 'var(--primary-light)',
@@ -151,7 +208,7 @@ const ManageRoles = () => {
                           Edit
                         </button>
                         <button 
-                          onClick={handleDeleteClick}
+                          onClick={() => handleDelete(role.roleId)}
                           style={{
                             padding: '6px 12px',
                             backgroundColor: '#fee2e2',
@@ -188,7 +245,7 @@ const ManageRoles = () => {
         </div>
       </div>
 
-      {/* Blank Form Modal */}
+      {/* Modal Dialog */}
       {isModalOpen && (
         <div style={{
           position: 'fixed',
@@ -224,7 +281,7 @@ const ManageRoles = () => {
               alignItems: 'center',
             }}>
               <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>
-                {modalType} Role
+                {modalType === 'Details' ? 'Role Details' : `${modalType} Role`}
               </h3>
               <button 
                 onClick={handleCloseModal}
@@ -246,80 +303,111 @@ const ManageRoles = () => {
               </button>
             </div>
 
-            {/* Modal Body (Blank Form) */}
-            <form onSubmit={handleSubmit}>
+            {modalType === 'Details' ? (
               <div style={{ padding: '24px' }}>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="roleName">Role Name</label>
-                  <input 
-                    type="text" 
-                    id="roleName"
-                    className="form-control" 
-                    placeholder="Enter role name (e.g. Moderator)"
-                    value={formData.roleName}
-                    onChange={(e) => setFormData({ ...formData, roleName: e.target.value })}
-                    required
-                  />
+                <div style={{ marginBottom: '20px' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Role ID</span>
+                  <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>#{selectedRole?.roleId}</div>
                 </div>
-                <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label" htmlFor="description">Role Description</label>
-                  <textarea 
-                    id="description"
-                    className="form-control" 
-                    placeholder="Describe the permissions and access level for this role..."
-                    rows="4"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    style={{ resize: 'vertical' }}
-                    required
-                  />
+                <div style={{ marginBottom: '20px' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Role Name</span>
+                  <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary)', marginTop: '4px' }}>{selectedRole?.roleName}</div>
+                </div>
+                <div style={{ marginBottom: '0px' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Role Description</span>
+                  <div style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: '1.5', marginTop: '6px' }}>{selectedRole?.description}</div>
+                </div>
+                <div style={{
+                  marginTop: '24px',
+                  borderTop: '1px solid var(--border)',
+                  paddingTop: '16px',
+                  display: 'flex',
+                  justifyContent: 'flex-end'
+                }}>
+                  <button 
+                    onClick={handleCloseModal}
+                    className="btn-primary"
+                    style={{ width: 'auto', padding: '8px 20px' }}
+                  >
+                    Close
+                  </button>
                 </div>
               </div>
+            ) : (
+              <form onSubmit={handleSubmit}>
+                <div style={{ padding: '24px' }}>
+                  <div className="form-group">
+                    <label className="form-label" htmlFor="roleName">Role Name</label>
+                    <input 
+                      type="text" 
+                      id="roleName"
+                      className="form-control" 
+                      placeholder="Enter role name (e.g. Faculty)"
+                      value={formData.roleName}
+                      onChange={(e) => setFormData({ ...formData, roleName: e.target.value })}
+                      required
+                    />
+                  </div>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
+                    <label className="form-label" htmlFor="description">Role Description</label>
+                    <textarea 
+                      id="description"
+                      className="form-control" 
+                      placeholder="Describe the permissions and access level for this role..."
+                      rows="4"
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      style={{ resize: 'vertical' }}
+                      required
+                    />
+                  </div>
+                </div>
 
-              {/* Modal Footer */}
-              <div style={{
-                padding: '16px 24px',
-                borderTop: '1px solid var(--border)',
-                display: 'flex',
-                justifyContent: 'flex-end',
-                gap: '12px',
-                backgroundColor: '#f8fafc',
-                borderBottomLeftRadius: '16px',
-                borderBottomRightRadius: '16px',
-              }}>
-                <button 
-                  type="button" 
-                  onClick={handleCloseModal}
-                  style={{
-                    padding: '8px 16px',
-                    border: '1px solid var(--border)',
-                    backgroundColor: 'white',
-                    borderRadius: '8px',
-                    color: 'var(--text-muted)',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    fontSize: '0.9rem'
-                  }}
-                >
-                  Cancel
-                </button>
-                <button 
-                  type="submit" 
-                  style={{
-                    padding: '8px 16px',
-                    backgroundColor: 'var(--primary)',
-                    border: 'none',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    fontSize: '0.9rem'
-                  }}
-                >
-                  Save Role
-                </button>
-              </div>
-            </form>
+                {/* Modal Footer */}
+                <div style={{
+                  padding: '16px 24px',
+                  borderTop: '1px solid var(--border)',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  gap: '12px',
+                  backgroundColor: '#f8fafc',
+                  borderBottomLeftRadius: '16px',
+                  borderBottomRightRadius: '16px',
+                }}>
+                  <button 
+                    type="button" 
+                    onClick={handleCloseModal}
+                    style={{
+                      padding: '8px 16px',
+                      border: '1px solid var(--border)',
+                      backgroundColor: 'white',
+                      borderRadius: '8px',
+                      color: 'var(--text-muted)',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      fontSize: '0.9rem'
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    style={{
+                      padding: '8px 16px',
+                      backgroundColor: 'var(--primary)',
+                      border: 'none',
+                      borderRadius: '8px',
+                      color: 'white',
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      fontSize: '0.9rem'
+                    }}
+                  >
+                    Save Role
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       )}

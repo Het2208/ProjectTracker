@@ -7,29 +7,23 @@ import StudentDashboard from './student/StudentDashboard';
 import StudentProfile from './student/StudentProfile';
 import StudentProjectDetails from './student/ProjectDetails';
 import StudentTasksList from './student/StudentTasks';
-import StudentTeamMembers from './student/TeamMembers';
-import StudentWeeklyReports from './student/WeeklyReports';
-import StudentScoresGrades from './student/ScoresGrades';
 
 import FacultyDashboard from './faculty/FacultyDashboard';
 import FacultyProfile from './faculty/FacultyProfile';
-import FacultyManageProjects from './faculty/ManageProjects';
 import FacultyManageTasks from './faculty/ManageTasks';
-import FacultyTaskEvaluations from './faculty/TaskEvaluations';
-import FacultyStudentBatches from './faculty/StudentBatches';
 import FacultyProjectAllocations from './faculty/ProjectAllocations';
-import FacultySubmissionsFeedback from './faculty/SubmissionsFeedback';
 
 import AdminDashboard from './admin/AdminDashboard';
 import AdminProfile from './admin/AdminProfile';
 import AdminManageRoles from './admin/ManageRoles';
 import AdminManageUsers from './admin/ManageUsers';
-import AdminManageStudents from './admin/ManageStudents';
-import AdminManageFaculty from './admin/ManageFaculty';
-import AdminRolePermissions from './admin/RolePermissions';
-import AdminManageProjects from './admin/ManageProjects';
+import AdminManageUserTypes from './admin/ManageUserTypes';
+import AdminManageUserRoles from './admin/ManageUserRoles';
+import AdminManageTaskStatus from './admin/ManageTaskStatus';
+import AdminManageTaskPriority from './admin/ManageTaskPriority';
+import AdminManageProjectMaster from './admin/ManageProjectMaster';
+import AdminManageProjectAllocations from './admin/ManageProjectAllocations';
 import AdminManageTasks from './admin/ManageTasks';
-import AdminScoresRemarks from './admin/ScoresRemarks';
 
 function App() {
   return (
@@ -43,31 +37,25 @@ function App() {
         <Route path="/student/dashboard" element={<StudentDashboard />} />
         <Route path="/student/project" element={<StudentProjectDetails />} />
         <Route path="/student/tasks" element={<StudentTasksList />} />
-        <Route path="/student/team" element={<StudentTeamMembers />} />
-        <Route path="/student/reports" element={<StudentWeeklyReports />} />
-        <Route path="/student/grades" element={<StudentScoresGrades />} />
         <Route path="/student/profile" element={<StudentProfile />} />
 
         {/* Faculty Workspace Routes */}
         <Route path="/faculty/dashboard" element={<FacultyDashboard />} />
-        <Route path="/faculty/projects" element={<FacultyManageProjects />} />
         <Route path="/faculty/tasks" element={<FacultyManageTasks />} />
-        <Route path="/faculty/evaluations" element={<FacultyTaskEvaluations />} />
-        <Route path="/faculty/batches" element={<FacultyStudentBatches />} />
         <Route path="/faculty/allocations" element={<FacultyProjectAllocations />} />
-        <Route path="/faculty/feedback" element={<FacultySubmissionsFeedback />} />
         <Route path="/faculty/profile" element={<FacultyProfile />} />
 
         {/* Admin Workspace Routes */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/roles" element={<AdminManageRoles />} />
         <Route path="/admin/users" element={<AdminManageUsers />} />
-        <Route path="/admin/students" element={<AdminManageStudents />} />
-        <Route path="/admin/faculty" element={<AdminManageFaculty />} />
-        <Route path="/admin/permissions" element={<AdminRolePermissions />} />
-        <Route path="/admin/projects" element={<AdminManageProjects />} />
+        <Route path="/admin/user-types" element={<AdminManageUserTypes />} />
+        <Route path="/admin/user-roles" element={<AdminManageUserRoles />} />
+        <Route path="/admin/task-status" element={<AdminManageTaskStatus />} />
+        <Route path="/admin/task-priority" element={<AdminManageTaskPriority />} />
+        <Route path="/admin/project-master" element={<AdminManageProjectMaster />} />
+        <Route path="/admin/project-allocations" element={<AdminManageProjectAllocations />} />
         <Route path="/admin/tasks" element={<AdminManageTasks />} />
-        <Route path="/admin/scores" element={<AdminScoresRemarks />} />
         <Route path="/admin/profile" element={<AdminProfile />} />
 
         {/* Catch-all redirect to login */}

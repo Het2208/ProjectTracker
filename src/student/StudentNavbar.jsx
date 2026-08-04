@@ -31,7 +31,7 @@ const StudentNavbar = ({ onToggleSidebar }) => {
         </div>
 
         {/* Profile badge */}
-        <div className="user-profile-badge" onClick={handleLogout} title="Click to Sign Out">
+        <div className="user-profile-badge" /* onClick={handleLogout}*/ title="Click to Sign Out">
           <div className="avatar-circle">HK</div>
           <div className="user-profile-info">
             <span className="user-profile-name">Het Kanasagara</span>

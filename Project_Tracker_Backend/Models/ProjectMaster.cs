@@ -1,0 +1,16 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Project_Tracker_Backend.Models
+{
+    public class ProjectMaster
+    {
+        [Key]
+        public int ProjectId { get; set; }
+
+        [Required, MaxLength(200)]
+        public string ProjectTitle { get; set; }
+
+        public string? Description { get; set; }
+    }
+}

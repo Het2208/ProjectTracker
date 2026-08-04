@@ -35,14 +35,22 @@ const AdminSidebar = ({ collapsed }) => {
           </Link>
         </li>
 
-        <div className="sidebar-section-title">Admin Modules</div>
+        <div className="sidebar-section-title">User Management</div>
         <li>
           <Link to="/admin/roles" className={`sidebar-link ${isActive('/admin/roles') ? 'active' : ''}`}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
             </svg>
-            Manage Roles
+            Roles
+          </Link>
+        </li>
+        <li>
+          <Link to="/admin/user-types" className={`sidebar-link ${isActive('/admin/user-types') ? 'active' : ''}`}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            User Types
           </Link>
         </li>
         <li>
@@ -53,43 +61,57 @@ const AdminSidebar = ({ collapsed }) => {
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
               <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
             </svg>
-            Manage Users
+            Users
           </Link>
         </li>
         <li>
-          <Link to="/admin/students" className={`sidebar-link ${isActive('/admin/students') ? 'active' : ''}`}>
+          <Link to="/admin/user-roles" className={`sidebar-link ${isActive('/admin/user-roles') ? 'active' : ''}`}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-              <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="8.5" cy="7" r="4"></circle>
+              <polyline points="17 11 19 13 23 9"></polyline>
             </svg>
-            Manage Students
-          </Link>
-        </li>
-        <li>
-          <Link to="/admin/faculty" className={`sidebar-link ${isActive('/admin/faculty') ? 'active' : ''}`}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            Manage Faculty
-          </Link>
-        </li>
-        <li>
-          <Link to="/admin/permissions" className={`sidebar-link ${isActive('/admin/permissions') ? 'active' : ''}`}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
-            </svg>
-            Role & Permissions
+            User Roles Mapping
           </Link>
         </li>
 
-        <div className="sidebar-section-title">Project Management</div>
+        <div className="sidebar-section-title">Configuration</div>
         <li>
-          <Link to="/admin/projects" className={`sidebar-link ${isActive('/admin/projects') ? 'active' : ''}`}>
+          <Link to="/admin/task-status" className={`sidebar-link ${isActive('/admin/task-status') ? 'active' : ''}`}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            Task Statuses
+          </Link>
+        </li>
+        <li>
+          <Link to="/admin/task-priority" className={`sidebar-link ${isActive('/admin/task-priority') ? 'active' : ''}`}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2L2 22h20L12 2z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            Task Priorities
+          </Link>
+        </li>
+        <li>
+          <Link to="/admin/project-master" className={`sidebar-link ${isActive('/admin/project-master') ? 'active' : ''}`}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+              <path d="M12 6v6l4 2"></path>
+            </svg>
+            Project Master
+          </Link>
+        </li>
+
+        <div className="sidebar-section-title">Core Workflow</div>
+        <li>
+          <Link to="/admin/project-allocations" className={`sidebar-link ${isActive('/admin/project-allocations') ? 'active' : ''}`}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
             </svg>
-            Manage Projects
+            Project Allocations
           </Link>
         </li>
         <li>
@@ -102,15 +124,7 @@ const AdminSidebar = ({ collapsed }) => {
               <line x1="4" y1="12" x2="4.01" y2="12"></line>
               <line x1="4" y1="18" x2="4.01" y2="18"></line>
             </svg>
-            Manage Tasks
-          </Link>
-        </li>
-        <li>
-          <Link to="/admin/scores" className={`sidebar-link ${isActive('/admin/scores') ? 'active' : ''}`}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-            </svg>
-            Scores & Remarks
+            Tasks
           </Link>
         </li>
 
