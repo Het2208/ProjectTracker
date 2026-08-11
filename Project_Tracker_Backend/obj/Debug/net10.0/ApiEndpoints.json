@@ -1,111 +1,384 @@
 [
   {
-    "ContainingType": "Project_Tracker_Backend.Controllers.ProjectAllocationController",
-    "Method": "GetALl",
-    "RelativePath": "api/ProjectAllocation",
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetBottomStudents",
+    "RelativePath": "api/Dashboard/GetBottomStudents",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.ProjectAllocation",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetFacultyRankingsByProgress",
+    "RelativePath": "api/Dashboard/GetFacultyRankingsByProgress",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetFacultyStatistics",
+    "RelativePath": "api/Dashboard/GetFacultyStatistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetFacultyWorkload",
+    "RelativePath": "api/Dashboard/GetFacultyWorkload",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetGradeDistribution",
+    "RelativePath": "api/Dashboard/GetGradeDistribution",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetMonthlyCompletedTaskCount",
+    "RelativePath": "api/Dashboard/GetMonthlyCompletedTaskCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetMonthlyCompletion",
+    "RelativePath": "api/Dashboard/GetMonthlyCompletion",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetOverdueProjects",
+    "RelativePath": "api/Dashboard/GetOverdueProjects",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetOverdueTasks",
+    "RelativePath": "api/Dashboard/GetOverdueTasks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetPrioritySummary",
+    "RelativePath": "api/Dashboard/GetPrioritySummary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetProjectAllocationCount",
+    "RelativePath": "api/Dashboard/GetProjectAllocationCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetProjectMasterCount",
+    "RelativePath": "api/Dashboard/GetProjectMasterCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetProjectScoreSummary",
+    "RelativePath": "api/Dashboard/GetProjectScoreSummary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetProjectTaskStatistics",
+    "RelativePath": "api/Dashboard/GetProjectTaskStatistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetProjectTaskSummary",
+    "RelativePath": "api/Dashboard/GetProjectTaskSummary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetRoleCount",
+    "RelativePath": "api/Dashboard/GetRoleCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetRoleStatistics",
+    "RelativePath": "api/Dashboard/GetRoleStatistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetRolesWithMoreThanTenUsers",
+    "RelativePath": "api/Dashboard/GetRolesWithMoreThanTenUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetRoleWiseActiveUserCount",
+    "RelativePath": "api/Dashboard/GetRoleWiseActiveUserCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetStudentTasks",
+    "RelativePath": "api/Dashboard/GetStudentTasks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetStudentTaskStatistics",
+    "RelativePath": "api/Dashboard/GetStudentTaskStatistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetTaskCount",
+    "RelativePath": "api/Dashboard/GetTaskCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetTaskPriorityCount",
+    "RelativePath": "api/Dashboard/GetTaskPriorityCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetTaskStatusCount",
+    "RelativePath": "api/Dashboard/GetTaskStatusCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetTaskStatusSummary",
+    "RelativePath": "api/Dashboard/GetTaskStatusSummary",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetTopProjectsByScore",
+    "RelativePath": "api/Dashboard/GetTopProjectsByScore",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetTopStudents",
+    "RelativePath": "api/Dashboard/GetTopStudents",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetTotalFaculty",
+    "RelativePath": "api/Dashboard/GetTotalFaculty",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetTotalProjects",
+    "RelativePath": "api/Dashboard/GetTotalProjects",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetTotalStudents",
+    "RelativePath": "api/Dashboard/GetTotalStudents",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetUpcomingDueTasks",
+    "RelativePath": "api/Dashboard/GetUpcomingDueTasks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetUpcomingFollowUps",
+    "RelativePath": "api/Dashboard/GetUpcomingFollowUps",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetUserCount",
+    "RelativePath": "api/Dashboard/GetUserCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetUserRoleCount",
+    "RelativePath": "api/Dashboard/GetUserRoleCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetUsersByRole",
+    "RelativePath": "api/Dashboard/GetUsersByRole",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.DashboardController",
+    "Method": "GetUserTypeCount",
+    "RelativePath": "api/Dashboard/GetUserTypeCount",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.ProjectAllocationController",
     "Method": "Add",
-    "RelativePath": "api/ProjectAllocation",
+    "RelativePath": "api/ProjectAllocation/Add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "projectAllocation",
-        "Type": "Project_Tracker_Backend.Models.ProjectAllocation",
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.ProjectAllocationCreateDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.ProjectAllocation",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.ProjectAllocationController",
-    "Method": "GetById",
-    "RelativePath": "api/ProjectAllocation/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.ProjectAllocation",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.ProjectAllocationController",
-    "Method": "Update",
-    "RelativePath": "api/ProjectAllocation/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "projectAllocation",
-        "Type": "Project_Tracker_Backend.Models.ProjectAllocation",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.ProjectAllocation",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.ProjectAllocationController",
     "Method": "Delete",
-    "RelativePath": "api/ProjectAllocation/{id}",
+    "RelativePath": "api/ProjectAllocation/Delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -116,22 +389,91 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.ProjectAllocationController",
+    "Method": "GetAll",
+    "RelativePath": "api/ProjectAllocation/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.ProjectAllocationController",
+    "Method": "GetById",
+    "RelativePath": "api/ProjectAllocation/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Type": "Project_Tracker_Backend.Models.ProjectAllocation",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
-    ]
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.ProjectAllocationController",
+    "Method": "Update",
+    "RelativePath": "api/ProjectAllocation/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.ProjectAllocationUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.ProjectMasterController",
+    "Method": "Add",
+    "RelativePath": "api/ProjectMaster/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.ProjectMasterCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.ProjectMasterController",
+    "Method": "Delete",
+    "RelativePath": "api/ProjectMaster/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.ProjectMasterController",
     "Method": "GetAll",
-    "RelativePath": "api/ProjectMaster",
+    "RelativePath": "api/ProjectMaster/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -140,24 +482,8 @@
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.ProjectMasterController",
-    "Method": "Add",
-    "RelativePath": "api/ProjectMaster",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "project",
-        "Type": "Project_Tracker_Backend.Models.ProjectMaster",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.ProjectMasterController",
     "Method": "GetById",
-    "RelativePath": "api/ProjectMaster/{id}",
+    "RelativePath": "api/ProjectMaster/GetById/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -173,7 +499,7 @@
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.ProjectMasterController",
     "Method": "Update",
-    "RelativePath": "api/ProjectMaster/{id}",
+    "RelativePath": "api/ProjectMaster/Update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -184,17 +510,33 @@
         "IsRequired": true
       },
       {
-        "Name": "project",
-        "Type": "Project_Tracker_Backend.Models.ProjectMaster",
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.ProjectMasterUpdateDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Project_Tracker_Backend.Controllers.ProjectMasterController",
+    "ContainingType": "Project_Tracker_Backend.Controllers.RoleController",
+    "Method": "Add",
+    "RelativePath": "api/Role/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.RoleCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.RoleController",
     "Method": "Delete",
-    "RelativePath": "api/ProjectMaster/{id}",
+    "RelativePath": "api/Role/Delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -210,7 +552,7 @@
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.RoleController",
     "Method": "GetAll",
-    "RelativePath": "api/Role",
+    "RelativePath": "api/Role/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -219,24 +561,8 @@
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.RoleController",
-    "Method": "Add",
-    "RelativePath": "api/Role",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "role",
-        "Type": "Project_Tracker_Backend.Models.Role",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.RoleController",
     "Method": "GetById",
-    "RelativePath": "api/Role/{id}",
+    "RelativePath": "api/Role/GetById/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -252,7 +578,7 @@
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.RoleController",
     "Method": "Update",
-    "RelativePath": "api/Role/{id}",
+    "RelativePath": "api/Role/Update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -263,136 +589,33 @@
         "IsRequired": true
       },
       {
-        "Name": "role",
-        "Type": "Project_Tracker_Backend.Models.Role",
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.RoleUpdateDTO",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.RoleController",
-    "Method": "Delete",
-    "RelativePath": "api/Role/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.TaskController",
-    "Method": "GetALl",
-    "RelativePath": "api/Task",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.Task",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.TaskController",
     "Method": "Add",
-    "RelativePath": "api/Task",
+    "RelativePath": "api/Task/Add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "task",
-        "Type": "Project_Tracker_Backend.Models.Task",
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.TaskCreateDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.Task",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.TaskController",
-    "Method": "GetById",
-    "RelativePath": "api/Task/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.Task",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.TaskController",
-    "Method": "Update",
-    "RelativePath": "api/Task/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "task",
-        "Type": "Project_Tracker_Backend.Models.Task",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.Task",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.TaskController",
     "Method": "Delete",
-    "RelativePath": "api/Task/{id}",
+    "RelativePath": "api/Task/Delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -403,22 +626,170 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.TaskController",
+    "Method": "GetAll",
+    "RelativePath": "api/Task/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.TaskController",
+    "Method": "GetById",
+    "RelativePath": "api/Task/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Type": "Project_Tracker_Backend.Models.Task",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
-    ]
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.TaskController",
+    "Method": "Update",
+    "RelativePath": "api/Task/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.TaskUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.TaskPriorityController",
+    "Method": "Add",
+    "RelativePath": "api/TaskPriority/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.TaskPriorityCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.TaskPriorityController",
+    "Method": "Delete",
+    "RelativePath": "api/TaskPriority/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.TaskPriorityController",
+    "Method": "GetAll",
+    "RelativePath": "api/TaskPriority/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.TaskPriorityController",
+    "Method": "GetById",
+    "RelativePath": "api/TaskPriority/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.TaskPriorityController",
+    "Method": "Update",
+    "RelativePath": "api/TaskPriority/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.TaskPriorityUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.TaskStatusController",
+    "Method": "Add",
+    "RelativePath": "api/TaskStatus/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.TaskStatusCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.TaskStatusController",
+    "Method": "Delete",
+    "RelativePath": "api/TaskStatus/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.TaskStatusController",
     "Method": "GetAll",
-    "RelativePath": "api/TaskStatus",
+    "RelativePath": "api/TaskStatus/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -427,24 +798,8 @@
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.TaskStatusController",
-    "Method": "Add",
-    "RelativePath": "api/TaskStatus",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "taskStatus",
-        "Type": "Project_Tracker_Backend.Models.TaskStatus",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.TaskStatusController",
     "Method": "GetById",
-    "RelativePath": "api/TaskStatus/{id}",
+    "RelativePath": "api/TaskStatus/GetById/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -460,7 +815,7 @@
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.TaskStatusController",
     "Method": "Update",
-    "RelativePath": "api/TaskStatus/{id}",
+    "RelativePath": "api/TaskStatus/Update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -471,24 +826,8 @@
         "IsRequired": true
       },
       {
-        "Name": "taskStatus",
-        "Type": "Project_Tracker_Backend.Models.TaskStatus",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.TaskStatusController",
-    "Method": "Delete",
-    "RelativePath": "api/TaskStatus/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.TaskStatusUpdateDTO",
         "IsRequired": true
       }
     ],
@@ -496,111 +835,24 @@
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.UserController",
-    "Method": "GetALl",
-    "RelativePath": "api/User",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.User",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.UserController",
     "Method": "Add",
-    "RelativePath": "api/User",
+    "RelativePath": "api/User/Add",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "user",
-        "Type": "Project_Tracker_Backend.Models.User",
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.UserCreateDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.User",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.UserController",
-    "Method": "GetById",
-    "RelativePath": "api/User/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.User",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.UserController",
-    "Method": "Update",
-    "RelativePath": "api/User/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "user",
-        "Type": "Project_Tracker_Backend.Models.User",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.User",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.UserController",
     "Method": "Delete",
-    "RelativePath": "api/User/{id}",
+    "RelativePath": "api/User/Delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -611,68 +863,22 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.User",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "Project_Tracker_Backend.Controllers.UserRoleController",
-    "Method": "GetALl",
-    "RelativePath": "api/UserRole",
+    "ContainingType": "Project_Tracker_Backend.Controllers.UserController",
+    "Method": "GetAll",
+    "RelativePath": "api/User/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.UserRole",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "Project_Tracker_Backend.Controllers.UserRoleController",
-    "Method": "Add",
-    "RelativePath": "api/UserRole",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userrole",
-        "Type": "Project_Tracker_Backend.Models.UserRole",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.UserRole",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.UserRoleController",
+    "ContainingType": "Project_Tracker_Backend.Controllers.UserController",
     "Method": "GetById",
-    "RelativePath": "api/UserRole/{id}",
+    "RelativePath": "api/User/GetById/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -683,22 +889,12 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "Project_Tracker_Backend.Models.UserRole",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
-    "ContainingType": "Project_Tracker_Backend.Controllers.UserRoleController",
+    "ContainingType": "Project_Tracker_Backend.Controllers.UserController",
     "Method": "Update",
-    "RelativePath": "api/UserRole/{id}",
+    "RelativePath": "api/User/Update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -709,27 +905,33 @@
         "IsRequired": true
       },
       {
-        "Name": "userrole",
-        "Type": "Project_Tracker_Backend.Models.UserRole",
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.UserUpdateDTO",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.UserRoleController",
+    "Method": "Add",
+    "RelativePath": "api/UserRole/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Type": "Project_Tracker_Backend.Models.UserRole",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.UserRoleCreateDTO",
+        "IsRequired": true
       }
-    ]
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.UserRoleController",
     "Method": "Delete",
-    "RelativePath": "api/UserRole/{id}",
+    "RelativePath": "api/UserRole/Delete/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -740,22 +942,91 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.UserRoleController",
+    "Method": "GetAll",
+    "RelativePath": "api/UserRole/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.UserRoleController",
+    "Method": "GetById",
+    "RelativePath": "api/UserRole/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Type": "Project_Tracker_Backend.Models.UserRole",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
       }
-    ]
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.UserRoleController",
+    "Method": "Update",
+    "RelativePath": "api/UserRole/Update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.UserRoleUpdateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.UserTypeController",
+    "Method": "Add",
+    "RelativePath": "api/UserType/Add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.UserTypeCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Project_Tracker_Backend.Controllers.UserTypeController",
+    "Method": "Delete",
+    "RelativePath": "api/UserType/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.UserTypeController",
     "Method": "GetAll",
-    "RelativePath": "api/UserType",
+    "RelativePath": "api/UserType/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -764,24 +1035,8 @@
   },
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.UserTypeController",
-    "Method": "Add",
-    "RelativePath": "api/UserType",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userType",
-        "Type": "Project_Tracker_Backend.Models.UserType",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.UserTypeController",
     "Method": "GetById",
-    "RelativePath": "api/UserType/{id}",
+    "RelativePath": "api/UserType/GetById/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -797,7 +1052,7 @@
   {
     "ContainingType": "Project_Tracker_Backend.Controllers.UserTypeController",
     "Method": "Update",
-    "RelativePath": "api/UserType/{id}",
+    "RelativePath": "api/UserType/Update/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -808,24 +1063,8 @@
         "IsRequired": true
       },
       {
-        "Name": "userType",
-        "Type": "Project_Tracker_Backend.Models.UserType",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "Project_Tracker_Backend.Controllers.UserTypeController",
-    "Method": "Delete",
-    "RelativePath": "api/UserType/{id}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "dto",
+        "Type": "Project_Tracker_Backend.DTOs.UserTypeUpdateDTO",
         "IsRequired": true
       }
     ],

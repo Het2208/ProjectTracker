@@ -2,10 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Project_Tracker_Backend.Data;
 using Project_Tracker_Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Project_Tracker_Backend.DTOs;
 
 namespace Project_Tracker_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserTypeController : ControllerBase
     {
@@ -19,14 +20,28 @@ namespace Project_Tracker_Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var userTypes = await _context.UserType.ToListAsync();
+            var userTypes = await _context.UserType
+                .Select(ut => new UserTypeReadDTO
+                {
+                    UserTypeID = ut.UserTypeId,
+                    UserTypeName = ut.UserTypeName,
+                    Description = ut.Description
+                }).ToListAsync();
             return Ok(userTypes);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var userType = await _context.UserType.FindAsync(id);
+            var userType = await _context.UserType
+                .Where(ut => ut.UserTypeId == id)
+                .Select(ut => new UserTypeReadDTO
+                {
+                    UserTypeID = ut.UserTypeId,
+                    UserTypeName = ut.UserTypeName,
+                    Description = ut.Description
+                })
+                .FirstOrDefaultAsync();
 
             if (userType == null)
             {
@@ -37,36 +52,48 @@ namespace Project_Tracker_Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(UserType userType)
+        public async Task<IActionResult> Add(UserTypeCreateDTO dto)
         {
-            userType.UserTypeId = 0;
-            _context.UserType.Add(userType);
+            var newUserType = new UserType  
+            {
+                UserTypeName = dto.UserTypeName,
+                Description = dto.Description
+            };
+
+            _context.UserType.Add(newUserType);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetById), new { id = userType.UserTypeId }, userType);
+            var result = new UserTypeReadDTO
+            {
+                UserTypeID = newUserType.UserTypeId,
+                UserTypeName = newUserType.UserTypeName,
+                Description = newUserType.Description
+            };
+
+            return CreatedAtAction(nameof(GetById), new { id = newUserType.UserTypeId }, result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UserType userType)
+        public async Task<IActionResult> Update(int id, UserTypeUpdateDTO dto)
         {
-            if (userType.UserTypeId != 0 && userType.UserTypeId != id)
-            {
-                return BadRequest("ID in route parameter does not match ID in request body.");
-            }
-
             var existingUserType = await _context.UserType.FindAsync(id);
 
             if (existingUserType == null)
-            {
                 return NotFound();
-            }
 
-            existingUserType.UserTypeName = userType.UserTypeName;
-            existingUserType.Description = userType.Description;
+            existingUserType.UserTypeName = dto.UserTypeName;
+            existingUserType.Description = dto.Description;
 
             await _context.SaveChangesAsync();
 
-            return Ok(existingUserType);
+            var result = new UserTypeReadDTO
+            {
+                UserTypeID = existingUserType.UserTypeId,
+                UserTypeName = existingUserType.UserTypeName,
+                Description = existingUserType.Description
+            };
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]

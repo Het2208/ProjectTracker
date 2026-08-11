@@ -21,7 +21,7 @@ const [roles, setRoles] = useState([]);
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get("https://localhost:7264/api/Role");
+        const response = await axios.get("https://localhost:7264/api/Role/GetAll");
         if (Array.isArray(response.data)) {
           setRoles(response.data);
         } else {
@@ -67,13 +67,13 @@ const [roles, setRoles] = useState([]);
     e.preventDefault();
     try {
       if (modalType === 'Add') {
-        const response = await axios.post("https://localhost:7264/api/Role", {
+        const response = await axios.post("https://localhost:7264/api/Role/Add", {
           roleName: formData.roleName,
           description: formData.description
         });
         setRoles([...roles, response.data]);
       } else if (modalType === 'Edit' && selectedRole) {
-        const response = await axios.put(`https://localhost:7264/api/Role/${selectedRole.roleId}`, {
+        const response = await axios.put(`https://localhost:7264/api/Role/Update/${selectedRole.roleId}`, {
           roleId: selectedRole.roleId,
           roleName: formData.roleName,
           description: formData.description
@@ -89,7 +89,7 @@ const [roles, setRoles] = useState([]);
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this role?')) {
       try {
-        await axios.delete(`https://localhost:7264/api/Role/${id}`);
+        await axios.delete(`https://localhost:7264/api/Role/Delete/${id}`);
         setRoles(roles.filter(r => r.roleId !== id));
       } catch (error) {
         console.error("Error deleting role:", error);

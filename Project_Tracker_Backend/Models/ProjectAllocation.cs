@@ -48,6 +48,9 @@ namespace Project_Tracker_Backend.Models
         [StringLength(1)]
         [RegularExpression("^[ABC]?$", ErrorMessage = "Grade must be A, B, or C.")]
         public string? OverAllGrade { get; set; }
+
+
+        public ICollection<Task> Tasks { get; set; } = new List<Task>();
     }
 }
 

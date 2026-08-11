@@ -13,5 +13,8 @@ namespace Project_Tracker_Backend.Models
 
         [MaxLength(250)]
         public string? Description { get; set; }
+
+        public ICollection<User> Users { get; set; } = new List<User>();
+
     }
 }

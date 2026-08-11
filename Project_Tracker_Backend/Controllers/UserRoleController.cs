@@ -1,12 +1,12 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_Tracker_Backend.Data;
+using Project_Tracker_Backend.DTOs;
 using Project_Tracker_Backend.Models;
 
 namespace Project_Tracker_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserRoleController : ControllerBase
     {
@@ -18,67 +18,114 @@ namespace Project_Tracker_Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<UserRole>> GetALl()
+        public async Task<IActionResult> GetAll()
         {
-            var userroles = await _context.UserRole.ToListAsync();
-            return Ok(userroles);
+            var userRoles = await _context.UserRole
+                .Include(ur => ur.Role)
+                .Include(ur => ur.User)
+                .Select(ur => new UserRoleReadDTO
+                {
+                    RolePermissionId = ur.RolePermissionId,
+                    RoleId = ur.RoleId,
+                    RoleName = ur.Role != null ? ur.Role.RoleName : null,
+                    UserId = ur.UserId,
+                    FullName = ur.User != null ? ur.User.FullName : null
+                }).ToListAsync();
+
+            return Ok(userRoles);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserRole>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var userrole = await _context.UserRole.FindAsync(id);
-            if (userrole == null)
-            {
+            var userRole = await _context.UserRole
+                .Include(ur => ur.Role)
+                .Include(ur => ur.User)
+                .Where(ur => ur.RolePermissionId == id)
+                .Select(ur => new UserRoleReadDTO
+                {
+                    RolePermissionId = ur.RolePermissionId,
+                    RoleId = ur.RoleId,
+                    RoleName = ur.Role != null ? ur.Role.RoleName : null,
+                    UserId = ur.UserId,
+                    FullName = ur.User != null ? ur.User.FullName : null
+                })
+                .FirstOrDefaultAsync();
+
+            if (userRole == null)
                 return NotFound();
-            }
-            return Ok(userrole);
+
+            return Ok(userRole);
         }
+
         [HttpPost]
-        public async Task<ActionResult<UserRole>> Add(UserRole userrole)
+        public async Task<IActionResult> Add(UserRoleCreateDTO dto)
         {
-            userrole.RolePermissionId = 0;
-            _context.UserRole.Add(userrole);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetById), new { id = userrole.RolePermissionId }, userrole);
-        }
-        [HttpPut("{id}")]
-        public async Task<ActionResult<UserRole>> Update(int id, UserRole userrole)
-        {
-
-            if (userrole.RolePermissionId != 0 && userrole.RolePermissionId != id)
+            var userRole = new UserRole
             {
-                return BadRequest("ID in route parameter does not match ID in request body.");
-            }
+                RoleId = dto.RoleId,
+                UserId = dto.UserId
+            };
 
+            _context.UserRole.Add(userRole);
+            await _context.SaveChangesAsync();
+
+            var role = await _context.Role.FindAsync(userRole.RoleId);
+            var user = await _context.Users.FindAsync(userRole.UserId);
+
+            var result = new UserRoleReadDTO
+            {
+                RolePermissionId = userRole.RolePermissionId,
+                RoleId = userRole.RoleId,
+                RoleName = role?.RoleName,
+                UserId = userRole.UserId,
+                FullName = user?.FullName
+            };
+
+            return CreatedAtAction(nameof(GetById), new { id = userRole.RolePermissionId }, result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UserRoleUpdateDTO dto)
+        {
             var existingUserRole = await _context.UserRole.FindAsync(id);
 
             if (existingUserRole == null)
-            {
                 return NotFound();
-            }
 
-            existingUserRole.RoleId = userrole.RoleId;
-            existingUserRole.UserId = userrole.UserId;
+            existingUserRole.RoleId = dto.RoleId;
+            existingUserRole.UserId = dto.UserId;
 
             await _context.SaveChangesAsync();
 
-            return Ok(existingUserRole);
+            var role = await _context.Role.FindAsync(existingUserRole.RoleId);
+            var user = await _context.Users.FindAsync(existingUserRole.UserId);
 
+            var result = new UserRoleReadDTO
+            {
+                RolePermissionId = existingUserRole.RolePermissionId,
+                RoleId = existingUserRole.RoleId,
+                RoleName = role?.RoleName,
+                UserId = existingUserRole.UserId,
+                FullName = user?.FullName
+            };
 
+            return Ok(result);
         }
-        [HttpDelete("{id}")]
 
-        public async Task<ActionResult<UserRole>> Delete(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            var userrole = await _context.UserRole.FindAsync(id);
-            if (userrole == null)
+            var userRole = await _context.UserRole.FindAsync(id);
+            if (userRole == null)
             {
                 return NotFound();
             }
-            _context.UserRole.Remove(userrole);
+
+            _context.UserRole.Remove(userRole);
             await _context.SaveChangesAsync();
-            return NoContent();
+
+            return Ok("User Role link deleted successfully.");
         }
     }
 }

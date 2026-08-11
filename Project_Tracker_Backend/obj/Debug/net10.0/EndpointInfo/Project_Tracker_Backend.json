@@ -13,83 +13,451 @@
     }
   ],
   "paths": {
-    "/api/ProjectAllocation": {
+    "/api/Dashboard/GetRoleCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetUserTypeCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetUserCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetUserRoleCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetTaskStatusCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetTaskPriorityCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetProjectMasterCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetProjectAllocationCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetTaskCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetTotalStudents": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetTotalFaculty": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetTotalProjects": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetTaskStatusSummary": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetPrioritySummary": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetFacultyWorkload": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetStudentTasks": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetTopStudents": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetBottomStudents": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetOverdueTasks": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetUpcomingFollowUps": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetGradeDistribution": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetMonthlyCompletion": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetRoleWiseActiveUserCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetUsersByRole": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetRolesWithMoreThanTenUsers": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetRoleStatistics": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetUpcomingDueTasks": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetProjectTaskSummary": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetProjectScoreSummary": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetTopProjectsByScore": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetFacultyStatistics": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetStudentTaskStatistics": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetOverdueProjects": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetMonthlyCompletedTaskCount": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetFacultyRankingsByProgress": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/GetProjectTaskStatistics": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ProjectAllocation/GetAll": {
       "get": {
         "tags": [
           "ProjectAllocation"
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "ProjectAllocation"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectAllocation"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectAllocation"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectAllocation"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/api/ProjectAllocation/{id}": {
+    "/api/ProjectAllocation/GetById/{id}": {
       "get": {
         "tags": [
           "ProjectAllocation"
@@ -111,27 +479,44 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/ProjectAllocation/Add": {
+      "post": {
+        "tags": [
+          "ProjectAllocation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectAllocationCreateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectAllocationCreateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectAllocationCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ProjectAllocation/Update/{id}": {
       "put": {
         "tags": [
           "ProjectAllocation"
@@ -155,17 +540,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectAllocation"
+                "$ref": "#/components/schemas/ProjectAllocationUpdateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectAllocation"
+                "$ref": "#/components/schemas/ProjectAllocationUpdateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectAllocation"
+                "$ref": "#/components/schemas/ProjectAllocationUpdateDTO"
               }
             }
           },
@@ -173,27 +558,12 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/ProjectAllocation/Delete/{id}": {
       "delete": {
         "tags": [
           "ProjectAllocation"
@@ -215,29 +585,12 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProjectAllocation"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/api/ProjectMaster": {
+    "/api/ProjectMaster/GetAll": {
       "get": {
         "tags": [
           "ProjectMaster"
@@ -247,39 +600,9 @@
             "description": "OK"
           }
         }
-      },
-      "post": {
-        "tags": [
-          "ProjectMaster"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectMaster"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectMaster"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ProjectMaster"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
       }
     },
-    "/api/ProjectMaster/{id}": {
+    "/api/ProjectMaster/GetById/{id}": {
       "get": {
         "tags": [
           "ProjectMaster"
@@ -304,7 +627,41 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/ProjectMaster/Add": {
+      "post": {
+        "tags": [
+          "ProjectMaster"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectMasterCreateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectMasterCreateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectMasterCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ProjectMaster/Update/{id}": {
       "put": {
         "tags": [
           "ProjectMaster"
@@ -328,17 +685,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectMaster"
+                "$ref": "#/components/schemas/ProjectMasterUpdateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectMaster"
+                "$ref": "#/components/schemas/ProjectMasterUpdateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ProjectMaster"
+                "$ref": "#/components/schemas/ProjectMasterUpdateDTO"
               }
             }
           },
@@ -349,7 +706,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/ProjectMaster/Delete/{id}": {
       "delete": {
         "tags": [
           "ProjectMaster"
@@ -376,7 +735,7 @@
         }
       }
     },
-    "/api/Role": {
+    "/api/Role/GetAll": {
       "get": {
         "tags": [
           "Role"
@@ -386,39 +745,9 @@
             "description": "OK"
           }
         }
-      },
-      "post": {
-        "tags": [
-          "Role"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Role"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Role"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Role"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
       }
     },
-    "/api/Role/{id}": {
+    "/api/Role/GetById/{id}": {
       "get": {
         "tags": [
           "Role"
@@ -443,7 +772,41 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Role/Add": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleCreateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleCreateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Role/Update/{id}": {
       "put": {
         "tags": [
           "Role"
@@ -467,17 +830,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Role"
+                "$ref": "#/components/schemas/RoleUpdateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Role"
+                "$ref": "#/components/schemas/RoleUpdateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Role"
+                "$ref": "#/components/schemas/RoleUpdateDTO"
               }
             }
           },
@@ -488,7 +851,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Role/Delete/{id}": {
       "delete": {
         "tags": [
           "Role"
@@ -515,83 +880,19 @@
         }
       }
     },
-    "/api/Task": {
+    "/api/Task/GetAll": {
       "get": {
         "tags": [
           "Task"
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Task"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Task"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Task"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Task"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/api/Task/{id}": {
+    "/api/Task/GetById/{id}": {
       "get": {
         "tags": [
           "Task"
@@ -613,27 +914,44 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Task/Add": {
+      "post": {
+        "tags": [
+          "Task"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Task/Update/{id}": {
       "put": {
         "tags": [
           "Task"
@@ -657,17 +975,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Task"
+                "$ref": "#/components/schemas/TaskUpdateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Task"
+                "$ref": "#/components/schemas/TaskUpdateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Task"
+                "$ref": "#/components/schemas/TaskUpdateDTO"
               }
             }
           },
@@ -675,27 +993,12 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Task/Delete/{id}": {
       "delete": {
         "tags": [
           "Task"
@@ -717,58 +1020,70 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Task"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/api/TaskStatus": {
+    "/api/TaskPriority/GetAll": {
       "get": {
         "tags": [
-          "TaskStatus"
+          "TaskPriority"
         ],
         "responses": {
           "200": {
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/TaskPriority/GetById/{id}": {
+      "get": {
+        "tags": [
+          "TaskPriority"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TaskPriority/Add": {
       "post": {
         "tags": [
-          "TaskStatus"
+          "TaskPriority"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskStatus"
+                "$ref": "#/components/schemas/TaskPriorityCreateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskStatus"
+                "$ref": "#/components/schemas/TaskPriorityCreateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskStatus"
+                "$ref": "#/components/schemas/TaskPriorityCreateDTO"
               }
             }
           },
@@ -781,7 +1096,93 @@
         }
       }
     },
-    "/api/TaskStatus/{id}": {
+    "/api/TaskPriority/Update/{id}": {
+      "put": {
+        "tags": [
+          "TaskPriority"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskPriorityUpdateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskPriorityUpdateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskPriorityUpdateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TaskPriority/Delete/{id}": {
+      "delete": {
+        "tags": [
+          "TaskPriority"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TaskStatus/GetAll": {
+      "get": {
+        "tags": [
+          "TaskStatus"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TaskStatus/GetById/{id}": {
       "get": {
         "tags": [
           "TaskStatus"
@@ -806,7 +1207,41 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/TaskStatus/Add": {
+      "post": {
+        "tags": [
+          "TaskStatus"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskStatusCreateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskStatusCreateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskStatusCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TaskStatus/Update/{id}": {
       "put": {
         "tags": [
           "TaskStatus"
@@ -830,17 +1265,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskStatus"
+                "$ref": "#/components/schemas/TaskStatusUpdateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskStatus"
+                "$ref": "#/components/schemas/TaskStatusUpdateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TaskStatus"
+                "$ref": "#/components/schemas/TaskStatusUpdateDTO"
               }
             }
           },
@@ -851,7 +1286,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/TaskStatus/Delete/{id}": {
       "delete": {
         "tags": [
           "TaskStatus"
@@ -878,83 +1315,19 @@
         }
       }
     },
-    "/api/User": {
+    "/api/User/GetAll": {
       "get": {
         "tags": [
           "User"
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/api/User/{id}": {
+    "/api/User/GetById/{id}": {
       "get": {
         "tags": [
           "User"
@@ -976,27 +1349,44 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/User/Add": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/User/Update/{id}": {
       "put": {
         "tags": [
           "User"
@@ -1020,17 +1410,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserUpdateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserUpdateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/User"
+                "$ref": "#/components/schemas/UserUpdateDTO"
               }
             }
           },
@@ -1038,27 +1428,12 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/User/Delete/{id}": {
       "delete": {
         "tags": [
           "User"
@@ -1080,105 +1455,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/api/UserRole": {
+    "/api/UserRole/GetAll": {
       "get": {
         "tags": [
           "UserRole"
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "UserRole"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserRole"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserRole"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserRole"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/api/UserRole/{id}": {
+    "/api/UserRole/GetById/{id}": {
       "get": {
         "tags": [
           "UserRole"
@@ -1200,27 +1494,44 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/UserRole/Add": {
+      "post": {
+        "tags": [
+          "UserRole"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRoleCreateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRoleCreateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRoleCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserRole/Update/{id}": {
       "put": {
         "tags": [
           "UserRole"
@@ -1244,17 +1555,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserRole"
+                "$ref": "#/components/schemas/UserRoleUpdateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserRole"
+                "$ref": "#/components/schemas/UserRoleUpdateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserRole"
+                "$ref": "#/components/schemas/UserRoleUpdateDTO"
               }
             }
           },
@@ -1262,27 +1573,12 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/UserRole/Delete/{id}": {
       "delete": {
         "tags": [
           "UserRole"
@@ -1304,29 +1600,12 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserRole"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
     },
-    "/api/UserType": {
+    "/api/UserType/GetAll": {
       "get": {
         "tags": [
           "UserType"
@@ -1336,39 +1615,9 @@
             "description": "OK"
           }
         }
-      },
-      "post": {
-        "tags": [
-          "UserType"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserType"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserType"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserType"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
       }
     },
-    "/api/UserType/{id}": {
+    "/api/UserType/GetById/{id}": {
       "get": {
         "tags": [
           "UserType"
@@ -1393,7 +1642,41 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/UserType/Add": {
+      "post": {
+        "tags": [
+          "UserType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserTypeCreateDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserTypeCreateDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserTypeCreateDTO"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/UserType/Update/{id}": {
       "put": {
         "tags": [
           "UserType"
@@ -1417,17 +1700,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserType"
+                "$ref": "#/components/schemas/UserTypeUpdateDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserType"
+                "$ref": "#/components/schemas/UserTypeUpdateDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserType"
+                "$ref": "#/components/schemas/UserTypeUpdateDTO"
               }
             }
           },
@@ -1438,7 +1721,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/UserType/Delete/{id}": {
       "delete": {
         "tags": [
           "UserType"
@@ -1468,38 +1753,16 @@
   },
   "components": {
     "schemas": {
-      "ProjectAllocation": {
+      "ProjectAllocationCreateDTO": {
         "required": [
           "projectID",
           "studentID",
           "facultyID",
-          "assignedDate",
           "projectStartDate",
-          "projectEndDate",
-          "totalTasksGiven",
-          "totalCompletedTasks",
-          "progressPercentage"
+          "projectEndDate"
         ],
         "type": "object",
         "properties": {
-          "projectAllocationID": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "projectMaster": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/ProjectMaster"
-              }
-            ]
-          },
           "projectID": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
@@ -1508,16 +1771,6 @@
             ],
             "format": "int32"
           },
-          "student": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/User"
-              }
-            ]
-          },
           "studentID": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
@@ -1525,16 +1778,6 @@
               "string"
             ],
             "format": "int32"
-          },
-          "faculty": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/User"
-              }
-            ]
           },
           "facultyID": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
@@ -1591,22 +1834,92 @@
           }
         }
       },
-      "ProjectMaster": {
+      "ProjectAllocationUpdateDTO": {
+        "required": [
+          "projectID",
+          "studentID",
+          "facultyID",
+          "projectStartDate",
+          "projectEndDate"
+        ],
+        "type": "object",
+        "properties": {
+          "projectID": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "studentID": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "facultyID": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "projectStartDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "projectEndDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "totalTasksGiven": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "totalCompletedTasks": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "progressPercentage": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "overAllGrade": {
+            "maxLength": 1,
+            "minLength": 0,
+            "pattern": "^[ABC]?$",
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "ProjectMasterCreateDTO": {
         "required": [
           "projectTitle"
         ],
         "type": "object",
         "properties": {
-          "projectId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
           "projectTitle": {
             "maxLength": 200,
+            "minLength": 0,
             "type": "string"
           },
           "description": {
@@ -1617,26 +1930,18 @@
           }
         }
       },
-      "Role": {
+      "ProjectMasterUpdateDTO": {
         "required": [
-          "roleName"
+          "projectTitle"
         ],
         "type": "object",
         "properties": {
-          "roleId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "roleName": {
-            "maxLength": 50,
+          "projectTitle": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string"
           },
           "description": {
-            "maxLength": 250,
             "type": [
               "null",
               "string"
@@ -1644,7 +1949,35 @@
           }
         }
       },
-      "Task": {
+      "RoleCreateDTO": {
+        "type": "object",
+        "properties": {
+          "roleName": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "RoleUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "roleName": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "TaskCreateDTO": {
         "required": [
           "projectAllocationID",
           "taskTitle",
@@ -1656,24 +1989,6 @@
         ],
         "type": "object",
         "properties": {
-          "taskID": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "projectAllocation": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/ProjectAllocation"
-              }
-            ]
-          },
           "projectAllocationID": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
@@ -1684,22 +1999,13 @@
           },
           "taskTitle": {
             "maxLength": 200,
+            "minLength": 0,
             "type": "string"
           },
           "taskDescription": {
             "type": [
               "null",
               "string"
-            ]
-          },
-          "taskStatus": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/TaskStatus"
-              }
             ]
           },
           "taskStatusID": {
@@ -1709,16 +2015,6 @@
               "string"
             ],
             "format": "int32"
-          },
-          "taskPriority": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/TaskPriority"
-              }
-            ]
           },
           "taskPriorityID": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
@@ -1787,6 +2083,7 @@
           },
           "facultyRemarks": {
             "maxLength": 500,
+            "minLength": 0,
             "type": [
               "null",
               "string"
@@ -1794,6 +2091,7 @@
           },
           "studentRemarks": {
             "maxLength": 500,
+            "minLength": 0,
             "type": [
               "null",
               "string"
@@ -1801,14 +2099,95 @@
           }
         }
       },
-      "TaskPriority": {
+      "TaskPriorityCreateDTO": {
         "required": [
           "taskPriorityName",
           "taskPriorityCssClass"
         ],
         "type": "object",
         "properties": {
-          "taskPriorityId": {
+          "taskPriorityName": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "taskPriorityCssClass": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          }
+        }
+      },
+      "TaskPriorityUpdateDTO": {
+        "required": [
+          "taskPriorityName",
+          "taskPriorityCssClass"
+        ],
+        "type": "object",
+        "properties": {
+          "taskPriorityName": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "taskPriorityCssClass": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          }
+        }
+      },
+      "TaskStatusCreateDTO": {
+        "required": [
+          "taskStatusName",
+          "taskStatusCssClass"
+        ],
+        "type": "object",
+        "properties": {
+          "taskStatusName": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "taskStatusCssClass": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          }
+        }
+      },
+      "TaskStatusUpdateDTO": {
+        "required": [
+          "taskStatusName",
+          "taskStatusCssClass"
+        ],
+        "type": "object",
+        "properties": {
+          "taskStatusName": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string"
+          },
+          "taskStatusCssClass": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          }
+        }
+      },
+      "TaskUpdateDTO": {
+        "required": [
+          "projectAllocationID",
+          "taskTitle",
+          "taskStatusID",
+          "taskPriorityID",
+          "assignedScore",
+          "progressPercentage",
+          "taskAssignedDate"
+        ],
+        "type": "object",
+        "properties": {
+          "projectAllocationID": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
               "integer",
@@ -1816,23 +2195,17 @@
             ],
             "format": "int32"
           },
-          "taskPriorityName": {
-            "maxLength": 20,
+          "taskTitle": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string"
           },
-          "taskPriorityCssClass": {
-            "maxLength": 20,
-            "type": "string"
-          }
-        }
-      },
-      "TaskStatus": {
-        "required": [
-          "taskStatusName",
-          "taskStatusCssClass"
-        ],
-        "type": "object",
-        "properties": {
+          "taskDescription": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
           "taskStatusID": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
@@ -1841,18 +2214,92 @@
             ],
             "format": "int32"
           },
-          "taskStatusName": {
-            "maxLength": 20,
-            "type": "string"
+          "taskPriorityID": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
           },
-          "taskStatusCssClass": {
-            "maxLength": 100,
-            "type": "string"
+          "assignedScore": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "earnedScore": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "progressPercentage": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "taskAssignedDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "taskStartDate": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "taskDueDate": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "taskCompletedDate": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "nextFollowUpDate": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "facultyRemarks": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "studentRemarks": {
+            "maxLength": 500,
+            "minLength": 0,
+            "type": [
+              "null",
+              "string"
+            ]
           }
         }
       },
-      "User": {
+      "UserCreateDTO": {
         "required": [
+          "userTypeId",
           "fullName",
           "email",
           "password",
@@ -1862,14 +2309,6 @@
         ],
         "type": "object",
         "properties": {
-          "userId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
           "userTypeId": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
@@ -1880,10 +2319,12 @@
           },
           "fullName": {
             "maxLength": 150,
+            "minLength": 0,
             "type": "string"
           },
           "userCode": {
             "maxLength": 100,
+            "minLength": 0,
             "type": [
               "null",
               "string"
@@ -1891,18 +2332,154 @@
           },
           "email": {
             "maxLength": 150,
+            "minLength": 0,
             "type": "string"
           },
           "password": {
             "maxLength": 255,
+            "minLength": 0,
             "type": "string"
           },
           "mobileNumber": {
             "maxLength": 15,
+            "minLength": 0,
             "type": "string"
           },
           "profilePicturePath": {
             "maxLength": 500,
+            "minLength": 0,
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UserRoleCreateDTO": {
+        "required": [
+          "roleId",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "roleId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "userId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          }
+        }
+      },
+      "UserRoleUpdateDTO": {
+        "required": [
+          "roleId",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "roleId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "userId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          }
+        }
+      },
+      "UserTypeCreateDTO": {
+        "type": "object",
+        "properties": {
+          "userTypeName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "UserTypeUpdateDTO": {
+        "type": "object",
+        "properties": {
+          "userTypeName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "UserUpdateDTO": {
+        "required": [
+          "userTypeId",
+          "fullName",
+          "email",
+          "mobileNumber",
+          "profilePicturePath",
+          "isActive"
+        ],
+        "type": "object",
+        "properties": {
+          "userTypeId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          },
+          "fullName": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "userCode": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "email": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 255,
+            "minLength": 0,
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "mobileNumber": {
+            "maxLength": 15,
+            "minLength": 0,
+            "type": "string"
+          },
+          "profilePicturePath": {
+            "maxLength": 500,
+            "minLength": 0,
             "type": "string"
           },
           "isActive": {
@@ -1915,90 +2492,13 @@
             ]
           }
         }
-      },
-      "UserRole": {
-        "required": [
-          "roleId",
-          "userId"
-        ],
-        "type": "object",
-        "properties": {
-          "rolePermissionId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "role": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/Role"
-              }
-            ]
-          },
-          "roleId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "user": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/User"
-              }
-            ]
-          },
-          "userId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          }
-        }
-      },
-      "UserType": {
-        "required": [
-          "userTypeName"
-        ],
-        "type": "object",
-        "properties": {
-          "userTypeId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "userTypeName": {
-            "maxLength": 50,
-            "type": "string"
-          },
-          "description": {
-            "maxLength": 250,
-            "type": [
-              "null",
-              "string"
-            ]
-          }
-        }
       }
     }
   },
   "tags": [
+    {
+      "name": "Dashboard"
+    },
     {
       "name": "ProjectAllocation"
     },
@@ -2010,6 +2510,9 @@
     },
     {
       "name": "Task"
+    },
+    {
+      "name": "TaskPriority"
     },
     {
       "name": "TaskStatus"

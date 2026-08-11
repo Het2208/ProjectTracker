@@ -16,7 +16,7 @@ namespace Project_Tracker_Backend.Data
         public DbSet<UserRole> UserRole => Set<UserRole>();
         public DbSet<TaskStatus> TaskStatus => Set<TaskStatus>();
         public DbSet<TaskPriority> TaskPriority => Set<TaskPriority>();
-        
+
         public DbSet<ProjectMaster> ProjectMaster => Set<ProjectMaster>();
         public DbSet<ProjectAllocation> ProjectAllocation => Set<ProjectAllocation>();
         public DbSet<Task> Task => Set<Task>();
@@ -54,28 +54,70 @@ namespace Project_Tracker_Backend.Data
                 .IsUnique();
 
             // Configure relationships
+
+            // UserType to User relationship
+            modelBuilder.Entity<User>()
+            .HasOne(u => u.UserType)
+            .WithMany(ut => ut.Users)
+            .HasForeignKey(u => u.UserTypeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+            // User -> UserRole (1:N)
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UserRoles)
+                .HasForeignKey(ur => ur.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Role -> UserRole (1:N)
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Project -> ProjectAllocation
             modelBuilder.Entity<ProjectAllocation>()
                 .HasOne(pa => pa.ProjectMaster)
-                .WithMany()
+                .WithMany(p => p.ProjectAllocations)
                 .HasForeignKey(pa => pa.ProjectID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Student -> ProjectAllocation
             modelBuilder.Entity<ProjectAllocation>()
                 .HasOne(pa => pa.Student)
-                .WithMany()
+                .WithMany(u => u.StudentProjectAllocations)
                 .HasForeignKey(pa => pa.StudentID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // Faculty -> ProjectAllocation
             modelBuilder.Entity<ProjectAllocation>()
                 .HasOne(pa => pa.Faculty)
-                .WithMany()
+                .WithMany(u => u.FacultyProjectAllocations)
                 .HasForeignKey(pa => pa.FacultyID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            // ProjectAllocation -> Task
+            modelBuilder.Entity<Task>()
+                .HasOne(t => t.ProjectAllocation)
+                .WithMany(pa => pa.Tasks)
+                .HasForeignKey(t => t.ProjectAllocationID)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            // TaskStatus -> Task
+            modelBuilder.Entity<Task>()
+                .HasOne(t => t.TaskStatus)
+                .WithMany(ts => ts.Tasks)
+                .HasForeignKey(t => t.TaskStatusID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // TaskPriority -> Task
+            modelBuilder.Entity<Task>()
+                .HasOne(t => t.TaskPriority)
+                .WithMany(tp => tp.Tasks)
+                .HasForeignKey(t => t.TaskPriorityID)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
-
-
-    }   
+}
 

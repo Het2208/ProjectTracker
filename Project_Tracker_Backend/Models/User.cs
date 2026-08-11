@@ -18,10 +18,8 @@ namespace Project_Tracker_Backend.Models
         [Required, MaxLength(150)]
         public string FullName { get; set; }
 
-
         [MaxLength(100)]
         public string? UserCode { get; set; } = string.Empty;
-
 
         [Required, MaxLength(150)]
         [EmailAddress]
@@ -39,5 +37,11 @@ namespace Project_Tracker_Backend.Models
         [Required]
         public bool IsActive { get; set; }
         public bool? IsDeleted { get; set; }
+            
+        public ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
+
+        public ICollection<ProjectAllocation> StudentProjectAllocations { get; set; } = new List<ProjectAllocation>();
+
+        public ICollection<ProjectAllocation> FacultyProjectAllocations { get; set; } = new List<ProjectAllocation>();
     }
 }

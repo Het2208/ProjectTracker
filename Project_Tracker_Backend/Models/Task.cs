@@ -7,30 +7,30 @@ namespace Project_Tracker_Backend.Models
     public class Task
     {
         [Key]
-        public int TaskID { get; set; }
+        public int TaskID { get; set; } 
 
         public ProjectAllocation? ProjectAllocation { get; set; }
-
+        
         [Required]
         [ForeignKey("ProjectAllocation")]
-        public int ProjectAllocationID { get; set; }
+        public int ProjectAllocationID { get; set; } 
 
         [Required, MaxLength(200)]
-        public string TaskTitle { get; set; } = string.Empty;
+        public string TaskTitle { get; set; } = string.Empty; 
 
-        public string? TaskDescription { get; set; }
+        public string? TaskDescription { get; set; } 
 
-        public TaskStatus? TaskStatus { get; set; }
+        public TaskStatus? TaskStatus { get; set; } 
 
         [Required]
         [ForeignKey("TaskStatus")]
-        public int TaskStatusID { get; set; }
+        public int TaskStatusID { get; set; } 
 
         public TaskPriority? TaskPriority { get; set; }
 
         [Required]
         [ForeignKey("TaskPriority")]
-        public int TaskPriorityID { get; set; }
+        public int TaskPriorityID { get; set; } 
 
         [Required]
         [Column(TypeName = "decimal(5,2)")]

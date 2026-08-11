@@ -2,10 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Project_Tracker_Backend.Data;
 using Project_Tracker_Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Project_Tracker_Backend.DTOs;
 
 namespace Project_Tracker_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class RoleController : ControllerBase
     {
@@ -19,49 +20,78 @@ namespace Project_Tracker_Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var roles = await _context.Role.ToListAsync();
+            var roles = await _context.Role
+                .Select(r => new RoleReadDTO
+                {
+                    RoleId = r.RoleId,
+                    RoleName = r.RoleName,
+                    Description = r.Description
+                }).ToListAsync();
             return Ok(roles);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var role = await _context.Role.FindAsync(id);
-            if (role == null)
+            var role = await _context.Role
+            .Where(r => r.RoleId == id)
+            .Select(r => new RoleReadDTO
             {
+                RoleId = r.RoleId,
+                RoleName = r.RoleName,
+                Description = r.Description
+            })
+            .FirstOrDefaultAsync();
+
+            if (role == null)
                 return NotFound();
-            }
+
             return Ok(role);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(Role role)
+        public async Task<IActionResult> Add(RoleCreateDTO dto)
         {
-            role.RoleId = 0;
+            var role = new Role
+            {
+                RoleName = dto.RoleName,
+                Description = dto.Description
+            };
+
             _context.Role.Add(role);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetById), new { id = role.RoleId }, role);
+
+            var result = new RoleReadDTO
+            {
+                RoleId = role.RoleId,
+                RoleName = role.RoleName,
+                Description = role.Description
+            };
+
+            return CreatedAtAction(nameof(GetById), new { id = role.RoleId }, result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Role role)
+        public async Task<IActionResult> Update(int id, RoleUpdateDTO dto)
         {
-            if (role.RoleId != 0 && role.RoleId != id)
-            {
-                return BadRequest("ID in route parameter does not match ID in request body.");
-            }
+            var existingRole = await _context.Role.FindAsync(id);
 
-            var exists = await _context.Role.FindAsync(id);
-            if (exists == null)
-            {
+            if (existingRole == null)
                 return NotFound();
-            }
 
-            exists.RoleName = role.RoleName;
-            exists.Description = role.Description;
+            existingRole.RoleName = dto.RoleName;
+            existingRole.Description = dto.Description;
 
             await _context.SaveChangesAsync();
-            return Ok(exists);
+
+            var result = new RoleReadDTO
+            {
+                RoleId = existingRole.RoleId,
+                RoleName = existingRole.RoleName,
+                Description = existingRole.Description
+            };
+
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]

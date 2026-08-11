@@ -1,14 +1,12 @@
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_Tracker_Backend.Data;
+using Project_Tracker_Backend.DTOs;
 using Project_Tracker_Backend.Models;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Project_Tracker_Backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ProjectAllocationController : ControllerBase
     {
@@ -20,76 +18,170 @@ namespace Project_Tracker_Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ProjectAllocation>> GetALl()
+        public async Task<IActionResult> GetAll()
         {
-            var projectAllocations = await _context.ProjectAllocation.ToListAsync();
+            var projectAllocations = await _context.ProjectAllocation
+                .Include(pa => pa.ProjectMaster)
+                .Include(pa => pa.Student)
+                .Include(pa => pa.Faculty)
+                .Select(pa => new ProjectAllocationReadDTO
+                {
+                    ProjectAllocationID = pa.ProjectAllocationID,
+                    ProjectID = pa.ProjectID,
+                    ProjectTitle = pa.ProjectMaster != null ? pa.ProjectMaster.ProjectTitle : null,
+                    StudentID = pa.StudentID,
+                    StudentName = pa.Student != null ? pa.Student.FullName : null,
+                    FacultyID = pa.FacultyID,
+                    FacultyName = pa.Faculty != null ? pa.Faculty.FullName : null,
+                    AssignedDate = pa.AssignedDate,
+                    ProjectStartDate = pa.ProjectStartDate,
+                    ProjectEndDate = pa.ProjectEndDate,
+                    TotalTasksGiven = pa.TotalTasksGiven,
+                    TotalCompletedTasks = pa.TotalCompletedTasks,
+                    ProgressPercentage = pa.ProgressPercentage,
+                    OverAllGrade = pa.OverAllGrade
+                }).ToListAsync();
+
             return Ok(projectAllocations);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProjectAllocation>> GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var projectAllocation = await _context.ProjectAllocation.FindAsync(id);
-            if (projectAllocation == null)
-            {
+            var pa = await _context.ProjectAllocation
+                .Include(pa => pa.ProjectMaster)
+                .Include(pa => pa.Student)
+                .Include(pa => pa.Faculty)
+                .Where(pa => pa.ProjectAllocationID == id)
+                .Select(pa => new ProjectAllocationReadDTO
+                {
+                    ProjectAllocationID = pa.ProjectAllocationID,
+                    ProjectID = pa.ProjectID,
+                    ProjectTitle = pa.ProjectMaster != null ? pa.ProjectMaster.ProjectTitle : null,
+                    StudentID = pa.StudentID,
+                    StudentName = pa.Student != null ? pa.Student.FullName : null,
+                    FacultyID = pa.FacultyID,
+                    FacultyName = pa.Faculty != null ? pa.Faculty.FullName : null,
+                    AssignedDate = pa.AssignedDate,
+                    ProjectStartDate = pa.ProjectStartDate,
+                    ProjectEndDate = pa.ProjectEndDate,
+                    TotalTasksGiven = pa.TotalTasksGiven,
+                    TotalCompletedTasks = pa.TotalCompletedTasks,
+                    ProgressPercentage = pa.ProgressPercentage,
+                    OverAllGrade = pa.OverAllGrade
+                })
+                .FirstOrDefaultAsync();
+
+            if (pa == null)
                 return NotFound();
-            }
-            return Ok(projectAllocation);
+
+            return Ok(pa);
         }
+
         [HttpPost]
-        public async Task<ActionResult<ProjectAllocation>> Add(ProjectAllocation projectAllocation)
+        public async Task<IActionResult> Add(ProjectAllocationCreateDTO dto)
         {
-            projectAllocation.ProjectAllocationID = 0;
-            _context.ProjectAllocation.Add(projectAllocation);
+            var pa = new ProjectAllocation
+            {
+                ProjectID = dto.ProjectID,
+                StudentID = dto.StudentID,
+                FacultyID = dto.FacultyID,
+                AssignedDate = dto.AssignedDate,
+                ProjectStartDate = dto.ProjectStartDate,
+                ProjectEndDate = dto.ProjectEndDate,
+                TotalTasksGiven = dto.TotalTasksGiven,
+                TotalCompletedTasks = dto.TotalCompletedTasks,
+                ProgressPercentage = dto.ProgressPercentage,
+                OverAllGrade = dto.OverAllGrade
+            };
+
+            _context.ProjectAllocation.Add(pa);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetById), new { id = projectAllocation.ProjectAllocationID }, projectAllocation);
+
+            var project = await _context.ProjectMaster.FindAsync(pa.ProjectID);
+            var student = await _context.Users.FindAsync(pa.StudentID);
+            var faculty = await _context.Users.FindAsync(pa.FacultyID);
+
+            var result = new ProjectAllocationReadDTO
+            {
+                ProjectAllocationID = pa.ProjectAllocationID,
+                ProjectID = pa.ProjectID,
+                ProjectTitle = project?.ProjectTitle,
+                StudentID = pa.StudentID,
+                StudentName = student?.FullName,
+                FacultyID = pa.FacultyID,
+                FacultyName = faculty?.FullName,
+                AssignedDate = pa.AssignedDate,
+                ProjectStartDate = pa.ProjectStartDate,
+                ProjectEndDate = pa.ProjectEndDate,
+                TotalTasksGiven = pa.TotalTasksGiven,
+                TotalCompletedTasks = pa.TotalCompletedTasks,
+                ProgressPercentage = pa.ProgressPercentage,
+                OverAllGrade = pa.OverAllGrade
+            };
+
+            return CreatedAtAction(nameof(GetById), new { id = pa.ProjectAllocationID }, result);
         }
+
         [HttpPut("{id}")]
-        public async Task<ActionResult<ProjectAllocation>> Update(int id, ProjectAllocation projectAllocation)
+        public async Task<IActionResult> Update(int id, ProjectAllocationUpdateDTO dto)
         {
+            var existingPA = await _context.ProjectAllocation.FindAsync(id);
 
-            if (projectAllocation.ProjectAllocationID != 0 && projectAllocation.ProjectAllocationID != id)
-            {
-                return BadRequest("ID in route parameter does not match ID in request body.");
-            }
-
-            var existingProjectAllocation = await _context.ProjectAllocation.FindAsync(id);
-
-            if (existingProjectAllocation == null)
-            {
+            if (existingPA == null)
                 return NotFound();
-            }
 
-            existingProjectAllocation.ProjectID = projectAllocation.ProjectID;
-            existingProjectAllocation.StudentID = projectAllocation.StudentID;
-            existingProjectAllocation.FacultyID = projectAllocation.FacultyID;
-            existingProjectAllocation.AssignedDate = projectAllocation.AssignedDate;
-            existingProjectAllocation.ProjectStartDate = projectAllocation.ProjectStartDate;
-            existingProjectAllocation.ProjectEndDate = projectAllocation.ProjectEndDate;
-            existingProjectAllocation.TotalTasksGiven = projectAllocation.TotalTasksGiven;
-            existingProjectAllocation.TotalCompletedTasks = projectAllocation.TotalCompletedTasks;
-            existingProjectAllocation.ProgressPercentage = projectAllocation.ProgressPercentage;
-            existingProjectAllocation.OverAllGrade = projectAllocation.OverAllGrade;
-
+            existingPA.ProjectID = dto.ProjectID;
+            existingPA.StudentID = dto.StudentID;
+            existingPA.FacultyID = dto.FacultyID;
+            existingPA.ProjectStartDate = dto.ProjectStartDate;
+            existingPA.ProjectEndDate = dto.ProjectEndDate;
+            existingPA.TotalTasksGiven = dto.TotalTasksGiven;
+            existingPA.TotalCompletedTasks = dto.TotalCompletedTasks;
+            existingPA.ProgressPercentage = dto.ProgressPercentage;
+            existingPA.OverAllGrade = dto.OverAllGrade;
 
             await _context.SaveChangesAsync();
 
-            return Ok(existingProjectAllocation);
+            var project = await _context.ProjectMaster.FindAsync(existingPA.ProjectID);
+            var student = await _context.Users.FindAsync(existingPA.StudentID);
+            var faculty = await _context.Users.FindAsync(existingPA.FacultyID);
 
+            var result = new ProjectAllocationReadDTO
+            {
+                ProjectAllocationID = existingPA.ProjectAllocationID,
+                ProjectID = existingPA.ProjectID,
+                ProjectTitle = project?.ProjectTitle,
+                StudentID = existingPA.StudentID,
+                StudentName = student?.FullName,
+                FacultyID = existingPA.FacultyID,
+                FacultyName = faculty?.FullName,
+                AssignedDate = existingPA.AssignedDate,
+                ProjectStartDate = existingPA.ProjectStartDate,
+                ProjectEndDate = existingPA.ProjectEndDate,
+                TotalTasksGiven = existingPA.TotalTasksGiven,
+                TotalCompletedTasks = existingPA.TotalCompletedTasks,
+                ProgressPercentage = existingPA.ProgressPercentage,
+                OverAllGrade = existingPA.OverAllGrade
+            };
 
+            return Ok(result);
         }
-        [HttpDelete("{id}")]
 
-        public async Task<ActionResult<ProjectAllocation>> Delete(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
         {
-            var projectAllocation = await _context.ProjectAllocation.FindAsync(id);
-            if (projectAllocation == null)
+            var pa = await _context.ProjectAllocation.FindAsync(id);
+
+            if (pa == null)
             {
                 return NotFound();
             }
-            _context.ProjectAllocation.Remove(projectAllocation);
+
+            _context.ProjectAllocation.Remove(pa);
             await _context.SaveChangesAsync();
-            return NoContent();
+
+            return Ok("Project allocation deleted successfully.");
         }
     }
 }

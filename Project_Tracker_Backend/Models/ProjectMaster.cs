@@ -12,5 +12,6 @@ namespace Project_Tracker_Backend.Models
         public string ProjectTitle { get; set; }
 
         public string? Description { get; set; }
+        public ICollection<ProjectAllocation> ProjectAllocations { get; set; } = new List<ProjectAllocation>();
     }
 }
