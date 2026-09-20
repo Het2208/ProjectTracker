@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from './AdminLayout';
+import axios from "axios";
+import { useEffect } from "react";
 
 const ManageTaskStatus = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -14,16 +16,28 @@ const ManageTaskStatus = () => {
     taskStatusCssClass: ''
   });
 
-  const [statuses, setStatuses] = useState([
-    { taskStatusID: 1, taskStatusName: 'Pending', taskStatusCssClass: 'pending' },
-    { taskStatusID: 2, taskStatusName: 'In Progress', taskStatusCssClass: 'progress' },
-    { taskStatusID: 3, taskStatusName: 'Completed', taskStatusCssClass: 'completed' },
-    { taskStatusID: 4, taskStatusName: 'Rejected', taskStatusCssClass: 'rejected' }
-  ]);
+  const [statuses, setStatuses] = useState([]);
+
+  useEffect(() => {
+    const fetchStatuses = async () => {
+      try {
+        const response = await axios.get("https://localhost:7264/api/TaskStatus/GetAll");
+        if (response.data && response.data.success && Array.isArray(response.data.data)) {
+          setStatuses(response.data.data);
+        } else {
+          console.error("Expected array inside APIResponse, got:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching statuses:", error);
+      }
+    };
+
+    fetchStatuses();
+  }, []);
 
   const filteredStatuses = statuses.filter(s => 
-    s.taskStatusName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    s.taskStatusCssClass.toLowerCase().includes(searchQuery.toLowerCase())
+    (s.taskStatusName || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (s.taskStatusCssClass || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleOpenModal = (type, s = null) => {
@@ -49,20 +63,43 @@ const ManageTaskStatus = () => {
     setSelectedStatus(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (modalType === 'Add') {
-      const newId = statuses.length > 0 ? Math.max(...statuses.map(st => st.taskStatusID)) + 1 : 1;
-      setStatuses([...statuses, { ...formData, taskStatusID: newId }]);
-    } else if (modalType === 'Edit' && selectedStatus) {
-      setStatuses(statuses.map(st => st.taskStatusID === selectedStatus.taskStatusID ? { ...st, ...formData } : st));
+    try {
+      if (modalType === 'Add') {
+        const response = await axios.post("https://localhost:7264/api/TaskStatus/Add", {
+          taskStatusName: formData.taskStatusName,
+          taskStatusCssClass: formData.taskStatusCssClass
+        });
+        if (response.data && response.data.success) {
+          setStatuses([...statuses, response.data.data]);
+        }
+      } else if (modalType === 'Edit' && selectedStatus) {
+        const response = await axios.put(`https://localhost:7264/api/TaskStatus/Update/${selectedStatus.taskStatusId}`, {
+          taskStatusId: selectedStatus.taskStatusId,
+          taskStatusName: formData.taskStatusName,
+          taskStatusCssClass: formData.taskStatusCssClass
+        });
+        if (response.data && response.data.success) {
+          setStatuses(statuses.map(st => st.taskStatusId === selectedStatus.taskStatusId ? response.data.data : st));
+        }
+      }
+      handleCloseModal();
+    } catch (error) {
+      console.error("Error saving status:", error);
     }
-    handleCloseModal();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this Task Status?')) {
-      setStatuses(statuses.filter(st => st.taskStatusID !== id));
+      try {
+        const response = await axios.delete(`https://localhost:7264/api/TaskStatus/Delete/${id}`);
+        if (response.data && response.data.success) {
+          setStatuses(statuses.filter(st => st.taskStatusId !== id));
+        }
+      } catch (error) {
+        console.error("Error deleting status:", error);
+      }
     }
   };
 
@@ -125,8 +162,8 @@ const ManageTaskStatus = () => {
             <tbody>
               {filteredStatuses.length > 0 ? (
                 filteredStatuses.map((s) => (
-                  <tr key={s.taskStatusID}>
-                    <td><span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>#{s.taskStatusID}</span></td>
+                  <tr key={s.taskStatusId}>
+                    <td><span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>#{s.taskStatusId}</span></td>
                     <td>
                       <span style={{ fontWeight: 600, color: 'var(--text-main)' }}>{s.taskStatusName}</span>
                     </td>
@@ -183,7 +220,7 @@ const ManageTaskStatus = () => {
                           Edit
                         </button>
                         <button 
-                          onClick={() => handleDelete(s.taskStatusID)}
+                          onClick={() => handleDelete(s.taskStatusId)}
                           style={{
                             padding: '6px 12px',
                             backgroundColor: '#fee2e2',
@@ -282,7 +319,7 @@ const ManageTaskStatus = () => {
               <div style={{ padding: '24px' }}>
                 <div style={{ marginBottom: '20px' }}>
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Status ID</span>
-                  <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>#{selectedStatus?.taskStatusID}</div>
+                  <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>#{selectedStatus?.taskStatusId}</div>
                 </div>
                 <div style={{ marginBottom: '20px' }}>
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Status Name</span>

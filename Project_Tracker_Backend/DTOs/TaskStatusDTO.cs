@@ -11,19 +11,15 @@ namespace Project_Tracker_Backend.DTOs
 
     public class TaskStatusCreateDTO
     {
-        [Required, StringLength(20)]
         public string TaskStatusName { get; set; }
 
-        [Required, StringLength(100)]
         public string TaskStatusCssClass { get; set; }
     }
 
     public class TaskStatusUpdateDTO
     {
-        [Required, StringLength(20)]
         public string TaskStatusName { get; set; }
 
-        [Required, StringLength(100)]
         public string TaskStatusCssClass { get; set; }
     }
 }

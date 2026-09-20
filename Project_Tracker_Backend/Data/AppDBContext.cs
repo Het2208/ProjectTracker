@@ -16,7 +16,6 @@ namespace Project_Tracker_Backend.Data
         public DbSet<UserRole> UserRole => Set<UserRole>();
         public DbSet<TaskStatus> TaskStatus => Set<TaskStatus>();
         public DbSet<TaskPriority> TaskPriority => Set<TaskPriority>();
-
         public DbSet<ProjectMaster> ProjectMaster => Set<ProjectMaster>();
         public DbSet<ProjectAllocation> ProjectAllocation => Set<ProjectAllocation>();
         public DbSet<Task> Task => Set<Task>();

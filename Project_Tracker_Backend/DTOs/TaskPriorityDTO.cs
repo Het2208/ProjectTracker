@@ -11,19 +11,15 @@ namespace Project_Tracker_Backend.DTOs
 
     public class TaskPriorityCreateDTO
     {
-        [Required, StringLength(20)]
         public string TaskPriorityName { get; set; }
 
-        [Required, StringLength(20)]
         public string TaskPriorityCssClass { get; set; }
     }
 
     public class TaskPriorityUpdateDTO
     {
-        [Required, StringLength(20)]
         public string TaskPriorityName { get; set; }
 
-        [Required, StringLength(20)]
         public string TaskPriorityCssClass { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from './AdminLayout';
+import axios from "axios";
+import { useEffect } from "react";
 
 const ManageTaskPriority = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -11,18 +13,31 @@ const ManageTaskPriority = () => {
   // Form state
   const [formData, setFormData] = useState({
     taskPriorityName: '',
-    taskPriortyCssClass: ''
+    taskPriorityCssClass: ''
   });
 
-  const [priorities, setPriorities] = useState([
-    { taskPriorityID: 1, taskPriorityName: 'High', taskPriortyCssClass: 'high' },
-    { taskPriorityID: 2, taskPriorityName: 'Medium', taskPriortyCssClass: 'medium' },
-    { taskPriorityID: 3, taskPriorityName: 'Low', taskPriortyCssClass: 'low' }
-  ]);
+  const [priorities, setPriorities] = useState([]);
+
+  useEffect(() => {
+    const fetchPriorities = async () => {
+      try {
+        const response = await axios.get("https://localhost:7264/api/TaskPriority/GetAll");
+        if (response.data && response.data.success && Array.isArray(response.data.data)) {
+          setPriorities(response.data.data);
+        } else {
+          console.error("Expected array inside APIResponse, got:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching priorities:", error);
+      }
+    };
+
+    fetchPriorities();
+  }, []);
 
   const filteredPriorities = priorities.filter(p => 
-    p.taskPriorityName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.taskPriortyCssClass.toLowerCase().includes(searchQuery.toLowerCase())
+    (p.taskPriorityName || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (p.taskPriorityCssClass || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const handleOpenModal = (type, p = null) => {
@@ -31,13 +46,13 @@ const ManageTaskPriority = () => {
       setSelectedPriority(p);
       setFormData({
         taskPriorityName: p.taskPriorityName,
-        taskPriortyCssClass: p.taskPriortyCssClass
+        taskPriorityCssClass: p.taskPriorityCssClass
       });
     } else {
       setSelectedPriority(null);
       setFormData({
         taskPriorityName: '',
-        taskPriortyCssClass: ''
+        taskPriorityCssClass: ''
       });
     }
     setIsModalOpen(true);
@@ -48,20 +63,43 @@ const ManageTaskPriority = () => {
     setSelectedPriority(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (modalType === 'Add') {
-      const newId = priorities.length > 0 ? Math.max(...priorities.map(pr => pr.taskPriorityID)) + 1 : 1;
-      setPriorities([...priorities, { ...formData, taskPriorityID: newId }]);
-    } else if (modalType === 'Edit' && selectedPriority) {
-      setPriorities(priorities.map(pr => pr.taskPriorityID === selectedPriority.taskPriorityID ? { ...pr, ...formData } : pr));
+    try {
+      if (modalType === 'Add') {
+        const response = await axios.post("https://localhost:7264/api/TaskPriority/Add", {
+          taskPriorityName: formData.taskPriorityName,
+          taskPriorityCssClass: formData.taskPriorityCssClass
+        });
+        if (response.data && response.data.success) {
+          setPriorities([...priorities, response.data.data]);
+        }
+      } else if (modalType === 'Edit' && selectedPriority) {
+        const response = await axios.put(`https://localhost:7264/api/TaskPriority/Update/${selectedPriority.taskPriorityId}`, {
+          taskPriorityId: selectedPriority.taskPriorityId,
+          taskPriorityName: formData.taskPriorityName,
+          taskPriorityCssClass: formData.taskPriorityCssClass
+        });
+        if (response.data && response.data.success) {
+          setPriorities(priorities.map(pr => pr.taskPriorityId === selectedPriority.taskPriorityId ? response.data.data : pr));
+        }
+      }
+      handleCloseModal();
+    } catch (error) {
+      console.error("Error saving priority:", error);
     }
-    handleCloseModal();
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this Task Priority?')) {
-      setPriorities(priorities.filter(pr => pr.taskPriorityID !== id));
+      try {
+        const response = await axios.delete(`https://localhost:7264/api/TaskPriority/Delete/${id}`);
+        if (response.data && response.data.success) {
+          setPriorities(priorities.filter(pr => pr.taskPriorityId !== id));
+        }
+      } catch (error) {
+        console.error("Error deleting priority:", error);
+      }
     }
   };
 
@@ -124,14 +162,14 @@ const ManageTaskPriority = () => {
             <tbody>
               {filteredPriorities.length > 0 ? (
                 filteredPriorities.map((p) => (
-                  <tr key={p.taskPriorityID}>
-                    <td><span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>#{p.taskPriorityID}</span></td>
+                  <tr key={p.taskPriorityId}>
+                    <td><span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>#{p.taskPriorityId}</span></td>
                     <td>
                       <span style={{ fontWeight: 600, color: 'var(--text-main)' }}>{p.taskPriorityName}</span>
                     </td>
-                    <td><code>{p.taskPriortyCssClass}</code></td>
+                    <td><code>{p.taskPriorityCssClass}</code></td>
                     <td>
-                      <span className={`badge ${p.taskPriortyCssClass}`}>
+                      <span className={`badge ${p.taskPriorityCssClass}`}>
                         {p.taskPriorityName}
                       </span>
                     </td>
@@ -182,7 +220,7 @@ const ManageTaskPriority = () => {
                           Edit
                         </button>
                         <button 
-                          onClick={() => handleDelete(p.taskPriorityID)}
+                          onClick={() => handleDelete(p.taskPriorityId)}
                           style={{
                             padding: '6px 12px',
                             backgroundColor: '#fee2e2',
@@ -281,7 +319,7 @@ const ManageTaskPriority = () => {
               <div style={{ padding: '24px' }}>
                 <div style={{ marginBottom: '20px' }}>
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Priority ID</span>
-                  <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>#{selectedPriority?.taskPriorityID}</div>
+                  <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>#{selectedPriority?.taskPriorityId}</div>
                 </div>
                 <div style={{ marginBottom: '20px' }}>
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Priority Name</span>
@@ -289,12 +327,12 @@ const ManageTaskPriority = () => {
                 </div>
                 <div style={{ marginBottom: '20px' }}>
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>CSS Class</span>
-                  <div style={{ marginTop: '4px' }}><code>{selectedPriority?.taskPriortyCssClass}</code></div>
+                  <div style={{ marginTop: '4px' }}><code>{selectedPriority?.taskPriorityCssClass}</code></div>
                 </div>
                 <div style={{ marginBottom: '0px' }}>
                   <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Visual Preview</span>
                   <div style={{ marginTop: '6px' }}>
-                    <span className={`badge ${selectedPriority?.taskPriortyCssClass}`}>
+                    <span className={`badge ${selectedPriority?.taskPriorityCssClass}`}>
                       {selectedPriority?.taskPriorityName}
                     </span>
                   </div>
@@ -331,12 +369,12 @@ const ManageTaskPriority = () => {
                     />
                   </div>
                   <div className="form-group" style={{ marginBottom: 0 }}>
-                    <label className="form-label" htmlFor="taskPriortyCssClass">CSS Class</label>
+                    <label className="form-label" htmlFor="taskPriorityCssClass">CSS Class</label>
                     <select
-                      id="taskPriortyCssClass"
+                      id="taskPriorityCssClass"
                       className="form-control"
-                      value={formData.taskPriortyCssClass}
-                      onChange={(e) => setFormData({ ...formData, taskPriortyCssClass: e.target.value })}
+                      value={formData.taskPriorityCssClass}
+                      onChange={(e) => setFormData({ ...formData, taskPriorityCssClass: e.target.value })}
                       required
                     >
                       <option value="">Select CSS Class...</option>

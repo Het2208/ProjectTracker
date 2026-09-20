@@ -8,10 +8,7 @@ namespace Project_Tracker_Backend.Models
         [Key]
         public int RoleId { get; set; }
 
-        [Required, MaxLength(50)]
-        public string RoleName { get; set; }
-
-        [MaxLength(250)]
+        public string RoleName { get; set; } = string.Empty;
 
         public string? Description { get; set; } = string.Empty;
 

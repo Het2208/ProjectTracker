@@ -1,105 +1,143 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from './AdminLayout';
+import axios from "axios";
+import { useEffect } from "react";
 
 const ManageUsers = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState('Add');
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  // Blank form state
+  // Form state
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: '',
     mobileNumber: '',
-    roleId: '',
-    isActive: 'true'
+    userTypeId: '',
+    isActive: true
   });
 
-  const users = [
-    {
-      userId: 1,
-      fullName: 'Aarav Patel',
-      email: 'aarav.patel@darshan.ac.in',
-      mobileNumber: '9988776655',
-      role: 'Admin',
-      isActive: true
-    },
-    {
-      userId: 2,
-      fullName: 'Prof. Madhuresh Fichadiya',
-      email: 'madhuresh.fichadiya@darshan.ac.in',
-      mobileNumber: '9876543210',
-      role: 'Faculty',
-      isActive: true
-    },
-    {
-      userId: 3,
-      fullName: 'Priya Sharma',
-      email: 'priya.sharma@darshan.ac.in',
-      mobileNumber: '9122334455',
-      role: 'Student',
-      isActive: true
-    },
-    {
-      userId: 4,
-      fullName: 'Rohan Shah',
-      email: 'rohan.shah@darshan.ac.in',
-      mobileNumber: '9822334466',
-      role: 'Student',
-      isActive: true
-    },
-    {
-      userId: 5,
-      fullName: 'Dr. Amit Vora',
-      email: 'amit.vora@darshan.ac.in',
-      mobileNumber: '9900887766',
-      role: 'Faculty',
-      isActive: true
-    },
-    {
-      userId: 6,
-      fullName: 'Neha Mehta',
-      email: 'neha.mehta@darshan.ac.in',
-      mobileNumber: '9766554433',
-      role: 'Student',
-      isActive: false
-    }
-  ];
+  const [users, setUsers] = useState([]);
+  const [userTypes, setUserTypes] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("https://localhost:7264/api/User/GetAll");
+        if (response.data && response.data.success && Array.isArray(response.data.data)) {
+          setUsers(response.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    const fetchUserTypes = async () => {
+      try {
+        const response = await axios.get("https://localhost:7264/api/UserType/GetAll");
+        if (response.data && response.data.success && Array.isArray(response.data.data)) {
+          const mappedData = response.data.data.map(ut => ({
+            ...ut,
+            userTypeId: ut.userTypeId !== undefined ? ut.userTypeId : ut.userTypeID
+          }));
+          setUserTypes(mappedData);
+        }
+      } catch (error) {
+        console.error("Error fetching user types:", error);
+      }
+    };
+    fetchUsers();
+    fetchUserTypes();
+  }, []);
 
   const filteredUsers = users.filter(user => 
-    user.fullName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.mobileNumber.includes(searchQuery) ||
-    user.role.toLowerCase().includes(searchQuery.toLowerCase())
+    (user.fullName || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (user.email || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (user.mobileNumber || '').includes(searchQuery) ||
+    (user.userTypeName || '').toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleOpenModal = (type) => {
+  const handleOpenModal = (type, user = null) => {
     setModalType(type);
-    setFormData({
-      fullName: '',
-      email: '',
-      password: '',
-      mobileNumber: '',
-      roleId: '',
-      isActive: 'true'
-    });
+    if (user) {
+      setSelectedUser(user);
+      setFormData({
+        fullName: user.fullName || '',
+        email: user.email || '',
+        password: '',
+        mobileNumber: user.mobileNumber || '',
+        userTypeId: user.userTypeId || '',
+        isActive: user.isActive
+      });
+    } else {
+      setSelectedUser(null);
+      setFormData({
+        fullName: '',
+        email: '',
+        password: '',
+        mobileNumber: '',
+        userTypeId: '',
+        isActive: true
+      });
+    }
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setSelectedUser(null);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsModalOpen(false);
+    try {
+      if (modalType === 'Add') {
+        const response = await axios.post("https://localhost:7264/api/User/Add", {
+          userTypeId: Number(formData.userTypeId),
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password,
+          mobileNumber: formData.mobileNumber,
+          profilePicturePath: "default.png",
+          isActive: formData.isActive
+        });
+        if (response.data && response.data.success) {
+          setUsers([...users, response.data.data]);
+        }
+      } else if (modalType === 'Edit' && selectedUser) {
+        const response = await axios.put(`https://localhost:7264/api/User/Update/${selectedUser.userId}`, {
+          userTypeId: Number(formData.userTypeId),
+          fullName: formData.fullName,
+          email: formData.email,
+          password: formData.password || null,
+          mobileNumber: formData.mobileNumber,
+          profilePicturePath: "default.png",
+          isActive: formData.isActive,
+          isDeleted: selectedUser.isDeleted || false
+        });
+        if (response.data && response.data.success) {
+          setUsers(users.map(u => u.userId === selectedUser.userId ? response.data.data : u));
+        }
+      }
+      handleCloseModal();
+    } catch (error) {
+      console.error("Error saving user:", error);
+    }
   };
 
-  const handleDeleteClick = (e) => {
-    e.preventDefault();
-    // Do nothing
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this user?')) {
+      try {
+        const response = await axios.delete(`https://localhost:7264/api/User/Delete/${id}`);
+        if (response.data && response.data.success) {
+          setUsers(users.filter(u => u.userId !== id));
+        }
+      } catch (error) {
+        console.error("Error deleting user:", error);
+      }
+    }
   };
 
   return (
@@ -170,7 +208,7 @@ const ManageUsers = () => {
                     <td style={{ color: 'var(--text-muted)' }}>{user.mobileNumber}</td>
                     <td>
                       <span style={{ fontWeight: 600, color: 'var(--text-main)' }}>
-                        {user.role}
+                        {user.userTypeName}
                       </span>
                     </td>
                     <td>
@@ -181,7 +219,7 @@ const ManageUsers = () => {
                     <td style={{ textAlign: 'center' }}>
                       <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
                         <button 
-                          onClick={() => handleOpenModal('Edit')}
+                          onClick={() => handleOpenModal('Edit', user)}
                           style={{
                             padding: '6px 12px',
                             backgroundColor: 'var(--primary-light)',
@@ -203,7 +241,7 @@ const ManageUsers = () => {
                           Edit
                         </button>
                         <button 
-                          onClick={handleDeleteClick}
+                          onClick={() => handleDelete(user.userId)}
                           style={{
                             padding: '6px 12px',
                             backgroundColor: '#fee2e2',
@@ -240,7 +278,7 @@ const ManageUsers = () => {
         </div>
       </div>
 
-      {/* Blank Form Modal */}
+      {/* Form Modal */}
       {isModalOpen && (
         <div style={{
           position: 'fixed',
@@ -298,7 +336,7 @@ const ManageUsers = () => {
               </button>
             </div>
 
-            {/* Modal Body (Blank Form) */}
+            {/* Modal Body */}
             <form onSubmit={handleSubmit}>
               <div style={{ padding: '24px' }}>
                 <div className="form-group">
@@ -333,10 +371,10 @@ const ManageUsers = () => {
                       type="password" 
                       id="password"
                       className="form-control" 
-                      placeholder="Password"
+                      placeholder={modalType === 'Add' ? "Password" : "Leave blank to keep unchanged"}
                       value={formData.password}
                       onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                      required
+                      required={modalType === 'Add'}
                     />
                   </div>
                 </div>
@@ -355,18 +393,20 @@ const ManageUsers = () => {
                     />
                   </div>
                   <div className="form-group">
-                    <label className="form-label" htmlFor="roleId">Assigned Role</label>
+                    <label className="form-label" htmlFor="userTypeId">User Type</label>
                     <select 
-                      id="roleId"
+                      id="userTypeId"
                       className="form-control"
-                      value={formData.roleId}
-                      onChange={(e) => setFormData({ ...formData, roleId: e.target.value })}
+                      value={formData.userTypeId}
+                      onChange={(e) => setFormData({ ...formData, userTypeId: e.target.value })}
                       required
                     >
-                      <option value="">Select Role</option>
-                      <option value="1">Admin</option>
-                      <option value="2">Faculty</option>
-                      <option value="3">Student</option>
+                      <option value="">Select User Type</option>
+                      {userTypes.map(ut => (
+                        <option key={ut.userTypeId} value={ut.userTypeId}>
+                          {ut.userTypeName}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -377,7 +417,7 @@ const ManageUsers = () => {
                     id="isActive"
                     className="form-control"
                     value={formData.isActive}
-                    onChange={(e) => setFormData({ ...formData, isActive: e.target.value })}
+                    onChange={(e) => setFormData({ ...formData, isActive: e.target.value === 'true' })}
                     required
                   >
                     <option value="true">Active</option>

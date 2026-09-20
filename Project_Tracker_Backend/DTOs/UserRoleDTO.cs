@@ -13,19 +13,15 @@ namespace Project_Tracker_Backend.DTOs
 
     public class UserRoleCreateDTO
     {
-        [Required]
         public int RoleId { get; set; }
 
-        [Required]
         public int UserId { get; set; }
     }
 
     public class UserRoleUpdateDTO
     {
-        [Required]
         public int RoleId { get; set; }
 
-        [Required]
         public int UserId { get; set; }
     }
 }

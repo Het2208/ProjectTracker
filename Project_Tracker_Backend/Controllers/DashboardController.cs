@@ -1,11 +1,14 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project_Tracker_Backend.Data;
 using Project_Tracker_Backend.Models;
+using Project_Tracker_Backend.Comman;
 using Task = Project_Tracker_Backend.Models.Task;
 
 namespace Project_Tracker_Backend.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class DashboardController : ControllerBase
@@ -22,63 +25,108 @@ namespace Project_Tracker_Backend.Controllers
         public async Task<IActionResult> GetRoleCount()
         {
             var count = await _context.Role.CountAsync();
-            return Ok(count);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "Role count retrieved successfully",
+                Data = count
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUserTypeCount()
         {
             var count = await _context.UserType.CountAsync();
-            return Ok(count);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "User type count retrieved successfully",
+                Data = count
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUserCount()
         {
             var count = await _context.Users.CountAsync();
-            return Ok(count);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "User count retrieved successfully",
+                Data = count
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUserRoleCount()
         {
             var count = await _context.UserRole.CountAsync();
-            return Ok(count);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "User role count retrieved successfully",
+                Data = count
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetTaskStatusCount()
         {
             var count = await _context.TaskStatus.CountAsync();
-            return Ok(count);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "Task status count retrieved successfully",
+                Data = count
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetTaskPriorityCount()
         {
             var count = await _context.TaskPriority.CountAsync();
-            return Ok(count);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "Task priority count retrieved successfully",
+                Data = count
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetProjectMasterCount()
         {
             var count = await _context.ProjectMaster.CountAsync();
-            return Ok(count);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "Project master count retrieved successfully",
+                Data = count
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetProjectAllocationCount()
         {
             var count = await _context.ProjectAllocation.CountAsync();
-            return Ok(count);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "Project allocation count retrieved successfully",
+                Data = count
+            });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetTaskCount()
         {
             var count = await _context.Task.CountAsync();
-            return Ok(count);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "Task count retrieved successfully",
+                Data = count
+            });
         }
 
 
@@ -88,7 +136,12 @@ namespace Project_Tracker_Backend.Controllers
         {
             var totalStudents = await _context.Users
                 .CountAsync(x => x.UserType.UserTypeName == "Student");
-            return Ok(totalStudents);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "Total students retrieved successfully",
+                Data = totalStudents
+            });
         }
 
         // 2) Display the total number of faculty members guiding projects.
@@ -97,7 +150,12 @@ namespace Project_Tracker_Backend.Controllers
         {
             var totalFaculty = await _context.Users
                 .CountAsync(x => x.UserType.UserTypeName == "Faculty");
-            return Ok(totalFaculty);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "Total faculty retrieved successfully",
+                Data = totalFaculty
+            });
         }
 
         // 3) Display the total number of projects available in the system.
@@ -105,7 +163,12 @@ namespace Project_Tracker_Backend.Controllers
         public async Task<IActionResult> GetTotalProjects()
         {
             var totalProjects = await _context.ProjectMaster.CountAsync();
-            return Ok(totalProjects);
+            return Ok(new APIResponse<int>
+            {
+                Success = true,
+                Message = "Total projects retrieved successfully",
+                Data = totalProjects
+            });
         }
 
         // 4) Show how many tasks belong to each status category.
@@ -120,7 +183,12 @@ namespace Project_Tracker_Backend.Controllers
                     TotalTasks = g.Count()
                 })
                 .ToListAsync();
-            return Ok(taskStatusSummary);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Task status summary retrieved successfully",
+                Data = taskStatusSummary
+            });
         }
 
         // 5) Show priority wise task count
@@ -135,7 +203,12 @@ namespace Project_Tracker_Backend.Controllers
                     TotalTasks = g.Count()
                 })
                 .ToListAsync();
-            return Ok(prioritySummary);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Priority summary retrieved successfully",
+                Data = prioritySummary
+            });
         }
 
         // 6) Show how many projects are assigned to each faculty member.
@@ -151,7 +224,12 @@ namespace Project_Tracker_Backend.Controllers
                 })
                 .OrderByDescending(x => x.TotalProjects)
                 .ToListAsync();
-            return Ok(facultyWorkload);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Faculty workload retrieved successfully",
+                Data = facultyWorkload
+            });
         }
 
         // 7) Show how many tasks have been assigned to each student.
@@ -167,7 +245,12 @@ namespace Project_Tracker_Backend.Controllers
                 })
                 .OrderByDescending(x => x.TotalTasks)
                 .ToListAsync();
-            return Ok(studentTasks);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Student tasks retrieved successfully",
+                Data = studentTasks
+            });
         }
 
         // 8) Display the top 10 students having the highest average earned score.
@@ -185,7 +268,12 @@ namespace Project_Tracker_Backend.Controllers
                 .OrderByDescending(x => x.AverageScore)
                 .Take(10)
                 .ToListAsync();
-            return Ok(topStudents);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Top students retrieved successfully",
+                Data = topStudents
+            });
         }
 
         // 9) Display the bottom 10 students based on average earned score.
@@ -203,7 +291,12 @@ namespace Project_Tracker_Backend.Controllers
                 .OrderBy(x => x.AverageScore)
                 .Take(10)
                 .ToListAsync();
-            return Ok(bottomStudents);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Bottom students retrieved successfully",
+                Data = bottomStudents
+            });
         }
 
         // 10) Display all tasks whose due date has passed but are not completed.
@@ -224,7 +317,12 @@ namespace Project_Tracker_Backend.Controllers
                     DaysOverdue = t.TaskDueDate.HasValue ? EF.Functions.DateDiffDay(t.TaskDueDate.Value, DateTime.Now) : 0
                 })
                 .ToListAsync();
-            return Ok(overdueTasks);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Overdue tasks retrieved successfully",
+                Data = overdueTasks
+            });
         }
 
         // 11) Display tasks having follow-up dates within the next 7 days.
@@ -243,7 +341,12 @@ namespace Project_Tracker_Backend.Controllers
                     NextFollowUpDate = t.NextFollowUpDate
                 })
                 .ToListAsync();
-            return Ok(upcomingFollowUps);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Upcoming follow-ups retrieved successfully",
+                Data = upcomingFollowUps
+            });
         }
 
         // 12) Show how many students have obtained each grade.
@@ -259,7 +362,12 @@ namespace Project_Tracker_Backend.Controllers
                 })
                 .OrderBy(x => x.Grade)
                 .ToListAsync();
-            return Ok(gradeDistribution);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Grade distribution retrieved successfully",
+                Data = gradeDistribution
+            });
         }
 
         // 13) Show month-wise completed task count.
@@ -282,7 +390,12 @@ namespace Project_Tracker_Backend.Controllers
                 .OrderBy(x => x.Year)
                 .ThenBy(x => x.Month)
                 .ToListAsync();
-            return Ok(monthlyCompletion);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Monthly completion retrieved successfully",
+                Data = monthlyCompletion
+            });
         }
 
         // 14) Display Role Wise Active User Count.
@@ -299,7 +412,12 @@ namespace Project_Tracker_Backend.Controllers
                 })
                 .OrderByDescending(x => x.ActiveUsers)
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Role wise active user count retrieved successfully",
+                Data = result
+            });
         }
 
         // 15) Display each role with users assigned to it.
@@ -314,7 +432,12 @@ namespace Project_Tracker_Backend.Controllers
                     Users = g.Select(x => x.User.FullName).ToList()
                 })
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Users by role retrieved successfully",
+                Data = result
+            });
         }
 
         // 16) List Roles Having More Than 10 Users.
@@ -330,7 +453,12 @@ namespace Project_Tracker_Backend.Controllers
                 })
                 .Where(x => x.TotalUsers > 10)
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Roles with more than ten users retrieved successfully",
+                Data = result
+            });
         }
 
         // 17) Display role statistics.
@@ -348,7 +476,12 @@ namespace Project_Tracker_Backend.Controllers
                 })
                 .OrderByDescending(x => x.TotalUsers)
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Role statistics retrieved successfully",
+                Data = result
+            });
         }
 
         // 18) Show tasks due within next 7 days.
@@ -370,7 +503,12 @@ namespace Project_Tracker_Backend.Controllers
                 })
                 .OrderBy(x => x.TaskDueDate)
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Upcoming due tasks retrieved successfully",
+                Data = result
+            });
         }
 
         // 19) Display each project with total tasks, completed tasks, pending tasks, and average task progress.
@@ -388,7 +526,12 @@ namespace Project_Tracker_Backend.Controllers
                     AverageProgress = g.Average(x => x.ProgressPercentage)
                 })
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Project task summary retrieved successfully",
+                Data = result
+            });
         }
 
         // 20) Display project-wise total assigned score, earned score, and score percentage.
@@ -407,7 +550,12 @@ namespace Project_Tracker_Backend.Controllers
                         : 0
                 })
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Project score summary retrieved successfully",
+                Data = result
+            });
         }
 
         // 21) Display Top 10 projects based on average earned score.
@@ -425,7 +573,12 @@ namespace Project_Tracker_Backend.Controllers
                 .OrderByDescending(x => x.AverageScore)
                 .Take(10)
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Top projects by score retrieved successfully",
+                Data = result
+            });
         }
 
         // 22) Show project count, task count, and average progress for each faculty.
@@ -442,7 +595,12 @@ namespace Project_Tracker_Backend.Controllers
                     AverageProgress = g.Average(x => x.ProgressPercentage)
                 })
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Faculty statistics retrieved successfully",
+                Data = result
+            });
         }
 
         // 23) Display task completion statistics and average score for each student.
@@ -460,7 +618,12 @@ namespace Project_Tracker_Backend.Controllers
                     AverageScore = g.Average(x => x.EarnedScore)
                 })
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Student task statistics retrieved successfully",
+                Data = result
+            });
         }
 
         // 24) Display projects whose expected completion date has passed but are still incomplete.
@@ -480,7 +643,12 @@ namespace Project_Tracker_Backend.Controllers
                     ProgressPercentage = x.ProgressPercentage
                 })
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Overdue projects retrieved successfully",
+                Data = result
+            });
         }
 
         // 25) Show month-wise completed task count (alternative projection).
@@ -503,7 +671,12 @@ namespace Project_Tracker_Backend.Controllers
                 .OrderBy(x => x.Year)
                 .ThenBy(x => x.Month)
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Monthly completed task count retrieved successfully",
+                Data = result
+            });
         }
 
         // 26) Rank faculties based on average project progress.
@@ -519,7 +692,12 @@ namespace Project_Tracker_Backend.Controllers
                 })
                 .OrderByDescending(x => x.AverageProgress)
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Faculty rankings by progress retrieved successfully",
+                Data = result
+            });
         }
 
         // 27) Display task statistics for every project.
@@ -539,7 +717,12 @@ namespace Project_Tracker_Backend.Controllers
                         x.TaskStatus.TaskStatusName != "Completed")
                 })
                 .ToListAsync();
-            return Ok(result);
+            return Ok(new APIResponse<object>
+            {
+                Success = true,
+                Message = "Project task statistics retrieved successfully",
+                Data = result
+            });
         }
     }
 }

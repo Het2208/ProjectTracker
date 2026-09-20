@@ -11,7 +11,6 @@ namespace Project_Tracker_Backend.DTOs
 
     public class ProjectMasterCreateDTO
     {
-        [Required, StringLength(200)]
         public string ProjectTitle { get; set; }
 
         public string? Description { get; set; }
@@ -19,7 +18,6 @@ namespace Project_Tracker_Backend.DTOs
 
     public class ProjectMasterUpdateDTO
     {
-        [Required, StringLength(200)]
         public string ProjectTitle { get; set; }
 
         public string? Description { get; set; }

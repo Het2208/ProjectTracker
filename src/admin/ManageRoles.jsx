@@ -16,16 +16,16 @@ const ManageRoles = () => {
     description: ''
   });
 
-const [roles, setRoles] = useState([]);
+  const [roles, setRoles] = useState([]);
 
   useEffect(() => {
     const fetchRoles = async () => {
       try {
-        const response = await axios.get("https://localhost:7264/api/Role/GetAll");
-        if (Array.isArray(response.data)) {
-          setRoles(response.data);
+        const response = await axios.get("https://localhost:7264/api/Role");
+        if (response.data && response.data.success && Array.isArray(response.data.data)) {
+          setRoles(response.data.data);
         } else {
-          console.error("Expected array from API, got:", response.data);
+          console.error("Expected array inside APIResponse, got:", response.data);
         }
       } catch (error) {
         console.error("Error fetching roles:", error);
@@ -67,18 +67,22 @@ const [roles, setRoles] = useState([]);
     e.preventDefault();
     try {
       if (modalType === 'Add') {
-        const response = await axios.post("https://localhost:7264/api/Role/Add", {
+        const response = await axios.post("https://localhost:7264/api/Role", {
           roleName: formData.roleName,
           description: formData.description
         });
-        setRoles([...roles, response.data]);
+        if (response.data && response.data.success) {
+          setRoles([...roles, response.data.data]);
+        }
       } else if (modalType === 'Edit' && selectedRole) {
-        const response = await axios.put(`https://localhost:7264/api/Role/Update/${selectedRole.roleId}`, {
+        const response = await axios.put(`https://localhost:7264/api/Role/${selectedRole.roleId}`, {
           roleId: selectedRole.roleId,
           roleName: formData.roleName,
           description: formData.description
         });
-        setRoles(roles.map(r => r.roleId === selectedRole.roleId ? response.data : r));
+        if (response.data && response.data.success) {
+          setRoles(roles.map(r => r.roleId === selectedRole.roleId ? response.data.data : r));
+        }
       } 
       handleCloseModal();
     } catch (error) {
@@ -89,8 +93,10 @@ const [roles, setRoles] = useState([]);
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this role?')) {
       try {
-        await axios.delete(`https://localhost:7264/api/Role/Delete/${id}`);
-        setRoles(roles.filter(r => r.roleId !== id));
+        const response = await axios.delete(`https://localhost:7264/api/Role/${id}`);
+        if (response.data && response.data.success) {
+          setRoles(roles.filter(r => r.roleId !== id));
+        }
       } catch (error) {
         console.error("Error deleting role:", error);
       }

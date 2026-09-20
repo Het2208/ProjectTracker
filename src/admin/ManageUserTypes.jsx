@@ -18,18 +18,24 @@ const ManageUserTypes = () => {
 
   const [userTypes, setUserTypes] = useState([]);
   useEffect(() => {
-    axios
-      .get("https://localhost:7264/api/UserType")
-      .then((response) => {
-        if (Array.isArray(response.data)) {
-          setUserTypes(response.data);
+    const fetchUserTypes = async () => {
+      try {
+        const response = await axios.get("https://localhost:7264/api/UserType/GetAll");
+        if (response.data && response.data.success && Array.isArray(response.data.data)) {
+          const mappedData = response.data.data.map(ut => ({
+            ...ut,
+            userTypeId: ut.userTypeId !== undefined ? ut.userTypeId : ut.userTypeID
+          }));
+          setUserTypes(mappedData);
         } else {
-          console.error("Expected array from API, got:", response.data);
+          console.error("Expected array inside APIResponse, got:", response.data);
         }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      } catch (error) {
+        console.error("Error fetching user types:", error);
+      }
+    };
+
+    fetchUserTypes();
   }, []);
 
   const filteredUserTypes = userTypes.filter(ut => 
@@ -64,18 +70,32 @@ const ManageUserTypes = () => {
     e.preventDefault();
     try {
       if (modalType === 'Add') {
-        const response = await axios.post("https://localhost:7264/api/UserType", {
+        const response = await axios.post("https://localhost:7264/api/UserType/Add", {
           userTypeName: formData.userTypeName,
           description: formData.description
         });
-        setUserTypes([...userTypes, response.data]);
+        if (response.data && response.data.success) {
+          const newData = response.data.data;
+          const mappedNewData = {
+            ...newData,
+            userTypeId: newData.userTypeId !== undefined ? newData.userTypeId : newData.userTypeID
+          };
+          setUserTypes([...userTypes, mappedNewData]);
+        }
       } else if (modalType === 'Edit' && selectedUserType) {
-        const response = await axios.put(`https://localhost:7264/api/UserType/${selectedUserType.userTypeId}`, {
+        const response = await axios.put(`https://localhost:7264/api/UserType/Update/${selectedUserType.userTypeId}`, {
           userTypeId: selectedUserType.userTypeId,
           userTypeName: formData.userTypeName,
           description: formData.description
         });
-        setUserTypes(userTypes.map(u => u.userTypeId === selectedUserType.userTypeId ? response.data : u));
+        if (response.data && response.data.success) {
+          const updatedData = response.data.data;
+          const mappedUpdatedData = {
+            ...updatedData,
+            userTypeId: updatedData.userTypeId !== undefined ? updatedData.userTypeId : updatedData.userTypeID
+          };
+          setUserTypes(userTypes.map(u => u.userTypeId === selectedUserType.userTypeId ? mappedUpdatedData : u));
+        }
       }
       handleCloseModal();
     } catch (error) {
@@ -86,8 +106,10 @@ const ManageUserTypes = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this user type?')) {
       try {
-        await axios.delete(`https://localhost:7264/api/UserType/${id}`);
-        setUserTypes(userTypes.filter(u => u.userTypeId !== id));
+        const response = await axios.delete(`https://localhost:7264/api/UserType/Delete/${id}`);
+        if (response.data && response.data.success) {
+          setUserTypes(userTypes.filter(u => u.userTypeId !== id));
+        }
       } catch (error) {
         console.error("Error deleting user type:", error);
       }

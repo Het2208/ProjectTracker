@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import FacultyLayout from './FacultyLayout';
+import axios from 'axios';
 
 const ManageTasks = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -101,23 +102,31 @@ const ManageTasks = () => {
     }
   ]);
 
+  const [statusesList, setStatusesList] = useState([]);
+  const [prioritiesList, setPrioritiesList] = useState([]);
+
+  useEffect(() => {
+    const fetchDropdowns = async () => {
+      try {
+        const resStatus = await axios.get("https://localhost:7264/api/TaskStatus/GetAll");
+        if (resStatus.data && resStatus.data.success && Array.isArray(resStatus.data.data)) {
+          setStatusesList(resStatus.data.data);
+        }
+        const resPriority = await axios.get("https://localhost:7264/api/TaskPriority/GetAll");
+        if (resPriority.data && resPriority.data.success && Array.isArray(resPriority.data.data)) {
+          setPrioritiesList(resPriority.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching status/priority lists:", error);
+      }
+    };
+    fetchDropdowns();
+  }, []);
+
   const allocationsList = [
     { projectAllocationID: 1, projectTitle: 'Student Project Management System', studentName: 'Priya Sharma' },
     { projectAllocationID: 2, projectTitle: 'E-Commerce Engine', studentName: 'Rohan Shah' },
     { projectAllocationID: 3, projectTitle: 'IoT Smart Home', studentName: 'Neha Mehta' }
-  ];
-
-  const statusesList = [
-    { statusID: 1, name: 'Pending', css: 'pending' },
-    { statusID: 2, name: 'In Progress', css: 'progress' },
-    { statusID: 3, name: 'Completed', css: 'completed' },
-    { statusID: 4, name: 'Rejected', css: 'rejected' }
-  ];
-
-  const prioritiesList = [
-    { priorityID: 1, name: 'Low', css: 'low' },
-    { priorityID: 2, name: 'Medium', css: 'medium' },
-    { priorityID: 3, name: 'High', css: 'high' }
   ];
 
   const filteredTasks = tasks.filter(task => 
@@ -168,8 +177,8 @@ const ManageTasks = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const alloc = allocationsList.find(a => a.projectAllocationID.toString() === formData.projectAllocationID);
-    const status = statusesList.find(s => s.statusID.toString() === formData.taskStatusID);
-    const priority = prioritiesList.find(p => p.priorityID.toString() === formData.taskPriorityID);
+    const status = statusesList.find(s => s.taskStatusId.toString() === formData.taskStatusID);
+    const priority = prioritiesList.find(p => p.taskPriorityId.toString() === formData.taskPriorityID);
 
     if (!alloc || !status || !priority) return;
 
@@ -184,12 +193,12 @@ const ManageTasks = () => {
       dueDate: formData.dueDate,
       submissionDate: formData.submissionDate || null,
       facultyRemarks: formData.facultyRemarks || null,
-      taskStatusID: status.statusID,
-      taskStatusName: status.name,
-      taskStatusCss: status.css,
-      taskPriorityID: priority.priorityID,
-      taskPriorityName: priority.name,
-      taskPriorityCss: priority.css
+      taskStatusID: status.taskStatusId,
+      taskStatusName: status.taskStatusName,
+      taskStatusCss: status.taskStatusCssClass,
+      taskPriorityID: priority.taskPriorityId,
+      taskPriorityName: priority.taskPriorityName,
+      taskPriorityCss: priority.taskPriorityCssClass
     };
 
     if (modalType === 'Add') {
@@ -581,8 +590,9 @@ const ManageTasks = () => {
                         onChange={(e) => setFormData({ ...formData, taskStatusID: e.target.value })}
                         required
                       >
+                        <option value="">Select Status...</option>
                         {statusesList.map(s => (
-                          <option key={s.statusID} value={s.statusID}>{s.name}</option>
+                          <option key={s.taskStatusId} value={s.taskStatusId}>{s.taskStatusName}</option>
                         ))}
                       </select>
                     </div>
@@ -595,8 +605,9 @@ const ManageTasks = () => {
                         onChange={(e) => setFormData({ ...formData, taskPriorityID: e.target.value })}
                         required
                       >
+                        <option value="">Select Priority...</option>
                         {prioritiesList.map(p => (
-                          <option key={p.priorityID} value={p.priorityID}>{p.name}</option>
+                          <option key={p.taskPriorityId} value={p.taskPriorityId}>{p.taskPriorityName}</option>
                         ))}
                       </select>
                     </div>

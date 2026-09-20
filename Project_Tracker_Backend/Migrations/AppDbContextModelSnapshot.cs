@@ -349,19 +349,19 @@ namespace Project_Tracker_Backend.Migrations
             modelBuilder.Entity("Project_Tracker_Backend.Models.ProjectAllocation", b =>
                 {
                     b.HasOne("Project_Tracker_Backend.Models.User", "Faculty")
-                        .WithMany()
+                        .WithMany("FacultyProjectAllocations")
                         .HasForeignKey("FacultyID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Project_Tracker_Backend.Models.ProjectMaster", "ProjectMaster")
-                        .WithMany()
+                        .WithMany("ProjectAllocations")
                         .HasForeignKey("ProjectID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Project_Tracker_Backend.Models.User", "Student")
-                        .WithMany()
+                        .WithMany("StudentProjectAllocations")
                         .HasForeignKey("StudentID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -376,21 +376,21 @@ namespace Project_Tracker_Backend.Migrations
             modelBuilder.Entity("Project_Tracker_Backend.Models.Task", b =>
                 {
                     b.HasOne("Project_Tracker_Backend.Models.ProjectAllocation", "ProjectAllocation")
-                        .WithMany()
+                        .WithMany("Tasks")
                         .HasForeignKey("ProjectAllocationID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Project_Tracker_Backend.Models.TaskPriority", "TaskPriority")
-                        .WithMany()
+                        .WithMany("Tasks")
                         .HasForeignKey("TaskPriorityID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Project_Tracker_Backend.Models.TaskStatus", "TaskStatus")
-                        .WithMany()
+                        .WithMany("Tasks")
                         .HasForeignKey("TaskStatusID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ProjectAllocation");
@@ -403,9 +403,9 @@ namespace Project_Tracker_Backend.Migrations
             modelBuilder.Entity("Project_Tracker_Backend.Models.User", b =>
                 {
                     b.HasOne("Project_Tracker_Backend.Models.UserType", "UserType")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("UserTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("UserType");
@@ -414,20 +414,59 @@ namespace Project_Tracker_Backend.Migrations
             modelBuilder.Entity("Project_Tracker_Backend.Models.UserRole", b =>
                 {
                     b.HasOne("Project_Tracker_Backend.Models.Role", "Role")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Project_Tracker_Backend.Models.User", "User")
-                        .WithMany()
+                        .WithMany("UserRoles")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Project_Tracker_Backend.Models.ProjectAllocation", b =>
+                {
+                    b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("Project_Tracker_Backend.Models.ProjectMaster", b =>
+                {
+                    b.Navigation("ProjectAllocations");
+                });
+
+            modelBuilder.Entity("Project_Tracker_Backend.Models.Role", b =>
+                {
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Project_Tracker_Backend.Models.TaskPriority", b =>
+                {
+                    b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("Project_Tracker_Backend.Models.TaskStatus", b =>
+                {
+                    b.Navigation("Tasks");
+                });
+
+            modelBuilder.Entity("Project_Tracker_Backend.Models.User", b =>
+                {
+                    b.Navigation("FacultyProjectAllocations");
+
+                    b.Navigation("StudentProjectAllocations");
+
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Project_Tracker_Backend.Models.UserType", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

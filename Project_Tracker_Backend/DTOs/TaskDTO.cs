@@ -29,29 +29,22 @@ namespace Project_Tracker_Backend.DTOs
 
     public class TaskCreateDTO
     {
-        [Required]
         public int ProjectAllocationID { get; set; }
 
-        [Required, StringLength(200)]
         public string TaskTitle { get; set; }
 
         public string? TaskDescription { get; set; }
 
-        [Required]
         public int TaskStatusID { get; set; }
 
-        [Required]
         public int TaskPriorityID { get; set; }
 
-        [Required]
         public decimal AssignedScore { get; set; }
 
         public decimal? EarnedScore { get; set; }
 
-        [Required]
         public decimal ProgressPercentage { get; set; }
 
-        [Required]
         public DateTime TaskAssignedDate { get; set; } = DateTime.Now;
 
         public DateTime? TaskStartDate { get; set; }
@@ -68,29 +61,22 @@ namespace Project_Tracker_Backend.DTOs
 
     public class TaskUpdateDTO
     {
-        [Required]
         public int ProjectAllocationID { get; set; }
 
-        [Required, StringLength(200)]
         public string TaskTitle { get; set; }
 
         public string? TaskDescription { get; set; }
 
-        [Required]
         public int TaskStatusID { get; set; }
 
-        [Required]
         public int TaskPriorityID { get; set; }
 
-        [Required]
         public decimal AssignedScore { get; set; }
 
         public decimal? EarnedScore { get; set; }
 
-        [Required]
         public decimal ProgressPercentage { get; set; }
 
-        [Required]
         public DateTime TaskAssignedDate { get; set; }
 
         public DateTime? TaskStartDate { get; set; }
@@ -98,10 +84,8 @@ namespace Project_Tracker_Backend.DTOs
         public DateTime? TaskCompletedDate { get; set; }
         public DateTime? NextFollowUpDate { get; set; }
 
-        [StringLength(500)]
         public string? FacultyRemarks { get; set; }
 
-        [StringLength(500)]
         public string? StudentRemarks { get; set; }
     }
 }
