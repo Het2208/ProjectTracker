@@ -51,14 +51,18 @@ namespace Project_Tracker_Backend
                     });
             });
 
-            // File storage configuration (supports Render persistent disk via FileStorage:BasePath)
-            var webRootPath = builder.Configuration["FileStorage:BasePath"]
-                ?? builder.Environment.WebRootPath
-                ?? Path.Combine(builder.Environment.ContentRootPath, "wwwroot");
-            if (!Directory.Exists(webRootPath))
-            {
-                Directory.CreateDirectory(webRootPath);
-            }
+            // File storage configuration
+            // Supports Azure Container Apps and persistent storage configurations
+            var configuredBasePath = builder.Configuration["FileStorage:BasePath"];
+            var configuredWebRootPath = builder.Environment.WebRootPath;
+            var webRootPath = !string.IsNullOrWhiteSpace(configuredBasePath)
+                ? configuredBasePath
+                : !string.IsNullOrWhiteSpace(configuredWebRootPath)
+                    ? configuredWebRootPath
+                    : Path.Combine(builder.Environment.ContentRootPath, "wwwroot");
+
+            // Always ensure the directory exists
+            Directory.CreateDirectory(webRootPath);
             builder.Environment.WebRootPath = webRootPath;
 
             builder.Services.AddScoped<IFileService, FileService>();

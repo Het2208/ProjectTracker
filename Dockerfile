@@ -1,5 +1,5 @@
 # =========================================
-# Build stage
+# Build Stage
 # =========================================
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 
@@ -19,15 +19,11 @@ RUN dotnet publish "Project_Tracker_Backend.csproj" \
     /p:UseAppHost=false
 
 # =========================================
-# Runtime stage
+# Runtime Stage
 # =========================================
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 
 WORKDIR /app
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl \
-    && rm -rf /var/lib/apt/lists/*
 
 ENV ASPNETCORE_ENVIRONMENT=Production
 
@@ -40,8 +36,5 @@ RUN mkdir -p /app/wwwroot/Files
 COPY --from=build /app/publish .
 
 EXPOSE 8080
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
-    CMD curl --fail http://localhost:8080/health/live || exit 1
 
 ENTRYPOINT ["dotnet", "Project_Tracker_Backend.dll"]
