@@ -1,5 +1,5 @@
-import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { clearAuth } from '../services/auth';
 
 const StudentSidebar = ({ collapsed }) => {
   const location = useLocation();
@@ -8,6 +8,7 @@ const StudentSidebar = ({ collapsed }) => {
 
   const handleLogout = (e) => {
     e.preventDefault();
+    clearAuth();
     navigate('/');
   };
 

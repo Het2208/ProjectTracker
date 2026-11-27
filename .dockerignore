@@ -1,0 +1,14 @@
+**/.git
+**/.vs
+**/bin
+**/obj
+**/TestResults
+**/.env
+**/.env.*
+node_modules
+dist
+dist-ssr
+*.zip
+*.pdf
+scratch
+Project_Tracker_Backend.test

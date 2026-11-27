@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import StudentSidebar from './StudentSidebar';
 import StudentNavbar from './StudentNavbar';
 import StudentFooter from './StudentFooter';

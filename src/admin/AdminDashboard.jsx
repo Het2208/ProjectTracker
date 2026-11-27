@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from './AdminLayout';
-import axios from 'axios';
+import { dashboardService } from '../services/dashboardService';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -32,36 +32,36 @@ const AdminDashboard = () => {
           resOverdueTasks,
           resGradeDistribution
         ] = await Promise.all([
-          axios.get("https://localhost:7264/api/Dashboard/GetUserCount"),
-          axios.get("https://localhost:7264/api/Dashboard/GetTotalStudents"),
-          axios.get("https://localhost:7264/api/Dashboard/GetTotalFaculty"),
-          axios.get("https://localhost:7264/api/Dashboard/GetTotalProjects"),
-          axios.get("https://localhost:7264/api/Dashboard/GetTaskCount"),
-          axios.get("https://localhost:7264/api/Dashboard/GetTaskStatusSummary"),
-          axios.get("https://localhost:7264/api/Dashboard/GetPrioritySummary"),
-          axios.get("https://localhost:7264/api/Dashboard/GetOverdueTasks"),
-          axios.get("https://localhost:7264/api/Dashboard/GetGradeDistribution")
+          dashboardService.getUserCount(),
+          dashboardService.getTotalStudents(),
+          dashboardService.getTotalFaculty(),
+          dashboardService.getTotalProjects(),
+          dashboardService.getTaskCount(),
+          dashboardService.getTaskStatusSummary(),
+          dashboardService.getPrioritySummary(),
+          dashboardService.getOverdueTasks(),
+          dashboardService.getGradeDistribution(),
         ]);
 
         setStats({
-          userCount: resUserCount.data?.data || 0,
-          studentCount: resStudentCount.data?.data || 0,
-          facultyCount: resFacultyCount.data?.data || 0,
-          projectCount: resProjectCount.data?.data || 0,
-          taskCount: resTaskCount.data?.data || 0
+          userCount: resUserCount?.data || 0,
+          studentCount: resStudentCount?.data || 0,
+          facultyCount: resFacultyCount?.data || 0,
+          projectCount: resProjectCount?.data || 0,
+          taskCount: resTaskCount?.data || 0,
         });
 
-        if (resStatusSummary.data?.success && Array.isArray(resStatusSummary.data.data)) {
-          setStatusSummary(resStatusSummary.data.data);
+        if (resStatusSummary?.success && Array.isArray(resStatusSummary.data)) {
+          setStatusSummary(resStatusSummary.data);
         }
-        if (resPrioritySummary.data?.success && Array.isArray(resPrioritySummary.data.data)) {
-          setPrioritySummary(resPrioritySummary.data.data);
+        if (resPrioritySummary?.success && Array.isArray(resPrioritySummary.data)) {
+          setPrioritySummary(resPrioritySummary.data);
         }
-        if (resOverdueTasks.data?.success && Array.isArray(resOverdueTasks.data.data)) {
-          setOverdueTasks(resOverdueTasks.data.data);
+        if (resOverdueTasks?.success && Array.isArray(resOverdueTasks.data)) {
+          setOverdueTasks(resOverdueTasks.data);
         }
-        if (resGradeDistribution.data?.success && Array.isArray(resGradeDistribution.data.data)) {
-          setGradeDistribution(resGradeDistribution.data.data);
+        if (resGradeDistribution?.success && Array.isArray(resGradeDistribution.data)) {
+          setGradeDistribution(resGradeDistribution.data);
         }
       } catch (error) {
         console.error("Error loading dashboard statistics:", error);

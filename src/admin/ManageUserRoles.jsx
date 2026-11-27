@@ -1,103 +1,129 @@
-import React, { useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from './AdminLayout';
+import TableState from '../common/TableState';
+import { getApiErrorMessage } from '../services/apiClient';
+import { userRoleService } from '../services/userRoleService';
+import { roleService } from '../services/roleService';
+import { userService } from '../services/userService';
 
+const emptyForm = { roleId: '', userId: '' };
+
+/**
+ * User ↔ Role link management. Consumes UserRoleController CRUD
+ * (RolePermissionId is the primary key) plus Role/User lists for dropdowns.
+ */
 const ManageUserRoles = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [userRoles, setUserRoles] = useState([]);
+  const [rolesList, setRolesList] = useState([]);
+  const [usersList, setUsersList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [pageError, setPageError] = useState('');
+  const [message, setMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState('Add'); // 'Add', 'Edit', 'Details'
+  const [modalType, setModalType] = useState('Add');
   const [selectedUserRole, setSelectedUserRole] = useState(null);
+  const [isDetailsLoading, setIsDetailsLoading] = useState(false);
+  const [formData, setFormData] = useState(emptyForm);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Form state
-  const [formData, setFormData] = useState({
-    userID: '',
-    roleID: ''
-  });
-
-  const [userRoles, setUserRoles] = useState([
-    { rolePermissionID: 1, userID: 1, userName: 'Aarav Patel', userEmail: 'aarav.patel@darshan.ac.in', roleID: 1, roleName: 'Admin' },
-    { rolePermissionID: 2, userID: 2, userName: 'Prof. Madhuresh Fichadiya', userEmail: 'madhuresh.fichadiya@darshan.ac.in', roleID: 2, roleName: 'Faculty' },
-    { rolePermissionID: 3, userID: 3, userName: 'Priya Sharma', userEmail: 'priya.sharma@darshan.ac.in', roleID: 3, roleName: 'Student' },
-    { rolePermissionID: 4, userID: 4, userName: 'Rohan Shah', userEmail: 'rohan.shah@darshan.ac.in', roleID: 3, roleName: 'Student' },
-    { rolePermissionID: 5, userID: 5, userName: 'Dr. Amit Vora', userEmail: 'amit.vora@darshan.ac.in', roleID: 2, roleName: 'Faculty' }
-  ]);
-
-  const rolesList = [
-    { roleID: 1, roleName: 'Admin' },
-    { roleID: 2, roleName: 'Faculty' },
-    { roleID: 3, roleName: 'Student' }
-  ];
-
-  const usersList = [
-    { userID: 1, fullName: 'Aarav Patel', email: 'aarav.patel@darshan.ac.in' },
-    { userID: 2, fullName: 'Prof. Madhuresh Fichadiya', email: 'madhuresh.fichadiya@darshan.ac.in' },
-    { userID: 3, fullName: 'Priya Sharma', email: 'priya.sharma@darshan.ac.in' },
-    { userID: 4, fullName: 'Rohan Shah', email: 'rohan.shah@darshan.ac.in' },
-    { userID: 5, fullName: 'Dr. Amit Vora', email: 'amit.vora@darshan.ac.in' }
-  ];
-
-  const filteredUserRoles = userRoles.filter(ur => 
-    ur.userName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    ur.userEmail.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    ur.roleName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleOpenModal = (type, ur = null) => {
-    setModalType(type);
-    if (ur) {
-      setSelectedUserRole(ur);
-      setFormData({
-        userID: ur.userID.toString(),
-        roleID: ur.roleID.toString()
-      });
-    } else {
-      setSelectedUserRole(null);
-      setFormData({
-        userID: '',
-        roleID: ''
-      });
+  const loadUserRoles = useCallback(async () => {
+    setIsLoading(true);
+    setPageError('');
+    try {
+      const [userRolesResponse, rolesResponse, usersResponse] = await Promise.all([
+        userRoleService.getAll(),
+        roleService.getAll(),
+        userService.getAll(),
+      ]);
+      if (!userRolesResponse?.success || !Array.isArray(userRolesResponse.data)) throw new Error(userRolesResponse?.message || 'Unable to load user roles.');
+      setUserRoles(userRolesResponse.data);
+      if (rolesResponse?.success) setRolesList(rolesResponse.data ?? []);
+      if (usersResponse?.success) setUsersList(usersResponse.data ?? []);
+    } catch (error) {
+      setPageError(getApiErrorMessage(error, 'Unable to load user roles.'));
+    } finally {
+      setIsLoading(false);
     }
-    setIsModalOpen(true);
-  };
+  }, []);
 
-  const handleCloseModal = () => {
+  useEffect(() => { void loadUserRoles(); }, [loadUserRoles]);
+
+  const filteredUserRoles = useMemo(() => userRoles.filter((userRole) =>
+    [userRole.fullName, userRole.roleName].some((value) => value?.toLowerCase().includes(searchQuery.toLowerCase())),
+  ), [userRoles, searchQuery]);
+
+  const closeModal = () => {
     setIsModalOpen(false);
     setSelectedUserRole(null);
+    setFormErrors({});
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const selectedUser = usersList.find(u => u.userID.toString() === formData.userID);
-    const selectedRole = rolesList.find(r => r.roleID.toString() === formData.roleID);
-
-    if (!selectedUser || !selectedRole) return;
-
-    if (modalType === 'Add') {
-      const newId = userRoles.length > 0 ? Math.max(...userRoles.map(u => u.rolePermissionID)) + 1 : 1;
-      setUserRoles([...userRoles, {
-        rolePermissionID: newId,
-        userID: selectedUser.userID,
-        userName: selectedUser.fullName,
-        userEmail: selectedUser.email,
-        roleID: selectedRole.roleID,
-        roleName: selectedRole.roleName
-      }]);
-    } else if (modalType === 'Edit' && selectedUserRole) {
-      setUserRoles(userRoles.map(ur => ur.rolePermissionID === selectedUserRole.rolePermissionID ? {
-        ...ur,
-        userID: selectedUser.userID,
-        userName: selectedUser.fullName,
-        userEmail: selectedUser.email,
-        roleID: selectedRole.roleID,
-        roleName: selectedRole.roleName
-      } : ur));
+  const openModal = async (type, userRole = null) => {
+    setMessage('');
+    setFormErrors({});
+    setModalType(type);
+    setIsModalOpen(true);
+    if (!userRole) {
+      setSelectedUserRole(null);
+      setFormData(emptyForm);
+      return;
     }
-    handleCloseModal();
+    setIsDetailsLoading(true);
+    try {
+      const response = await userRoleService.getById(userRole.rolePermissionId);
+      if (!response?.success || !response.data) throw new Error(response?.message || 'Unable to load user role details.');
+      setSelectedUserRole(response.data);
+      setFormData({ roleId: String(response.data.roleId ?? ''), userId: String(response.data.userId ?? '') });
+    } catch (error) {
+      closeModal();
+      setPageError(getApiErrorMessage(error, 'Unable to load user role details.'));
+    } finally {
+      setIsDetailsLoading(false);
+    }
   };
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this User Role mapping?')) {
-      setUserRoles(userRoles.filter(u => u.rolePermissionID !== id));
+  const validate = () => {
+    const errors = {};
+    if (!formData.roleId) errors.roleId = 'Role is required.';
+    if (!formData.userId) errors.userId = 'User is required.';
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!validate() || isSubmitting) return;
+    setIsSubmitting(true);
+    setMessage('');
+    const payload = { roleId: Number(formData.roleId), userId: Number(formData.userId) };
+    try {
+      const response = selectedUserRole
+        ? await userRoleService.update(selectedUserRole.rolePermissionId, payload)
+        : await userRoleService.add(payload);
+      if (!response?.success) throw new Error(response?.message || 'Unable to save user role link.');
+      setMessage(response.message);
+      closeModal();
+      await loadUserRoles();
+    } catch (error) {
+      setFormErrors({ submit: getApiErrorMessage(error, 'Unable to save user role link.') });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this user role link?')) return;
+    setMessage('');
+    try {
+      const response = await userRoleService.remove(id);
+      if (!response?.success) throw new Error(response?.message || 'Unable to delete user role link.');
+      setMessage(response.message);
+      await loadUserRoles();
+    } catch (error) {
+      setPageError(getApiErrorMessage(error, 'Unable to delete user role link.'));
     }
   };
 
@@ -105,35 +131,26 @@ const ManageUserRoles = () => {
     <AdminLayout>
       <div className="page-title-block" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <h1>Manage User Roles</h1>
+          <h1>User Roles Mapping</h1>
           <div className="breadcrumbs">
-            <Link to="/admin/dashboard" style={{ textDecoration: 'none', color: '#64748b' }}>Home</Link> /{' '}
-            <span>User Roles Mapping</span>
+            <Link to="/admin/dashboard" style={{ textDecoration: 'none', color: '#64748b' }}>Home</Link> / <span>User Roles</span>
           </div>
         </div>
-        <button 
-          className="btn-primary" 
-          style={{ width: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}
-          onClick={() => handleOpenModal('Add')}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          Map User to Role
-        </button>
+        <button className="btn-primary" style={{ width: 'auto' }} onClick={() => openModal('Add')}>Add Mapping</button>
       </div>
 
-      {/* Filter and Search */}
+      {message && <p role="status" style={{ color: '#15803d' }}>{message}</p>}
+      {pageError && <p className="error-text" role="alert">{pageError}</p>}
+
       <div className="card" style={{ padding: '16px 20px', marginBottom: '20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f1f5f9', borderRadius: '8px', padding: '8px 14px', maxWidth: '380px' }}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: 'var(--text-muted)' }}>
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input 
-            type="text" 
-            placeholder="Search mapped users/roles..." 
+          <input
+            type="text"
+            placeholder="Search mappings..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{ border: 'none', background: 'transparent', outline: 'none', marginLeft: '10px', width: '100%', fontSize: '0.9rem', color: 'var(--text-main)' }}
@@ -141,288 +158,83 @@ const ManageUserRoles = () => {
         </div>
       </div>
 
-      {/* Data Table */}
       <div className="data-table-container">
         <div className="data-table-header">
-          <span className="table-title">System User Role Allocations (SPM_UserRole)</span>
+          <span className="table-title">User Role Assignments (SPM_UserRole)</span>
         </div>
         <div className="table-responsive">
           <table className="dashboard-table">
             <thead>
               <tr>
-                <th style={{ width: '120px' }}>Mapping ID</th>
-                <th>User Account Name</th>
-                <th>Email Address</th>
-                <th>Assigned System Role</th>
+                <th style={{ width: '80px' }}>ID</th>
+                <th>User</th>
+                <th>Assigned Role</th>
                 <th style={{ width: '220px', textAlign: 'center' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {filteredUserRoles.length > 0 ? (
-                filteredUserRoles.map((ur) => (
-                  <tr key={ur.rolePermissionID}>
-                    <td><span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>#{ur.rolePermissionID}</span></td>
-                    <td>
-                      <span style={{ fontWeight: 600, color: 'var(--text-main)' }}>{ur.userName}</span>
-                    </td>
-                    <td style={{ color: 'var(--text-muted)' }}>{ur.userEmail}</td>
-                    <td>
-                      <span style={{ fontWeight: 700, color: 'var(--primary)' }}>{ur.roleName}</span>
-                    </td>
-                    <td style={{ textAlign: 'center' }}>
-                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
-                        <button 
-                          onClick={() => handleOpenModal('Details', ur)}
-                          style={{
-                            padding: '6px 12px',
-                            backgroundColor: '#e0f2fe',
-                            color: '#0369a1',
-                            border: 'none',
-                            borderRadius: '6px',
-                            fontWeight: 600,
-                            fontSize: '0.8rem',
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px'
-                          }}
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                            <circle cx="12" cy="12" r="3"></circle>
-                          </svg>
-                          View
-                        </button>
-                        <button 
-                          onClick={() => handleOpenModal('Edit', ur)}
-                          style={{
-                            padding: '6px 12px',
-                            backgroundColor: 'var(--primary-light)',
-                            color: 'var(--primary)',
-                            border: 'none',
-                            borderRadius: '6px',
-                            fontWeight: 600,
-                            fontSize: '0.8rem',
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px'
-                          }}
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                            <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                          </svg>
-                          Edit
-                        </button>
-                        <button 
-                          onClick={() => handleDelete(ur.rolePermissionID)}
-                          style={{
-                            padding: '6px 12px',
-                            backgroundColor: '#fee2e2',
-                            color: '#ef4444',
-                            border: 'none',
-                            borderRadius: '6px',
-                            fontWeight: 600,
-                            fontSize: '0.8rem',
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px'
-                          }}
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                          </svg>
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="5" style={{ textAlign: 'center', padding: '30px', color: 'var(--text-muted)' }}>
-                    No mapping found matching "{searchQuery}"
+              <TableState colSpan={4} loading={isLoading} error={pageError} count={filteredUserRoles.length} emptyText={`No mappings found matching "${searchQuery}"`} onRetry={loadUserRoles} />
+              {!isLoading && !pageError && filteredUserRoles.map((userRole) => (
+                <tr key={userRole.rolePermissionId}>
+                  <td><span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>#{userRole.rolePermissionId}</span></td>
+                  <td><span style={{ fontWeight: 600, color: 'var(--text-main)' }}>{userRole.fullName || `User #${userRole.userId}`}</span></td>
+                  <td>
+                    <span className={`badge ${userRole.roleName === 'Admin' ? 'rejected' : userRole.roleName === 'Faculty' ? 'progress' : 'completed'}`}>
+                      {userRole.roleName || '—'}
+                    </span>
+                  </td>
+                  <td style={{ textAlign: 'center' }}>
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                      <button onClick={() => openModal('Details', userRole)} style={{ padding: '6px 12px', backgroundColor: '#e0f2fe', color: '#0369a1', border: 'none', borderRadius: '6px', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>View</button>
+                      <button onClick={() => openModal('Edit', userRole)} style={{ padding: '6px 12px', backgroundColor: 'var(--primary-light)', color: 'var(--primary)', border: 'none', borderRadius: '6px', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>Edit</button>
+                      <button onClick={() => handleDelete(userRole.rolePermissionId)} style={{ padding: '6px 12px', backgroundColor: '#fee2e2', color: '#ef4444', border: 'none', borderRadius: '6px', fontWeight: 600, fontSize: '0.8rem', cursor: 'pointer' }}>Delete</button>
+                    </div>
                   </td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </div>
       </div>
 
-      {/* Modal Dialog */}
       {isModalOpen && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(15, 23, 42, 0.6)',
-          backdropFilter: 'blur(4px)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 9999,
-        }}>
-          <div style={{
-            backgroundColor: 'var(--bg-card)',
-            borderRadius: '16px',
-            boxShadow: 'var(--shadow-lg)',
-            width: '95%',
-            maxWidth: '500px',
-            maxHeight: '90vh',
-            overflowY: 'auto',
-            border: '1px solid var(--border)',
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-            {/* Modal Header */}
-            <div style={{
-              padding: '20px 24px',
-              borderBottom: '1px solid var(--border)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>
-                {modalType === 'Details' ? 'User Role Allocation Details' : `${modalType} User-Role Mapping`}
-              </h3>
-              <button 
-                onClick={handleCloseModal}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--text-muted)',
-                  cursor: 'pointer',
-                  padding: '4px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-            </div>
-
-            {modalType === 'Details' ? (
-              <div style={{ padding: '24px' }}>
-                <div style={{ marginBottom: '20px' }}>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Mapping ID</span>
-                  <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>#{selectedUserRole?.rolePermissionID}</div>
-                </div>
-                <div style={{ marginBottom: '20px' }}>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>User Name</span>
-                  <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-main)', marginTop: '4px' }}>{selectedUserRole?.userName}</div>
-                </div>
-                <div style={{ marginBottom: '20px' }}>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Email Address</span>
-                  <div style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginTop: '4px' }}>{selectedUserRole?.userEmail}</div>
-                </div>
-                <div style={{ marginBottom: '0px' }}>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Assigned System Role</span>
-                  <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary)', marginTop: '4px' }}>{selectedUserRole?.roleName}</div>
-                </div>
-                <div style={{
-                  marginTop: '24px',
-                  borderTop: '1px solid var(--border)',
-                  paddingTop: '16px',
-                  display: 'flex',
-                  justifyContent: 'flex-end'
-                }}>
-                  <button 
-                    onClick={handleCloseModal}
-                    className="btn-primary"
-                    style={{ width: 'auto', padding: '8px 20px' }}
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
+        <div style={{ position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, .6)', display: 'grid', placeItems: 'center', zIndex: 9999 }}>
+          <div style={{ background: 'var(--bg-card)', borderRadius: '16px', width: '95%', maxWidth: '480px', padding: '24px' }}>
+            <h3>{modalType === 'Details' ? 'Mapping Details' : `${modalType} User Role Mapping`}</h3>
+            {isDetailsLoading ? (
+              <p>Loading details…</p>
+            ) : modalType === 'Details' ? (
+              <>
+                <p><strong>Mapping ID:</strong> #{selectedUserRole?.rolePermissionId}</p>
+                <p><strong>User:</strong> {selectedUserRole?.fullName || `User #${selectedUserRole?.userId}`}</p>
+                <p><strong>Role:</strong> {selectedUserRole?.roleName || '—'}</p>
+                <button className="btn-primary" style={{ width: 'auto' }} onClick={closeModal}>Close</button>
+              </>
             ) : (
-              <form onSubmit={handleSubmit}>
-                <div style={{ padding: '24px' }}>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="userID">Select User Account</label>
-                    <select
-                      id="userID"
-                      className="form-control"
-                      value={formData.userID}
-                      onChange={(e) => setFormData({ ...formData, userID: e.target.value })}
-                      required
-                    >
-                      <option value="">Select User...</option>
-                      {usersList.map(u => (
-                        <option key={u.userID} value={u.userID}>{u.fullName} ({u.email})</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="form-group" style={{ marginBottom: 0 }}>
-                    <label className="form-label" htmlFor="roleID">Select System Role</label>
-                    <select
-                      id="roleID"
-                      className="form-control"
-                      value={formData.roleID}
-                      onChange={(e) => setFormData({ ...formData, roleID: e.target.value })}
-                      required
-                    >
-                      <option value="">Select Role...</option>
-                      {rolesList.map(r => (
-                        <option key={r.roleID} value={r.roleID}>{r.roleName}</option>
-                      ))}
-                    </select>
-                  </div>
+              <form onSubmit={handleSubmit} noValidate>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="userId">User</label>
+                  <select id="userId" className="form-control" value={formData.userId} onChange={(e) => setFormData({ ...formData, userId: e.target.value })}>
+                    <option value="">Select User...</option>
+                    {usersList.map((user) => (
+                      <option key={user.userId} value={user.userId}>{user.fullName} ({user.userTypeName})</option>
+                    ))}
+                  </select>
+                  {formErrors.userId && <span className="error-text">{formErrors.userId}</span>}
                 </div>
-
-                {/* Modal Footer */}
-                <div style={{
-                  padding: '16px 24px',
-                  borderTop: '1px solid var(--border)',
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  gap: '12px',
-                  backgroundColor: '#f8fafc',
-                  borderBottomLeftRadius: '16px',
-                  borderBottomRightRadius: '16px',
-                }}>
-                  <button 
-                    type="button" 
-                    onClick={handleCloseModal}
-                    style={{
-                      padding: '8px 16px',
-                      border: '1px solid var(--border)',
-                      backgroundColor: 'white',
-                      borderRadius: '8px',
-                      color: 'var(--text-muted)',
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      fontSize: '0.9rem'
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button 
-                    type="submit" 
-                    style={{
-                      padding: '8px 16px',
-                      backgroundColor: 'var(--primary)',
-                      border: 'none',
-                      borderRadius: '8px',
-                      color: 'white',
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      fontSize: '0.9rem'
-                    }}
-                  >
-                    Save Mapping
-                  </button>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="roleId">Role</label>
+                  <select id="roleId" className="form-control" value={formData.roleId} onChange={(e) => setFormData({ ...formData, roleId: e.target.value })}>
+                    <option value="">Select Role...</option>
+                    {rolesList.map((role) => (
+                      <option key={role.roleId} value={role.roleId}>{role.roleName}</option>
+                    ))}
+                  </select>
+                  {formErrors.roleId && <span className="error-text">{formErrors.roleId}</span>}
                 </div>
+                {formErrors.submit && <p className="error-text" role="alert">{formErrors.submit}</p>}
+                <button type="button" onClick={closeModal}>Cancel</button>{' '}
+                <button type="submit" className="btn-primary" style={{ width: 'auto' }} disabled={isSubmitting}>{isSubmitting ? 'Saving…' : 'Save Mapping'}</button>
               </form>
             )}
           </div>

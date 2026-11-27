@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AdminSidebar from './AdminSidebar';
 import AdminNavbar from './AdminNavbar';
 import AdminFooter from './AdminFooter';

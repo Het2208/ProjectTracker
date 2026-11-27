@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import FacultySidebar from './FacultySidebar';
 import FacultyNavbar from './FacultyNavbar';
 import FacultyFooter from './FacultyFooter';

@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate, Link, Navigate } from 'react-router-dom';
+import { getApiErrorMessage } from '../services/apiClient';
+import { authService } from '../services/authService';
+import { dashboardPathForRole, saveAuth } from '../services/auth';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login, isAuthenticated, role } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validate = () => {
     const tempErrors = {};
-    
+
     if (!email) {
       tempErrors.email = 'Email is required';
     } else {
@@ -22,29 +29,31 @@ const Login = () => {
 
     if (!password) {
       tempErrors.password = 'Password is required';
-    } else if (password.length < 8) {
-      tempErrors.password = 'Password must be at least 8 characters';
     }
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      // Direct routing setup based on email key string
-      let role = 'student';
-      if (email.toLowerCase().includes('faculty')) {
-        role = 'faculty';
-      } else if (email.toLowerCase().includes('admin')) {
-        role = 'admin';
-      }
-
-      // Redirect to correct dashboard URL
-      navigate(`/${role}/dashboard`);
+    setApiError('');
+    if (!validate()) return;
+    setIsSubmitting(true);
+    try {
+      const { token, userRecord } = await authService.login(email.trim(), password);
+      const auth = saveAuth(token, userRecord);
+      login(auth);
+      navigate(dashboardPathForRole(auth.role), { replace: true });
+    } catch (error) {
+      setApiError(getApiErrorMessage(error, 'Invalid credentials. Please check your email and password.'));
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
+  // Already signed in with a valid token → go straight to the role dashboard.
+  if (isAuthenticated) return <Navigate to={dashboardPathForRole(role)} replace />;
 
   return (
     <div className="auth-wrapper">
@@ -100,9 +109,10 @@ const Login = () => {
             </label>
           </div>
 
-          <button type="submit" className="btn-primary">Login in</button>
+          <button type="submit" className="btn-primary" disabled={isSubmitting}>{isSubmitting ? 'Signing in…' : 'Sign in'}</button>
+          {apiError && <p className="error-text" role="alert" style={{ marginTop: '12px' }}>{apiError}</p>}
         </form>
-        
+
         <div className="auth-footer">
           Don't have an account? <Link to="/register">Register here</Link>
         </div>

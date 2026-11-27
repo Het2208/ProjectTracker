@@ -1,437 +1,97 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AdminLayout from './AdminLayout';
-import axios from "axios";
-import { useEffect } from "react";
+import { getApiErrorMessage } from '../services/apiClient';
+import { userTypeService } from '../services/userTypeService';
+
+const emptyForm = { userTypeName: '', description: '' };
 
 const ManageUserTypes = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalType, setModalType] = useState('Add'); // 'Add', 'Edit', 'Details'
-  const [selectedUserType, setSelectedUserType] = useState(null);
-
-  // Form state
-  const [formData, setFormData] = useState({
-    userTypeName: '',
-    description: ''
-  });
-
   const [userTypes, setUserTypes] = useState([]);
-  useEffect(() => {
-    const fetchUserTypes = async () => {
-      try {
-        const response = await axios.get("https://localhost:7264/api/UserType/GetAll");
-        if (response.data && response.data.success && Array.isArray(response.data.data)) {
-          const mappedData = response.data.data.map(ut => ({
-            ...ut,
-            userTypeId: ut.userTypeId !== undefined ? ut.userTypeId : ut.userTypeID
-          }));
-          setUserTypes(mappedData);
-        } else {
-          console.error("Expected array inside APIResponse, got:", response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching user types:", error);
-      }
-    };
+  const [isLoading, setIsLoading] = useState(true);
+  const [pageError, setPageError] = useState('');
+  const [message, setMessage] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState('Add');
+  const [selectedUserType, setSelectedUserType] = useState(null);
+  const [formData, setFormData] = useState(emptyForm);
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDetailsLoading, setIsDetailsLoading] = useState(false);
 
-    fetchUserTypes();
-  }, []);
-
-  const filteredUserTypes = userTypes.filter(ut => 
-    (ut.userTypeName || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
-    (ut.description || '').toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleOpenModal = (type, ut = null) => {
-    setModalType(type);
-    if (ut) {
-      setSelectedUserType(ut);
-      setFormData({
-        userTypeName: ut.userTypeName,
-        description: ut.description || ''
-      });
-    } else {
-      setSelectedUserType(null);
-      setFormData({
-        userTypeName: '',
-        description: ''
-      });
-    }
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedUserType(null);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const loadUserTypes = async () => {
+    setIsLoading(true); setPageError('');
     try {
-      if (modalType === 'Add') {
-        const response = await axios.post("https://localhost:7264/api/UserType/Add", {
-          userTypeName: formData.userTypeName,
-          description: formData.description
-        });
-        if (response.data && response.data.success) {
-          const newData = response.data.data;
-          const mappedNewData = {
-            ...newData,
-            userTypeId: newData.userTypeId !== undefined ? newData.userTypeId : newData.userTypeID
-          };
-          setUserTypes([...userTypes, mappedNewData]);
-        }
-      } else if (modalType === 'Edit' && selectedUserType) {
-        const response = await axios.put(`https://localhost:7264/api/UserType/Update/${selectedUserType.userTypeId}`, {
-          userTypeId: selectedUserType.userTypeId,
-          userTypeName: formData.userTypeName,
-          description: formData.description
-        });
-        if (response.data && response.data.success) {
-          const updatedData = response.data.data;
-          const mappedUpdatedData = {
-            ...updatedData,
-            userTypeId: updatedData.userTypeId !== undefined ? updatedData.userTypeId : updatedData.userTypeID
-          };
-          setUserTypes(userTypes.map(u => u.userTypeId === selectedUserType.userTypeId ? mappedUpdatedData : u));
-        }
-      }
-      handleCloseModal();
-    } catch (error) {
-      console.error("Error saving user type:", error);
-    }
+      const response = await userTypeService.getAll();
+      if (!response?.success || !Array.isArray(response.data)) throw new Error(response?.message || 'Unable to load user types.');
+      setUserTypes(response.data);
+    } catch (error) { setPageError(error.message || getApiErrorMessage(error, 'Unable to load user types.')); }
+    finally { setIsLoading(false); }
+  };
+
+  useEffect(() => { void Promise.resolve().then(loadUserTypes); }, []);
+
+  const filteredUserTypes = userTypes.filter((userType) => [userType.userTypeName, userType.description].some((value) => value?.toLowerCase().includes(searchQuery.toLowerCase())));
+  const closeModal = () => { setIsModalOpen(false); setSelectedUserType(null); setFormErrors({}); };
+
+  const openModal = async (type, userType = null) => {
+    setMessage(''); setFormErrors({}); setModalType(type); setIsModalOpen(true);
+    if (!userType) { setSelectedUserType(null); setFormData(emptyForm); return; }
+    setIsDetailsLoading(true);
+    try {
+      const response = await userTypeService.getById(userType.userTypeID);
+      if (!response?.success || !response.data) throw new Error(response?.message || 'Unable to load user type.');
+      setSelectedUserType(response.data);
+      setFormData({ userTypeName: response.data.userTypeName, description: response.data.description ?? '' });
+    } catch (error) { closeModal(); setPageError(error.message || getApiErrorMessage(error, 'Unable to load user type.')); }
+    finally { setIsDetailsLoading(false); }
+  };
+
+  const validate = () => {
+    const errors = {}; const name = formData.userTypeName.trim(); const description = formData.description.trim();
+    if (!name) errors.userTypeName = 'User type name is required.';
+    else if (name.length > 50) errors.userTypeName = 'User type name cannot exceed 50 characters.';
+    if (description.length > 250) errors.description = 'Description cannot exceed 250 characters.';
+    setFormErrors(errors); return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); if (!validate() || isSubmitting) return;
+    setIsSubmitting(true);
+    const payload = { userTypeName: formData.userTypeName.trim(), description: formData.description.trim() };
+    try {
+      const response = modalType === 'Add' ? await userTypeService.add(payload) : await userTypeService.update(selectedUserType.userTypeID, payload);
+      if (!response?.success) throw new Error(response?.message || 'Unable to save user type.');
+      setMessage(response.message); closeModal(); await loadUserTypes();
+    } catch (error) { setFormErrors({ submit: error.message || getApiErrorMessage(error, 'Unable to save user type.') }); }
+    finally { setIsSubmitting(false); }
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this user type?')) {
-      try {
-        const response = await axios.delete(`https://localhost:7264/api/UserType/Delete/${id}`);
-        if (response.data && response.data.success) {
-          setUserTypes(userTypes.filter(u => u.userTypeId !== id));
-        }
-      } catch (error) {
-        console.error("Error deleting user type:", error);
-      }
-    }
+    if (!window.confirm('Are you sure you want to delete this user type?')) return;
+    setMessage('');
+    try {
+      const response = await userTypeService.remove(id);
+      if (!response?.success) throw new Error(response?.message || 'Unable to delete user type.');
+      setMessage(response.message); await loadUserTypes();
+    } catch (error) { setPageError(error.message || getApiErrorMessage(error, 'Unable to delete user type.')); }
   };
 
-  return (
-    <AdminLayout>
-      <div className="page-title-block" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <h1>Manage User Types</h1>
-          <div className="breadcrumbs">
-            <Link to="/admin/dashboard" style={{ textDecoration: 'none', color: '#64748b' }}>Home</Link> /{' '}
-            <span>User Types</span>
-          </div>
-        </div>
-        <button 
-          className="btn-primary" 
-          style={{ width: 'auto', display: 'flex', alignItems: 'center', gap: '8px' }}
-          onClick={() => handleOpenModal('Add')}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          Add User Type
-        </button>
-      </div>
-
-      {/* Filter and Search */}
-      <div className="card" style={{ padding: '16px 20px', marginBottom: '20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', backgroundColor: '#f1f5f9', borderRadius: '8px', padding: '8px 14px', maxWidth: '380px' }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: 'var(--text-muted)' }}>
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-          <input 
-            type="text" 
-            placeholder="Search user types..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ border: 'none', background: 'transparent', outline: 'none', marginLeft: '10px', width: '100%', fontSize: '0.9rem', color: 'var(--text-main)' }}
-          />
-        </div>
-      </div>
-
-      {/* Data Table */}
-      <div className="data-table-container">
-        <div className="data-table-header">
-          <span className="table-title">System User Types (SPM_UserType)</span>
-        </div>
-        <div className="table-responsive">
-          <table className="dashboard-table">
-            <thead>
-              <tr>
-                <th style={{ width: '100px' }}>Type ID</th>
-                <th style={{ width: '200px' }}>User Type Name</th>
-                <th>Description</th>
-                <th style={{ width: '220px', textAlign: 'center' }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUserTypes.length > 0 ? (
-                filteredUserTypes.map((ut) => (
-                  <tr key={ut.userTypeId}>
-                    <td><span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>#{ut.userTypeId}</span></td>
-                    <td>
-                      <span style={{ fontWeight: 600, color: 'var(--text-main)' }}>{ut.userTypeName}</span>
-                    </td>
-                    <td style={{ color: 'var(--text-muted)', lineHeight: '1.4' }}>{ut.description}</td>
-                    <td style={{ textAlign: 'center' }}>
-                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
-                        <button 
-                          onClick={() => handleOpenModal('Details', ut)}
-                          style={{
-                            padding: '6px 12px',
-                            backgroundColor: '#e0f2fe',
-                            color: '#0369a1',
-                            border: 'none',
-                            borderRadius: '6px',
-                            fontWeight: 600,
-                            fontSize: '0.8rem',
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px'
-                          }}
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                            <circle cx="12" cy="12" r="3"></circle>
-                          </svg>
-                          View
-                        </button>
-                        <button 
-                          onClick={() => handleOpenModal('Edit', ut)}
-                          style={{
-                            padding: '6px 12px',
-                            backgroundColor: 'var(--primary-light)',
-                            color: 'var(--primary)',
-                            border: 'none',
-                            borderRadius: '6px',
-                            fontWeight: 600,
-                            fontSize: '0.8rem',
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px'
-                          }}
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                            <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                          </svg>
-                          Edit
-                        </button>
-                        <button 
-                          onClick={() => handleDelete(ut.userTypeId)}
-                          style={{
-                            padding: '6px 12px',
-                            backgroundColor: '#fee2e2',
-                            color: '#ef4444',
-                            border: 'none',
-                            borderRadius: '6px',
-                            fontWeight: 600,
-                            fontSize: '0.8rem',
-                            cursor: 'pointer',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px'
-                          }}
-                        >
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <polyline points="3 6 5 6 21 6"></polyline>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                          </svg>
-                          Delete
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4" style={{ textAlign: 'center', padding: '30px', color: 'var(--text-muted)' }}>
-                    No user types found matching "{searchQuery}"
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Modal Dialog */}
-      {isModalOpen && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(15, 23, 42, 0.6)',
-          backdropFilter: 'blur(4px)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 9999,
-        }}>
-          <div style={{
-            backgroundColor: 'var(--bg-card)',
-            borderRadius: '16px',
-            boxShadow: 'var(--shadow-lg)',
-            width: '95%',
-            maxWidth: '500px',
-            maxHeight: '90vh',
-            overflowY: 'auto',
-            border: '1px solid var(--border)',
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-            {/* Modal Header */}
-            <div style={{
-              padding: '20px 24px',
-              borderBottom: '1px solid var(--border)',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>
-                {modalType === 'Details' ? 'User Type Details' : `${modalType} User Type`}
-              </h3>
-              <button 
-                onClick={handleCloseModal}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--text-muted)',
-                  cursor: 'pointer',
-                  padding: '4px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-            </div>
-
-            {modalType === 'Details' ? (
-              <div style={{ padding: '24px' }}>
-                <div style={{ marginBottom: '20px' }}>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>User Type ID</span>
-                  <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-main)', marginTop: '4px' }}>#{selectedUserType?.userTypeId}</div>
-                </div>
-                <div style={{ marginBottom: '20px' }}>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>User Type Name</span>
-                  <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--primary)', marginTop: '4px' }}>{selectedUserType?.userTypeName}</div>
-                </div>
-                <div style={{ marginBottom: '0px' }}>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Description</span>
-                  <div style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: '1.5', marginTop: '6px' }}>{selectedUserType?.description}</div>
-                </div>
-                <div style={{
-                  marginTop: '24px',
-                  borderTop: '1px solid var(--border)',
-                  paddingTop: '16px',
-                  display: 'flex',
-                  justifyContent: 'flex-end'
-                }}>
-                  <button 
-                    onClick={handleCloseModal}
-                    className="btn-primary"
-                    style={{ width: 'auto', padding: '8px 20px' }}
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <div style={{ padding: '24px' }}>
-                  <div className="form-group">
-                    <label className="form-label" htmlFor="userTypeName">User Type Name</label>
-                    <input 
-                      type="text" 
-                      id="userTypeName"
-                      className="form-control" 
-                      placeholder="Enter user type name (e.g. Guest)"
-                      value={formData.userTypeName}
-                      onChange={(e) => setFormData({ ...formData, userTypeName: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div className="form-group" style={{ marginBottom: 0 }}>
-                    <label className="form-label" htmlFor="description">Description</label>
-                    <textarea 
-                      id="description"
-                      className="form-control" 
-                      placeholder="Enter a brief description of this user type..."
-                      rows="4"
-                      value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      style={{ resize: 'vertical' }}
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* Modal Footer */}
-                <div style={{
-                  padding: '16px 24px',
-                  borderTop: '1px solid var(--border)',
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  gap: '12px',
-                  backgroundColor: '#f8fafc',
-                  borderBottomLeftRadius: '16px',
-                  borderBottomRightRadius: '16px',
-                }}>
-                  <button 
-                    type="button" 
-                    onClick={handleCloseModal}
-                    style={{
-                      padding: '8px 16px',
-                      border: '1px solid var(--border)',
-                      backgroundColor: 'white',
-                      borderRadius: '8px',
-                      color: 'var(--text-muted)',
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      fontSize: '0.9rem'
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  <button 
-                    type="submit" 
-                    style={{
-                      padding: '8px 16px',
-                      backgroundColor: 'var(--primary)',
-                      border: 'none',
-                      borderRadius: '8px',
-                      color: 'white',
-                      fontWeight: 600,
-                      cursor: 'pointer',
-                      fontSize: '0.9rem'
-                    }}
-                  >
-                    Save User Type
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
-    </AdminLayout>
-  );
+  return <AdminLayout>
+    <div className="page-title-block" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div><h1>Manage User Types</h1><div className="breadcrumbs"><Link to="/admin/dashboard" style={{ textDecoration: 'none', color: '#64748b' }}>Home</Link> / <span>User Types</span></div></div>
+      <button className="btn-primary" style={{ width: 'auto' }} onClick={() => openModal('Add')}>Add User Type</button>
+    </div>
+    {message && <p role="status" style={{ color: '#15803d' }}>{message}</p>}{pageError && <p className="error-text" role="alert">{pageError}</p>}
+    <div className="card" style={{ padding: '16px 20px', marginBottom: '20px' }}><input type="search" className="form-control" placeholder="Search user types..." value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} /></div>
+    <div className="data-table-container"><div className="data-table-header"><span className="table-title">System User Types</span></div><div className="table-responsive"><table className="dashboard-table"><thead><tr><th>Type ID</th><th>User Type Name</th><th>Description</th><th style={{ textAlign: 'center' }}>Actions</th></tr></thead><tbody>
+      {isLoading ? <tr><td colSpan="4" style={{ textAlign: 'center', padding: '30px' }}>Loading user types…</td></tr> : filteredUserTypes.length ? filteredUserTypes.map((userType) => <tr key={userType.userTypeID}><td>#{userType.userTypeID}</td><td>{userType.userTypeName}</td><td>{userType.description || '—'}</td><td style={{ textAlign: 'center' }}><button onClick={() => openModal('Details', userType)}>View</button>{' '}<button onClick={() => openModal('Edit', userType)}>Edit</button>{' '}<button onClick={() => handleDelete(userType.userTypeID)}>Delete</button></td></tr>) : <tr><td colSpan="4" style={{ textAlign: 'center', padding: '30px' }}>No user types found.</td></tr>}
+    </tbody></table></div></div>
+    {isModalOpen && <div style={{ position: 'fixed', inset: 0, background: 'rgba(15, 23, 42, .6)', display: 'grid', placeItems: 'center', zIndex: 9999 }}><div style={{ background: 'var(--bg-card)', borderRadius: '16px', width: '95%', maxWidth: '500px', padding: '24px' }}><h3>{modalType === 'Details' ? 'User Type Details' : `${modalType} User Type`}</h3>
+      {isDetailsLoading ? <p>Loading details…</p> : modalType === 'Details' ? <><p><strong>Type ID:</strong> #{selectedUserType?.userTypeID}</p><p><strong>Name:</strong> {selectedUserType?.userTypeName}</p><p><strong>Description:</strong> {selectedUserType?.description || '—'}</p><button className="btn-primary" style={{ width: 'auto' }} onClick={closeModal}>Close</button></> : <form onSubmit={handleSubmit} noValidate><div className="form-group"><label className="form-label" htmlFor="userTypeName">User Type Name</label><input id="userTypeName" className="form-control" maxLength="50" value={formData.userTypeName} onChange={(event) => setFormData({ ...formData, userTypeName: event.target.value })} />{formErrors.userTypeName && <span className="error-text">{formErrors.userTypeName}</span>}</div><div className="form-group"><label className="form-label" htmlFor="description">Description</label><textarea id="description" className="form-control" rows="4" maxLength="250" value={formData.description} onChange={(event) => setFormData({ ...formData, description: event.target.value })} />{formErrors.description && <span className="error-text">{formErrors.description}</span>}</div>{formErrors.submit && <p className="error-text">{formErrors.submit}</p>}<button type="button" onClick={closeModal}>Cancel</button>{' '}<button type="submit" className="btn-primary" style={{ width: 'auto' }} disabled={isSubmitting}>{isSubmitting ? 'Saving…' : 'Save User Type'}</button></form>}
+    </div></div>}
+  </AdminLayout>;
 };
 
 export default ManageUserTypes;

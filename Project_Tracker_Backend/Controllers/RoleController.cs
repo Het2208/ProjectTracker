@@ -1,11 +1,9 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Project_Tracker_Backend.Comman;
-using Project_Tracker_Backend.Data;
 using Project_Tracker_Backend.DTOs;
-using Project_Tracker_Backend.Models;
+using Project_Tracker_Backend.Services;
 
 namespace Project_Tracker_Backend.Controllers
 {
@@ -14,16 +12,16 @@ namespace Project_Tracker_Backend.Controllers
     [ApiController]
     public class RoleController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IRoleService _roleService;
         private readonly IValidator<RoleCreateDTO> _createValidator;
         private readonly IValidator<RoleUpdateDTO> _updateValidator;
 
         public RoleController(
-            AppDbContext context,
+            IRoleService roleService,
             IValidator<RoleCreateDTO> createValidator,
             IValidator<RoleUpdateDTO> updateValidator)
         {
-            _context = context;
+            _roleService = roleService;
             _createValidator = createValidator;
             _updateValidator = updateValidator;
         }
@@ -31,14 +29,7 @@ namespace Project_Tracker_Backend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var roles = await _context.Role
-                .Select(r => new RoleReadDTO
-                {
-                    RoleId = r.RoleId,
-                    RoleName = r.RoleName,
-                    Description = r.Description
-                })
-                .ToListAsync();
+            var roles = await _roleService.GetAllAsync();
 
             return Ok(new APIResponse<List<RoleReadDTO>>
             {
@@ -51,15 +42,7 @@ namespace Project_Tracker_Backend.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var role = await _context.Role
-                .Where(r => r.RoleId == id)
-                .Select(r => new RoleReadDTO
-                {
-                    RoleId = r.RoleId,
-                    RoleName = r.RoleName,
-                    Description = r.Description
-                })
-                .FirstOrDefaultAsync();
+            var role = await _roleService.GetByIdAsync(id);
 
             if (role == null)
             {
@@ -97,22 +80,7 @@ namespace Project_Tracker_Backend.Controllers
 
             try
             {
-                var role = new Role
-                {
-                    RoleName = dto.RoleName,
-                    Description = dto.Description
-                };
-
-                _context.Role.Add(role);
-
-                await _context.SaveChangesAsync();
-
-                var result = new RoleReadDTO
-                {
-                    RoleId = role.RoleId,
-                    RoleName = role.RoleName,
-                    Description = role.Description
-                };
+                var result = await _roleService.AddAsync(dto);
 
                 return Ok(new APIResponse<RoleReadDTO>
                 {
@@ -151,9 +119,9 @@ namespace Project_Tracker_Backend.Controllers
 
             try
             {
-                var existingRole = await _context.Role.FindAsync(id);
+                var result = await _roleService.UpdateAsync(id, dto);
 
-                if (existingRole == null)
+                if (result == null)
                 {
                     return NotFound(new APIResponse<RoleReadDTO>
                     {
@@ -161,18 +129,6 @@ namespace Project_Tracker_Backend.Controllers
                         Message = "Role not found"
                     });
                 }
-
-                existingRole.RoleName = dto.RoleName;
-                existingRole.Description = dto.Description;
-
-                await _context.SaveChangesAsync();
-
-                var result = new RoleReadDTO
-                {
-                    RoleId = existingRole.RoleId,
-                    RoleName = existingRole.RoleName,
-                    Description = existingRole.Description
-                };
 
                 return Ok(new APIResponse<RoleReadDTO>
                 {
@@ -197,9 +153,9 @@ namespace Project_Tracker_Backend.Controllers
         {
             try
             {
-                var role = await _context.Role.FindAsync(id);
+                var deleted = await _roleService.DeleteAsync(id);
 
-                if (role == null)
+                if (!deleted)
                 {
                     return NotFound(new APIResponse<object>
                     {
@@ -207,10 +163,6 @@ namespace Project_Tracker_Backend.Controllers
                         Message = "Role not found"
                     });
                 }
-
-                _context.Role.Remove(role);
-
-                await _context.SaveChangesAsync();
 
                 return Ok(new APIResponse<object>
                 {

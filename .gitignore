@@ -7,10 +7,14 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Node / Frontend
 node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.production
+.env.local
 
 # Editor directories and files
 .vscode/*
@@ -18,7 +22,22 @@ dist-ssr
 .idea
 .DS_Store
 *.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio / Rider / Diagnostics
+.vs/
+TestResults/
+*.dtbcache.v2
+*.vsidx
+
+# Build artifacts (.NET)
+**/bin/
+**/obj/
+**/publish/
+
+# Local configuration overrides containing potential secrets
+appsettings.Development.json
+appsettings.Production.json
+appsettings.*.local.json

@@ -3,6 +3,45 @@
   "WorkspaceRootPath": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{BB89A2C5-05E4-4CC0-8021-31B486089B00}|..\\Project_Tracker_Backend.test\\Project_Tracker_Backend.test.csproj|e:\\project\\project_tracker\\project_tracker_backend.test\\roleservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\validators\\uservalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:validators\\uservalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\services\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:services\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\dtos\\roledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:dtos\\roledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\comman\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:comman\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\repository\\rolerepository\\rolerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:repository\\rolerepository\\rolerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\repository\\rolerepository\\irolerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:repository\\rolerepository\\irolerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +52,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\services\\ifileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,10 +68,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\controllers\\userrolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -79,14 +110,6 @@
       "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:validators\\taskvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\validators\\uservalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:validators\\uservalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260801112502_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Migrations\\20260801112502_InitialCreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -127,20 +150,12 @@
       "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:models\\role.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\dtos\\roledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:dtos\\roledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\controllers\\usertypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:controllers\\usertypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\validators\\rolevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:validators\\rolevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\comman\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|solutionrelative:comman\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A89FAC8A-8360-F3E7-94F2-DA388F272FAF}|Project_Tracker_Backend.csproj|e:\\project\\project_tracker\\project_tracker_backend\\controllers\\dashboardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -226,11 +241,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 36,
               "Title": "Role.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Models\\Role.cs",
               "RelativeDocumentMoniker": "Models\\Role.cs",
@@ -243,7 +258,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 3,
               "Title": "RoleDTO.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\DTOs\\RoleDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\RoleDTO.cs",
@@ -252,24 +267,25 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-06T14:53:25.369Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 6,
               "Title": "RoleController.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\RoleController.cs",
               "RelativeDocumentMoniker": "Controllers\\RoleController.cs",
               "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\RoleController.cs",
               "RelativeToolTip": "Controllers\\RoleController.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAQwAwAAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-08T16:43:20.279Z",
               "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 37,
               "Title": "UserTypeController.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\UserTypeController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserTypeController.cs",
@@ -282,7 +298,107 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RoleServiceTests.cs",
+              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend.test\\RoleServiceTests.cs",
+              "RelativeDocumentMoniker": "..\\Project_Tracker_Backend.test\\RoleServiceTests.cs",
+              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend.test\\RoleServiceTests.cs",
+              "RelativeToolTip": "..\\Project_Tracker_Backend.test\\RoleServiceTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-25T05:50:39.515Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "RoleService.cs",
+              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Services\\RoleService.cs",
+              "RelativeDocumentMoniker": "Services\\RoleService.cs",
+              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Services\\RoleService.cs",
+              "RelativeToolTip": "Services\\RoleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-25T05:35:21.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "APIResponse.cs",
+              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Comman\\APIResponse.cs",
+              "RelativeDocumentMoniker": "Comman\\APIResponse.cs",
+              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Comman\\APIResponse.cs",
+              "RelativeToolTip": "Comman\\APIResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-14T04:51:31.934Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserValidator.cs",
+              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\UserValidator.cs",
+              "RelativeDocumentMoniker": "Validators\\UserValidator.cs",
+              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\UserValidator.cs",
+              "RelativeToolTip": "Validators\\UserValidator.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAAAEgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-10T17:22:19.592Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Services\\TokenService.cs",
+              "RelativeDocumentMoniker": "Services\\TokenService.cs",
+              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Services\\TokenService.cs",
+              "RelativeToolTip": "Services\\TokenService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-09T07:40:21.845Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T16:52:26.651Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RoleRepository.cs",
+              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Repository\\RoleRepository\\RoleRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\RoleRepository\\RoleRepository.cs",
+              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Repository\\RoleRepository\\RoleRepository.cs",
+              "RelativeToolTip": "Repository\\RoleRepository\\RoleRepository.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwA4AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-23T07:49:05.998Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IRoleRepository.cs",
+              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Repository\\RoleRepository\\IRoleRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\RoleRepository\\IRoleRepository.cs",
+              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Repository\\RoleRepository\\IRoleRepository.cs",
+              "RelativeToolTip": "Repository\\RoleRepository\\IRoleRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-23T07:46:03.437Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "UserController.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
@@ -290,12 +406,11 @@
               "RelativeToolTip": "Controllers\\UserController.cs",
               "ViewState": "AgIAAHUAAAAAAAAAAAA5wAUAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-01T11:45:38.458Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-01T11:45:38.458Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 11,
               "Title": "ProjectMasterController.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\ProjectMasterController.cs",
               "RelativeDocumentMoniker": "Controllers\\ProjectMasterController.cs",
@@ -303,37 +418,23 @@
               "RelativeToolTip": "Controllers\\ProjectMasterController.cs",
               "ViewState": "AgIAABEAAAAAAAAAAAAgwMAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-10T17:34:20.737Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-09-10T17:34:20.737Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 10,
               "Title": "TaskController.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\TaskController.cs",
               "RelativeDocumentMoniker": "Controllers\\TaskController.cs",
               "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\TaskController.cs",
               "RelativeToolTip": "Controllers\\TaskController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJ0AAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-12T07:23:28.92Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-12T07:23:28.92Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAQwF0AAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-08T16:52:26.651Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 14,
               "Title": "User.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Models\\User.cs",
               "RelativeDocumentMoniker": "Models\\User.cs",
@@ -345,7 +446,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
               "Title": "IFileService.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Services\\IFileService.cs",
               "RelativeDocumentMoniker": "Services\\IFileService.cs",
@@ -357,7 +458,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 15,
               "Title": "UserDTO.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\DTOs\\UserDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\UserDTO.cs",
@@ -369,7 +470,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 16,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
@@ -381,19 +482,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "TokenService.cs",
-              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Services\\TokenService.cs",
-              "RelativeDocumentMoniker": "Services\\TokenService.cs",
-              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Services\\TokenService.cs",
-              "RelativeToolTip": "Services\\TokenService.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAYwCIAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-09T07:40:21.845Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 17,
               "Title": "UserRoleController.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\UserRoleController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserRoleController.cs",
@@ -405,7 +494,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 18,
               "Title": "UserRoleDTO.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\DTOs\\UserRoleDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\UserRoleDTO.cs",
@@ -417,7 +506,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 19,
               "Title": "TaskStatusController.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\TaskStatusController.cs",
               "RelativeDocumentMoniker": "Controllers\\TaskStatusController.cs",
@@ -429,7 +518,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 20,
               "Title": "TaskPriorityController.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\TaskPriorityController.cs",
               "RelativeDocumentMoniker": "Controllers\\TaskPriorityController.cs",
@@ -441,7 +530,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 21,
               "Title": "ProjectAllocationController.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\ProjectAllocationController.cs",
               "RelativeDocumentMoniker": "Controllers\\ProjectAllocationController.cs",
@@ -453,7 +542,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 22,
               "Title": "UserRoleValidator.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\UserRoleValidator.cs",
               "RelativeDocumentMoniker": "Validators\\UserRoleValidator.cs",
@@ -465,7 +554,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 23,
               "Title": "ProjectAllocationValidator.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\ProjectAllocationValidator.cs",
               "RelativeDocumentMoniker": "Validators\\ProjectAllocationValidator.cs",
@@ -477,7 +566,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 24,
               "Title": "TaskStatusValidator.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\TaskStatusValidator.cs",
               "RelativeDocumentMoniker": "Validators\\TaskStatusValidator.cs",
@@ -489,7 +578,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 25,
               "Title": "TaskPriorityValidator.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\TaskPriorityValidator.cs",
               "RelativeDocumentMoniker": "Validators\\TaskPriorityValidator.cs",
@@ -501,7 +590,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 26,
               "Title": "TaskValidator.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\TaskValidator.cs",
               "RelativeDocumentMoniker": "Validators\\TaskValidator.cs",
@@ -513,19 +602,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "UserValidator.cs",
-              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\UserValidator.cs",
-              "RelativeDocumentMoniker": "Validators\\UserValidator.cs",
-              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\UserValidator.cs",
-              "RelativeToolTip": "Validators\\UserValidator.cs",
-              "ViewState": "AgIAAFQAAAAAAAAAAAAAAFkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-10T17:22:19.592Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 39,
               "Title": "DashboardController.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Controllers\\DashboardController.cs",
               "RelativeDocumentMoniker": "Controllers\\DashboardController.cs",
@@ -537,19 +614,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "APIResponse.cs",
-              "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Comman\\APIResponse.cs",
-              "RelativeDocumentMoniker": "Comman\\APIResponse.cs",
-              "ToolTip": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Comman\\APIResponse.cs",
-              "RelativeToolTip": "Comman\\APIResponse.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-14T04:51:31.934Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 38,
               "Title": "RoleValidator.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\RoleValidator.cs",
               "RelativeDocumentMoniker": "Validators\\RoleValidator.cs",
@@ -561,7 +626,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 40,
               "Title": "AppDBContext.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Data\\AppDBContext.cs",
               "RelativeDocumentMoniker": "Data\\AppDBContext.cs",
@@ -573,7 +638,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 41,
               "Title": "UserTypeValidator.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Validators\\UserTypeValidator.cs",
               "RelativeDocumentMoniker": "Validators\\UserTypeValidator.cs",
@@ -585,7 +650,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 42,
               "Title": "ProjectMasterDTO.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\DTOs\\ProjectMasterDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\ProjectMasterDTO.cs",
@@ -597,7 +662,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 43,
               "Title": "ProjectAllocationDTO.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\DTOs\\ProjectAllocationDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\ProjectAllocationDTO.cs",
@@ -609,7 +674,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 44,
               "Title": "TaskDTO.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\DTOs\\TaskDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\TaskDTO.cs",
@@ -621,7 +686,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 45,
               "Title": "UserType.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Models\\UserType.cs",
               "RelativeDocumentMoniker": "Models\\UserType.cs",
@@ -633,7 +698,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 46,
               "Title": "UserTypeDTO.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\DTOs\\UserTypeDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\UserTypeDTO.cs",
@@ -645,7 +710,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 47,
               "Title": "TaskPriorityDTO.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\DTOs\\TaskPriorityDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\TaskPriorityDTO.cs",
@@ -657,7 +722,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 48,
               "Title": "TaskStatusDTO.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\DTOs\\TaskStatusDTO.cs",
               "RelativeDocumentMoniker": "DTOs\\TaskStatusDTO.cs",
@@ -669,7 +734,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 49,
               "Title": "20260818145014_fouthCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260818145014_fouthCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260818145014_fouthCreate.cs",
@@ -681,7 +746,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 50,
               "Title": "20260801115306_thirdCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260801115306_thirdCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260801115306_thirdCreate.cs",
@@ -693,7 +758,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 51,
               "Title": "UserRole.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Models\\UserRole.cs",
               "RelativeDocumentMoniker": "Models\\UserRole.cs",
@@ -705,7 +770,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 52,
               "Title": "TaskPriority.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Models\\TaskPriority.cs",
               "RelativeDocumentMoniker": "Models\\TaskPriority.cs",
@@ -717,7 +782,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 53,
               "Title": "TaskStatus.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Models\\TaskStatus.cs",
               "RelativeDocumentMoniker": "Models\\TaskStatus.cs",
@@ -729,7 +794,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 54,
               "Title": "ProjectAllocation.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Models\\ProjectAllocation.cs",
               "RelativeDocumentMoniker": "Models\\ProjectAllocation.cs",
@@ -741,7 +806,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 55,
               "Title": "Task.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Models\\Task.cs",
               "RelativeDocumentMoniker": "Models\\Task.cs",
@@ -753,7 +818,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 56,
               "Title": "ProjectMaster.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Models\\ProjectMaster.cs",
               "RelativeDocumentMoniker": "Models\\ProjectMaster.cs",
@@ -765,7 +830,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 57,
               "Title": "20260801114723_secondCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260801114723_secondCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260801114723_secondCreate.cs",
@@ -777,7 +842,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 27,
               "Title": "20260801112502_InitialCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260801112502_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260801112502_InitialCreate.cs",
@@ -788,7 +853,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 28,
               "Title": "20260801112218_InitialCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260801112218_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260801112218_InitialCreate.cs",
@@ -799,7 +864,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 32,
               "Title": "20260731053136_initialCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260731053136_initialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260731053136_initialCreate.cs",
@@ -810,7 +875,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 29,
               "Title": "20260731053854_initialCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260731053854_initialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260731053854_initialCreate.cs",
@@ -821,7 +886,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 31,
               "Title": "20260731053428_secondCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260731053428_secondCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260731053428_secondCreate.cs",
@@ -832,7 +897,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 30,
               "Title": "20260731053627_initialCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260731053627_initialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260731053627_initialCreate.cs",
@@ -843,7 +908,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 33,
               "Title": "20260717055228_InitialCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260717055228_InitialCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260717055228_InitialCreate.cs",
@@ -854,7 +919,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 34,
               "Title": "20260717052933_FourthCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260717052933_FourthCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260717052933_FourthCreate.cs",
@@ -865,7 +930,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 35,
               "Title": "20260717052415_ThirdCreate.cs",
               "DocumentMoniker": "E:\\Project\\project_tracker\\Project_Tracker_Backend\\Migrations\\20260717052415_ThirdCreate.cs",
               "RelativeDocumentMoniker": "Migrations\\20260717052415_ThirdCreate.cs",

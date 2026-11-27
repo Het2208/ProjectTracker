@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { authService } from '../services/authService';
+import { getApiErrorMessage } from '../services/apiClient';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -22,6 +24,9 @@ const Register = () => {
   const [areaOfExpertise, setAreaOfExpertise] = useState('');
 
   const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState('');
+  const [apiSuccess, setApiSuccess] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const validate = () => {
     const tempErrors = {};
@@ -53,10 +58,6 @@ const Register = () => {
       tempErrors.mobileNumber = 'Mobile number must be exactly 10 digits';
     }
 
-    if (!profilePicture) {
-      tempErrors.profilePicture = 'Profile picture is required';
-    }
-
     // Role specific validation
     if (role === 'student') {
       if (!enrollmentNumber.trim()) tempErrors.enrollmentNumber = 'Enrollment number is required';
@@ -78,11 +79,11 @@ const Register = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+      const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.webp)$/i;
       if (!allowedExtensions.exec(file.name)) {
         setErrors((prev) => ({
           ...prev,
-          profilePicture: 'Only JPG, JPEG, and PNG formats are allowed'
+          profilePicture: 'Only JPG, JPEG, PNG, and WEBP formats are allowed'
         }));
         setProfilePicture(null);
       } else {
@@ -96,11 +97,53 @@ const Register = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      alert('Registration Successful! Redirecting to Login.');
-      navigate('/');
+    setApiError('');
+    setApiSuccess('');
+
+    if (!validate()) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('Role', role === 'student' ? 'Student' : 'Faculty');
+      formData.append('FullName', fullName.trim());
+      formData.append('Email', email.trim());
+      formData.append('Password', password);
+      formData.append('MobileNumber', mobileNumber.trim());
+
+      if (profilePicture) {
+        formData.append('ProfilePicture', profilePicture);
+      }
+
+      if (role === 'student') {
+        formData.append('EnrollmentNumber', enrollmentNumber.trim());
+        formData.append('Department', department);
+        formData.append('Semester', semester);
+        formData.append('Division', division.trim());
+        formData.append('Batch', batch.trim());
+      } else {
+        formData.append('FacultyId', facultyId.trim());
+        formData.append('Department', department);
+        formData.append('Designation', designation);
+        formData.append('AreaOfExpertise', areaOfExpertise.trim());
+      }
+
+      const response = await authService.register(formData);
+      if (response?.success) {
+        setApiSuccess('Registration successful! Redirecting to login in 2 seconds...');
+        setTimeout(() => {
+          navigate('/');
+        }, 2000);
+      } else {
+        setApiError(response?.message || 'Registration failed. Please try again.');
+      }
+    } catch (err) {
+      setApiError(getApiErrorMessage(err, 'Registration failed. Please check the information provided.'));
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -126,29 +169,30 @@ const Register = () => {
               id="role"
               className="form-control"
               value={role}
-              onChange={(e) => setRole(e.target.value)}
+              onChange={(e) => {
+                setRole(e.target.value);
+                setErrors({});
+              }}
             >
               <option value="student">Student</option>
               <option value="faculty">Faculty Member</option>
             </select>
           </div>
 
-          <h4 style={{ margin: '20px 0 10px', color: '#0f172a' }}>Personal Details</h4>
+          <div className="form-group">
+            <label className="form-label" htmlFor="fullName">Full Name</label>
+            <input
+              type="text"
+              id="fullName"
+              className="form-control"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              placeholder="e.g. John Doe"
+            />
+            {errors.fullName && <span className="error-text">{errors.fullName}</span>}
+          </div>
 
           <div className="form-row">
-            <div className="form-group">
-              <label className="form-label" htmlFor="fullName">Full Name</label>
-              <input
-                type="text"
-                id="fullName"
-                className="form-control"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="e.g. Aarav Patel"
-              />
-              {errors.fullName && <span className="error-text">{errors.fullName}</span>}
-            </div>
-
             <div className="form-group">
               <label className="form-label" htmlFor="email">Email Address</label>
               <input
@@ -157,9 +201,22 @@ const Register = () => {
                 className="form-control"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="e.g. aarav@darshan.ac.in"
+                placeholder="name@domain.edu"
               />
               {errors.email && <span className="error-text">{errors.email}</span>}
+            </div>
+
+            <div className="form-group">
+              <label className="form-label" htmlFor="mobileNumber">Mobile Number</label>
+              <input
+                type="tel"
+                id="mobileNumber"
+                className="form-control"
+                value={mobileNumber}
+                onChange={(e) => setMobileNumber(e.target.value)}
+                placeholder="10 digit number"
+              />
+              {errors.mobileNumber && <span className="error-text">{errors.mobileNumber}</span>}
             </div>
           </div>
 
@@ -185,43 +242,28 @@ const Register = () => {
                 className="form-control"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Retype password"
+                placeholder="Re-type password"
               />
               {errors.confirmPassword && <span className="error-text">{errors.confirmPassword}</span>}
             </div>
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <label className="form-label" htmlFor="mobileNumber">Mobile Number</label>
-              <input
-                type="text"
-                id="mobileNumber"
-                className="form-control"
-                value={mobileNumber}
-                onChange={(e) => setMobileNumber(e.target.value)}
-                placeholder="10-digit number"
-              />
-              {errors.mobileNumber && <span className="error-text">{errors.mobileNumber}</span>}
-            </div>
-
-            <div className="form-group">
-              <label className="form-label" htmlFor="profilePicture">Profile Picture</label>
-              <input
-                type="file"
-                id="profilePicture"
-                className="form-control"
-                onChange={handleFileChange}
-                accept=".png,.jpg,.jpeg"
-              />
-              {errors.profilePicture && <span className="error-text">{errors.profilePicture}</span>}
-            </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="profilePicture">Profile Picture (Optional)</label>
+            <input
+              type="file"
+              id="profilePicture"
+              className="form-control"
+              accept=".jpg,.jpeg,.png,.webp"
+              onChange={handleFileChange}
+            />
+            {errors.profilePicture && <span className="error-text">{errors.profilePicture}</span>}
           </div>
 
           {/* Student Specific Fields */}
           {role === 'student' && (
             <>
-              <h4 style={{ margin: '20px 0 10px', color: '#0f172a' }}>Academic Details</h4>
+              <h4 style={{ margin: '20px 0 10px', color: '#0f172a' }}>Student Academic Details</h4>
               <div className="form-row">
                 <div className="form-group">
                   <label className="form-label" htmlFor="enrollmentNumber">Enrollment Number</label>
@@ -231,7 +273,7 @@ const Register = () => {
                     className="form-control"
                     value={enrollmentNumber}
                     onChange={(e) => setEnrollmentNumber(e.target.value)}
-                    placeholder="Enrollment number"
+                    placeholder="Enrollment / Roll No"
                   />
                   {errors.enrollmentNumber && <span className="error-text">{errors.enrollmentNumber}</span>}
                 </div>
@@ -263,9 +305,9 @@ const Register = () => {
                     value={semester}
                     onChange={(e) => setSemester(e.target.value)}
                   >
-                    <option value="">Select</option>
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map(s => (
-                      <option key={s} value={s}>{s}</option>
+                    <option value="">Select Semester</option>
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+                      <option key={num} value={num}>Semester {num}</option>
                     ))}
                   </select>
                   {errors.semester && <span className="error-text">{errors.semester}</span>}
@@ -370,7 +412,11 @@ const Register = () => {
             </>
           )}
 
-          <button type="submit" className="btn-primary" style={{ marginTop: '20px' }}>Create Account</button>
+          <button type="submit" className="btn-primary" style={{ marginTop: '20px' }} disabled={isSubmitting}>
+            {isSubmitting ? 'Creating Account...' : 'Create Account'}
+          </button>
+          {apiSuccess && <p style={{ color: '#15803d', marginTop: '12px', fontWeight: 600 }}>{apiSuccess}</p>}
+          {apiError && <p className="error-text" role="alert" style={{ marginTop: '12px' }}>{apiError}</p>}
         </form>
         
         <div className="auth-footer">

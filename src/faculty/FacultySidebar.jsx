@@ -1,5 +1,5 @@
-import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { clearAuth } from '../services/auth';
 
 const FacultySidebar = ({ collapsed }) => {
   const location = useLocation();
@@ -8,6 +8,7 @@ const FacultySidebar = ({ collapsed }) => {
 
   const handleLogout = (e) => {
     e.preventDefault();
+    clearAuth();
     navigate('/');
   };
 
