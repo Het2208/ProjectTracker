@@ -46,7 +46,6 @@ namespace Project_Tracker_Backend.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("login")]
         [HttpPost]
         [ActionName("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDTO dto, CancellationToken cancellationToken)
@@ -125,7 +124,6 @@ namespace Project_Tracker_Backend.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("register")]
         [HttpPost]
         [ActionName("register")]
         [Consumes("multipart/form-data")]
